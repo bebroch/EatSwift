@@ -1,10 +1,12 @@
 FROM node:lts-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/EatSwift
 
 RUN apk --no-cache add git
 
-COPY ./app .env ./
+COPY . .
+
+WORKDIR /usr/src/EatSwift/backend
 
 RUN npm install
 

@@ -3,13 +3,14 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-dotenv.config();
+const envFilePath = '../.env';
+
+dotenv.config({ path: envFilePath });
+
 const app: Application = express();
-const PORT = 5000;
+const PORT = 3000;
 
 const MONGO_URL = process.env.MONGO_URL;
-
-console.log(process.env.MONGO_URL);
 
 if (MONGO_URL) mongoose.connect(MONGO_URL);
 
