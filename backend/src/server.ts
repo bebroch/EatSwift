@@ -1,21 +1,15 @@
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-const envFilePath = '../.env';
-
-dotenv.config({ path: envFilePath });
+import { MONGO_URL } from "./envinfo";
 
 const app: Application = express();
-const PORT = 3000;
-
-const MONGO_URL = process.env.MONGO_URL;
+const PORT = 5000;
 
 if (MONGO_URL) mongoose.connect(MONGO_URL);
 
 const User = mongoose.model(
-	"User",
+	"Mongays",
 	new mongoose.Schema({
 		name: String,
 		email: String,
