@@ -1,7 +1,7 @@
 import { MONGO_URL } from "../envinfo";
 import mongoose from "mongoose";
 
-export default async function connectDB() {
+async function connectDB() {
 	try {
 		if (MONGO_URL) {
 			await mongoose.connect(MONGO_URL);
@@ -11,3 +11,14 @@ export default async function connectDB() {
 		console.error("Error connecting to MongoDB:", error);
 	}
 }
+
+async function disconnectDB() {
+	try {
+		await mongoose.connection.close();
+		console.log("Disconnected from MongoDB");
+	} catch (error) {
+		console.error("Error disconnecting from MongoDB:", error);
+	}
+}
+
+export { connectDB, disconnectDB };
