@@ -1,29 +1,15 @@
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
-import mongoose from "mongoose";
-import { MONGO_URL } from "./envinfo";
+import connectDB from "./database/connect";
+import { PORT } from "./envinfo";
+import routes from "./routes/index";
 
 const app: Application = express();
-const PORT = 5000;
 
-if (MONGO_URL) mongoose.connect(MONGO_URL);
-
-const User = mongoose.model(
-	"Mongays",
-	new mongoose.Schema({
-		name: String,
-		email: String,
-	})
-);
-
+connectDB();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get("/", async (req: Request, res: Response): Promise<Response> => {
-	return res.status(200).send({
-		message: "Hello World Updated!",
-	});
-});
+app.use(routes);
 
 try {
 	app.listen(PORT, (): void => {

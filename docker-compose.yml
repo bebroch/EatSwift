@@ -6,11 +6,11 @@ services:
             context: .
             dockerfile: Dockerfile
         depends_on:
-            - db
+            - database
         environment:
             - MONGO_URL=${MONGO_URL}
 
-    db:
+    database:
         image: mongo:latest
         ports:
             - 27017:27017
