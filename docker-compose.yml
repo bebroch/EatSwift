@@ -1,16 +1,16 @@
 version: "3.8"
 
 services:
-    app:
+    EatSwift-app:
         build:
             context: .
             dockerfile: Dockerfile
         depends_on:
-            - mongo-db
+            - EatSwift-DB
         environment:
             - MONGO_URL=${MONGO_URL}
 
-    mongo-db:
+    EatSwift-DB:
         image: mongo:latest
         ports:
             - 27017:27017
