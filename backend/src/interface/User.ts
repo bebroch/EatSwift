@@ -13,11 +13,8 @@ interface IUser extends Document {
 interface IUserModel extends Model<IUser> {
 	findUserByLogin: (login: string) => Promise<IUser | null>;
 	findUserByEmail: (email: string) => Promise<IUser | null>;
-	createUser(
-		login: string,
-		email: string,
-		password: string
-	): Promise<IUser | null>;
+	createUser(userData: any): Promise<IUser | null>;
+	findUserWithToken(token: string): Promise<IUser | null>;
 }
 
 export { IUser, IUserModel };

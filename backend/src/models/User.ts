@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { IUser, IUserModel } from "../interface/User";
+import { decodeToken } from "../Services/Jwt";
 
 const UserSchema = new mongoose.Schema(
 	{
@@ -13,24 +14,21 @@ const UserSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-UserSchema.statics.findUserByLogin = function (login: string) {
+UserSchema.statics.findUserByLogin = async function (login: string) {
 	return this.findOne({ login });
 };
 
-UserSchema.statics.findUserByEmail = function (email: string) {
+UserSchema.statics.findUserByEmail = async function (email: string) {
 	return this.findOne({ email });
 };
 
-UserSchema.statics.createUser = function (
-	login: string,
-	email: string,
-	password: string
-) {
-	const user = new this({
-		login,
-		email,
-		password,
-	});
+UserSchema.statics.findUserWithToken = async function (token: string) {
+	const { _id, login, email } = await decodeToken(token);
+	return this.findOne({ _id, login, email });
+};
+
+UserSchema.statics.createUser = async function (userData: any) {
+	const user = new this(userData);
 	return user.save();
 };
 

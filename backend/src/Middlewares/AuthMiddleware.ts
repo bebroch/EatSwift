@@ -1,47 +1,30 @@
-import { Request, Response, NextFunction } from "express";
-import { SECRET_KEY } from "../envinfo";
-import { IUser } from "../interface/User";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import { NextFunction, Request, Response } from "express";
 import ERROR_MESSAGES from "../Message/Errors";
+import { getToken } from "../Services/getBody";
+import { IUser } from "../interface/User";
 import User from "../models/User";
-
-async function verifyToken(token: string): Promise<IUser | null> {
-	try {
-		const { _id, login } = jwt.verify(token, SECRET_KEY) as JwtPayload;
-
-		return User.findOne({
-			_id,
-			login,
-		});
-	} catch (err) {
-		throw err;
-	}
-}
+import Status from "../Services/Status";
 
 async function AuthMiddleware(
 	req: Request & { user?: IUser },
 	res: Response,
 	next: NextFunction
 ) {
-	const token = (req.headers["Authorization"] as string).split(" ")[1];
+	const token = await getToken(req);
 
 	try {
-		const user = await verifyToken(token);
+		const user = await User.findUserWithToken(token);
 
 		if (!user) {
-			return res
-				.status(401)
-				.json({ error: ERROR_MESSAGES.UN_AUTHORIZED });
+			return Status.unauthorized(res, ERROR_MESSAGES.UN_AUTHORIZED);
 		}
 
 		req.user = user;
-
-		return next();
 	} catch (err) {
-		return res
-			.status(500)
-			.json({ error: ERROR_MESSAGES.INTERNAL_SERVER_ERROR });
+		return Status.internalError(res, ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
 	}
+
+	return next();
 }
 
 export { AuthMiddleware };
