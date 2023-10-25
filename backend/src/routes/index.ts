@@ -1,5 +1,5 @@
 import { IRouter, Router } from "express";
-import restaurant from "./Restaurant/restaurant";
+import restaurant from "./restaurant";
 import account from "./account";
 import auth from "./auth";
 import home from "./home";

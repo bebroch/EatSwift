@@ -3,27 +3,19 @@ import User from "../models/User";
 
 class HomeController {
 	async index(req: Request, res: Response) {
-		const user = new User({
-			login: "admin",
-			email: "<EMAIL>",
-			password: "<PASSWORD>",
-			verified: true,
-		});
+		// User.findUserByLogin("admin");
 
-		console.log(user);
+		console.log(User.createUser("alkash", "alkash@gmail.com", "12345"));
 
-		user.save()
+		User.findUserByLogin("admin")
 			.then(user => {
-				console.log("Пользователь успешно создан");
 				return res.status(200).send({
-					message: "Пользователь успешно создан!",
+					user: user,
 				});
 			})
-			.catch(err => {
-				console.log("Ошибка создания пользователя:", err);
-				return res.status(500).send({
-					message: "Ошибка создания пользователя!",
-				});
+			.catch(error => {
+				console.log(error);
+				res.status(500).send({ error: error.message });
 			});
 	}
 }

@@ -1,4 +1,4 @@
-import { ObjectId } from "mongoose";
+import { Model, ObjectId } from "mongoose";
 
 interface IUser extends Document {
 	_id: ObjectId;
@@ -10,4 +10,14 @@ interface IUser extends Document {
 	verified: boolean;
 }
 
-export default IUser;
+interface IUserModel extends Model<IUser> {
+	findUserByLogin: (login: string) => Promise<IUser | null>;
+	findUserByEmail: (email: string) => Promise<IUser | null>;
+	createUser(
+		login: string,
+		email: string,
+		password: string
+	): Promise<IUser | null>;
+}
+
+export { IUser, IUserModel };

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import RestaurantController from "../../Controllers/RestaurantController";
-import menu from "./menu";
+import RestaurantController from "../Controllers/RestaurantController";
+import menu from "./Restaurant/menu";
 
 const router = Router();
 

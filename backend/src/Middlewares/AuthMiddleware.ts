@@ -1,47 +1,47 @@
 import { Request, Response, NextFunction } from "express";
 import { SECRET_KEY } from "../envinfo";
-import IUser from "../interface/User";
-import jwt from "jsonwebtoken";
+import { IUser } from "../interface/User";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import ERROR_MESSAGES from "../Message/Errors";
+import User from "../models/User";
 
-function generateToken(user: IUser) {
-	const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: 604800 });
-	return token;
-}
+async function verifyToken(token: string): Promise<IUser | null> {
+	try {
+		const { _id, login } = jwt.verify(token, SECRET_KEY) as JwtPayload;
 
-function LoginMiddleware(req: Request, res: Response, next: NextFunction) {
-	const { login, password } = req.body;
-	
-    if (!login || !password) {
-        return res.status(400).json({
-            message: "Login and password are required",
-        });
+		return User.findOne({
+			_id,
+			login,
+		});
+	} catch (err) {
+		throw err;
 	}
-	
-    const user = {
-        login: login,
-        password: password,
-    };
-    User.findOne(user)
-        .then((user) => {
-            if (!user) {
-                return res.status(400).json({
-                    message: "Login and password are incorrect",
-                });
-            }
-            req.user = user;
-            next();
-        })
-        .catch((err) => {
-            return res.status(500).json({
-                message: err.message,
-            });
-        });
 }
 
-function RegistrationMiddleware(
-	req: Request,
+async function AuthMiddleware(
+	req: Request & { user?: IUser },
 	res: Response,
 	next: NextFunction
-) {}
+) {
+	const token = (req.headers["Authorization"] as string).split(" ")[1];
 
-export { LoginMiddleware, RegistrationMiddleware };
+	try {
+		const user = await verifyToken(token);
+
+		if (!user) {
+			return res
+				.status(401)
+				.json({ error: ERROR_MESSAGES.UN_AUTHORIZED });
+		}
+
+		req.user = user;
+
+		return next();
+	} catch (err) {
+		return res
+			.status(500)
+			.json({ error: ERROR_MESSAGES.INTERNAL_SERVER_ERROR });
+	}
+}
+
+export { AuthMiddleware };
