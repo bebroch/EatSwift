@@ -8,7 +8,8 @@ const MONGO_USERNAME = process.env.MONGO_USERNAME;
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
 const MONGO_DATABASE = process.env.MONGO_DATABASE;
 const DATABASE_HOST = process.env.DATABASE_HOST;
-const PORT = process.env.PORT;
+const PORT = process.env.PORT ?? 5000;
+const SECRET_KEY = process.env.SECRET_KEY ?? "secret";
 
 const MONGO_URL =
 	"mongodb://" +
@@ -21,4 +22,11 @@ const MONGO_URL =
 	MONGO_DATABASE +
 	"?authSource=admin";
 
-export { MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE, MONGO_URL, PORT };
+export {
+	MONGO_USERNAME,
+	MONGO_PASSWORD,
+	MONGO_DATABASE,
+	MONGO_URL,
+	PORT,
+	SECRET_KEY,
+};
