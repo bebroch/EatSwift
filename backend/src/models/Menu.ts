@@ -1,11 +1,7 @@
 import mongoose, { Document, Model, ObjectId } from "mongoose";
+import IMenu from "../interface/Menu";
 
-interface IMenu extends Document {
-	restaurant_id: ObjectId;
-	name: string;
-	description: string;
-	mealPeriod: string;
-}
+
 
 const MenuSchema = new mongoose.Schema({
 	restaurant_id: {

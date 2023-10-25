@@ -1,10 +1,5 @@
 import mongoose, { Document, Model, ObjectId } from "mongoose";
-
-interface IBasket extends Document {
-	user_id: ObjectId;
-	status: string;
-	items: ObjectId[];
-}
+import IBasket from "../interface/Basket";
 
 const BasketSchema = new mongoose.Schema({
 	user_id: {

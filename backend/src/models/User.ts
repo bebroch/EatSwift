@@ -1,13 +1,5 @@
 import mongoose, { Document, Model } from "mongoose";
-
-interface IUser extends Document {
-	login: string;
-	email: string;
-	address: string;
-	phoneNumber: string;
-	password: string;
-	verified: boolean;
-}
+import IUser from "../interface/User";
 
 const UserSchema = new mongoose.Schema({
 	login: { type: String, required: true, unique: true },

@@ -1,13 +1,6 @@
 import mongoose, { Document, Model, ObjectId } from "mongoose";
+import IDish from "../interface/Dish";
 
-interface IDish extends Document {
-	menu_id: ObjectId;
-	name: string;
-	description: string;
-	ingredients: string[];
-	picture: string;
-	price: number;
-}
 
 const DishSchema = new mongoose.Schema({
 	menu_id: {
