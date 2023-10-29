@@ -10,4 +10,4 @@ WORKDIR /usr/src/EatSwift/backend
 
 RUN npm install
 
-CMD [ "npm", "run", "buildProd" ]
+CMD [ "tail", "-f", "/dev/null" ]
