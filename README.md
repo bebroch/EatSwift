@@ -3,6 +3,5 @@
 Далее нужно запустить docker-compose.yml
 
 <pre>
-docker 
-
+docker compose -f "docker-compose.yml" up -d --build 
 </pre>
