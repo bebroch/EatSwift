@@ -4,7 +4,8 @@ WORKDIR /usr/src/EatSwift
 
 RUN apk --no-cache add git
 
-COPY . .
+# Клонируем репозиторий
+RUN git clone https://github.com/bebroch/EatSwift.git .
 
 WORKDIR /usr/src/EatSwift/backend
 
