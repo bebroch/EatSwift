@@ -23,8 +23,8 @@ UserSchema.statics.findUserByEmail = async function (email: string) {
 };
 
 UserSchema.statics.findUserWithToken = async function (token: string) {
-	const { _id, login, email } = await decodeToken(token);
-	return this.findOne({ _id, login, email });
+	const userData = await decodeToken(token);
+	return this.findOne(userData);
 };
 
 UserSchema.statics.createUser = async function (userData: any) {

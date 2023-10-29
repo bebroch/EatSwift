@@ -4,13 +4,14 @@ import mongoose from "mongoose";
 const envFilePath = "../.env";
 dotenv.config({ path: envFilePath });
 
-const MONGO_USERNAME = process.env.MONGO_USERNAME;
-const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
-const MONGO_DATABASE = process.env.MONGO_DATABASE;
-const DATABASE_HOST = process.env.DATABASE_HOST;
-const PORT = process.env.PORT ?? 5000;
-const SECRET_KEY = process.env.SECRET_KEY ?? "secret";
-const ROUND = process.env.ROUND;
+const MONGO_USERNAME: string = process.env.MONGO_USERNAME ?? "username";
+const MONGO_PASSWORD: string = process.env.MONGO_PASSWORD ?? "password";
+const MONGO_DATABASE: string = process.env.MONGO_DATABASE ?? "database";
+const DATABASE_HOST: string = process.env.DATABASE_HOST ?? "host";
+const PORT: number = (process.env.PORT ?? 5000) as number;
+const SECRET_KEY: string = process.env.SECRET_KEY ?? "secret";
+const SALT: number = (process.env.SALT ?? 10) as number;
+const SALT_STRING: string = process.env.SALT_STRING ?? "$2a$10$secret";
 
 const MONGO_URL =
 	"mongodb://" +
@@ -30,5 +31,6 @@ export {
 	MONGO_URL,
 	PORT,
 	SECRET_KEY,
-	ROUND,
+	SALT,
+	SALT_STRING,
 };

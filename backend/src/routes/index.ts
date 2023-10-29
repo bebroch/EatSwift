@@ -8,7 +8,7 @@ const router: IRouter = Router();
 
 router.use("/", home);
 router.use("/account", auth);
-router.use("/{login}", account);
+router.use("/:login", account);
 router.use("/restaurant", restaurant);
 
 export default router;

@@ -10,6 +10,7 @@ const ERROR_MESSAGES = {
 	MISSING_REQUIRED_FIELDS: "One or more required fields are missing",
 	INVALID_TOKEN: "Invalid token payload",
 	LOGIN_OR_PASSWORD_REQUIRED: "Login or password are required",
+	INVALID_LOGIN_OR_PASSWORD: "Invalid login or password",
 };
 
 export default ERROR_MESSAGES;
