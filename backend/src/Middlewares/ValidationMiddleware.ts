@@ -12,6 +12,20 @@ async function loginValidation(
 	res: Response,
 	next: NextFunction
 ) {
+	const { login, password } = req.body;
+
+	if (!login || !password) {
+		return error(res, ERROR_MESSAGES.LOGIN_OR_PASSWORD_REQUIRED);
+	}
+
+	return next();
+}
+
+async function registerValidation(
+	req: Request,
+	res: Response,
+	next: NextFunction
+) {
 	const { login, email, password, confirmPassword } = req.body;
 
 	if (!login || !email || !password || !confirmPassword) {
@@ -32,4 +46,4 @@ async function loginValidation(
 	return next();
 }
 
-export default loginValidation;
+export { loginValidation, registerValidation };

@@ -10,6 +10,7 @@ const MONGO_DATABASE = process.env.MONGO_DATABASE;
 const DATABASE_HOST = process.env.DATABASE_HOST;
 const PORT = process.env.PORT ?? 5000;
 const SECRET_KEY = process.env.SECRET_KEY ?? "secret";
+const ROUND = process.env.ROUND;
 
 const MONGO_URL =
 	"mongodb://" +
@@ -29,4 +30,5 @@ export {
 	MONGO_URL,
 	PORT,
 	SECRET_KEY,
+	ROUND,
 };

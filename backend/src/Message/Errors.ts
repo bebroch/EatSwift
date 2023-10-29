@@ -9,6 +9,7 @@ const ERROR_MESSAGES = {
 	PASSWORD_MISMATCH: "Password and confirmation do not match",
 	MISSING_REQUIRED_FIELDS: "One or more required fields are missing",
 	INVALID_TOKEN: "Invalid token payload",
+	LOGIN_OR_PASSWORD_REQUIRED: "Login or password are required",
 };
 
 export default ERROR_MESSAGES;

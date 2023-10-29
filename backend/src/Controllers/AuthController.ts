@@ -1,23 +1,22 @@
 import { Request, Response } from "express";
-import { decodeToken, generateToken } from "../Services/Jwt";
+import { generateToken } from "../Services/Jwt";
 import User from "../models/User";
 import Status from "../Services/Status";
-import { getToken } from "../Services/getBody";
 import ERROR_MESSAGES from "../Message/Errors";
-import { IUser } from "../interface/User";
+import bcrypt from "bcrypt";
 
 class AuthController {
 	async login(req: Request, res: Response) {
 		const { login, password } = req.body;
 
-		const user = User.findOne({ login });
+		const user = await User.findOne({ login });
 
 		if (!user) {
 			return Status.notFound(res, ERROR_MESSAGES.NOT_FOUND);
 		}
 
-		console.log(user.login); // TODO Доделать Вход
-		const token = await generateToken(user);
+		console.log(user);
+		const token = await generateToken(user); // TODO Доделать Вход, тут ошибка
 
 		return Status.success(res, { token, user });
 	}
@@ -32,7 +31,7 @@ class AuthController {
 			password,
 		});
 
-		const token = generateToken(user);
+		const token = await generateToken(user); // TODO и тут ошибка
 
 		Status.success(res, { auth: { token, user } });
 	}
