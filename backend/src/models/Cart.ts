@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, ObjectId } from "mongoose";
-import IBasket from "../interface/Basket";
+import ICart from "../interface/Cart";
 
-const BasketSchema = new mongoose.Schema({
+const CartSchema = new mongoose.Schema({
 	user_id: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
@@ -11,6 +11,6 @@ const BasketSchema = new mongoose.Schema({
 	items: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
 });
 
-const Basket: Model<IBasket> = mongoose.model<IBasket>("Basket", BasketSchema);
+const Cart: Model<ICart> = mongoose.model<ICart>("Cart", CartSchema);
 
-export default Basket;
+export default Cart;

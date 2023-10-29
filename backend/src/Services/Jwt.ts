@@ -3,22 +3,26 @@ import { SECRET_KEY } from "../envinfo";
 import ERROR_MESSAGES from "../Message/Errors";
 import { IUser } from "../interface/User";
 
-async function generateToken(userData: IUser) {
+async function getUserData(userData: IUser) {
 	const { login } = userData;
-	return jwt.sign({ login }, SECRET_KEY as string, {
+	return { login };
+}
+
+async function generateToken(user: IUser) {
+	const userData = getUserData(user);
+	return jwt.sign(userData, SECRET_KEY, {
 		expiresIn: "1d",
 	});
 }
 
-async function decodeToken(token: string): Promise<IUser> {
-	const decoded = jwt.verify(token, SECRET_KEY as string);
-
-	console.log(decoded);
+async function decodeToken(token: string) {
+	const decoded = jwt.verify(token, SECRET_KEY) as IUser;
+	const userData = getUserData(decoded);
 
 	if (typeof decoded === "string") {
 		throw new Error(ERROR_MESSAGES.INVALID_TOKEN);
 	}
-	return decoded as IUser;
+	return userData;
 }
 
 export { generateToken, decodeToken };

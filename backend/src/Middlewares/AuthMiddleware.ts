@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import ERROR_MESSAGES from "../Message/Errors";
 import { getToken } from "../Services/getBody";
-import { IUser } from "../interface/User";
 import User from "../models/User";
 import Status from "../Services/Status";
 
 async function AuthMiddleware(
-	req: Request & { user?: IUser },
+	req: Request & { user?: any },
 	res: Response,
 	next: NextFunction
 ) {
