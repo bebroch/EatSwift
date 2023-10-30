@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import { IUser, IUserModel } from "../interface/User";
 import { decodeToken } from "../Services/Jwt";
-import Cart from "./Cart";
-import { ICart } from "../interface/Cart";
+import Order from "./Order";
+import Dish from "./Dish";
 
 const UserSchema = new mongoose.Schema(
 	{
@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema(
 		phoneNumber: { type: String, required: false },
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
-		cart_id: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
+		cart: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
 	},
 	{ timestamps: true }
 );
@@ -36,14 +36,40 @@ UserSchema.statics.createUser = async function (userData: IUser) {
 };
 
 UserSchema.methods.getCart = async function () {
-	const user_id = this.id;
-	var cart = (await Cart.findOne({ user_id })) as ICart | null;
+	return this.cart;
+};
 
-	if (!cart) {
-		cart = await Cart.createCart(user_id);
+UserSchema.methods.getOrders = async function () {
+	const orders = await Order.find({ user_id: this._id });
+	return orders;
+};
+
+UserSchema.methods.addToCart = async function (item_id: ObjectId) {
+	const dishExists = await Dish.findById(item_id);
+	if (!dishExists) {
+		throw new Error("Dish not found");
 	}
 
-	return cart;
+	this.cart.push(item_id);
+	this.save();
+};
+
+UserSchema.methods.deleteItemFromCart = async function (dish_id: ObjectId) {
+	const dishExists = await Dish.findById(dish_id);
+
+	if (!dishExists) {
+		throw new Error("Dish not found");
+	}
+
+	// Находим индекс элемента в массиве cart
+	const itemIndex = this.cart.indexOf(dish_id);
+
+	if (itemIndex !== -1) {
+		this.cart.splice(itemIndex, 1);
+		this.save();
+	} else {
+		throw new Error("Dish not found");
+	}
 };
 
 const User = mongoose.model<IUser, IUserModel>("User", UserSchema);

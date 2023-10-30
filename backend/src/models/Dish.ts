@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, ObjectId } from "mongoose";
-import IDish from "../interface/Dish";
+import { IDish, IDishModel } from "../interface/Dish";
 
 const DishSchema = new mongoose.Schema(
 	{
@@ -21,6 +21,11 @@ const DishSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-const Dish: Model<IDish> = mongoose.model<IDish>("Dish", DishSchema);
+DishSchema.statics.createDish = async function (dishData: IDish) {
+	const dish = new this(dishData);
+	return dish.save();
+};
+
+const Dish = mongoose.model<IDish, IDishModel>("Dish", DishSchema);
 
 export default Dish;

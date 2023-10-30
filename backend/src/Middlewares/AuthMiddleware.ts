@@ -11,6 +11,10 @@ async function AuthMiddleware(
 ) {
 	const token = await getToken(req);
 
+	if (!token) {
+		return Status.unauthorized(res, ERROR_MESSAGES.UN_AUTHORIZED);
+	}
+
 	try {
 		const user = await User.findUserWithToken(token);
 

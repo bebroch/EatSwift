@@ -1,10 +1,8 @@
-import mongoose, { Model, ObjectId } from "mongoose";
+import { Model, ObjectId } from "mongoose";
+import IDish from "./Dish";
 
 interface ICart extends Document {
-	_id?: ObjectId;
-	user_id?: ObjectId;
-	status?: string;
-	items?: ObjectId[];
+	items?: IDish[];
 }
 
 interface ICartModel extends Model<ICart> {

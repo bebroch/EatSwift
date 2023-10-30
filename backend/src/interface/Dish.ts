@@ -1,8 +1,9 @@
-import { ObjectId } from "mongoose";
+import { Model, ObjectId } from "mongoose";
 
-interface IDish extends Document {
-	_id: ObjectId;
-	menu_id: ObjectId;
+interface IDish {
+	_id?: ObjectId;
+	restaurant_id: ObjectId;
+	menu_id?: ObjectId;
 	name: string;
 	description: string;
 	ingredients: string[];
@@ -10,4 +11,8 @@ interface IDish extends Document {
 	price: number;
 }
 
-export default IDish;
+interface IDishModel extends Model<IDish> {
+	createDish(dishData: IDish): Promise<IDish>;
+}
+
+export { IDish, IDishModel };

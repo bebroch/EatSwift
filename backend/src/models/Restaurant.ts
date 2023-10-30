@@ -1,5 +1,5 @@
 import mongoose, { Model } from "mongoose";
-import IRestaurant from "../interface/Restaurant";
+import { IRestaurant, IRestaurantModel } from "../interface/Restaurant";
 
 const RestaurantSchema = new mongoose.Schema(
 	{
@@ -17,7 +17,14 @@ const RestaurantSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-const Restaurant: Model<IRestaurant> = mongoose.model<IRestaurant>(
+RestaurantSchema.statics.createRestaurant = async function (
+	restaurantData: IRestaurant
+) {
+	const restaurant = new this(restaurantData);
+	return restaurant.save();
+};
+
+const Restaurant = mongoose.model<IRestaurant, IRestaurantModel>(
 	"Restaurant",
 	RestaurantSchema
 );

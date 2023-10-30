@@ -3,7 +3,7 @@ import { SECRET_KEY } from "../envinfo";
 import ERROR_MESSAGES from "../Message/Errors";
 import { IUser } from "../interface/User";
 
-async function getUserData(userData: IUser) {
+function getUserData(userData: IUser) {
 	const { login } = userData;
 	return { login };
 }

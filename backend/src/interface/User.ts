@@ -1,5 +1,6 @@
 import { Model, ObjectId } from "mongoose";
 import { ICart } from "./Cart";
+import { IOrder } from "./Order";
 
 interface IUser extends Document {
 	_id?: ObjectId;
@@ -9,8 +10,12 @@ interface IUser extends Document {
 	phoneNumber?: string;
 	password: string;
 	verified?: boolean;
+	cart: ObjectId[];
 
 	getCart(): Promise<ICart>;
+	getOrders(): Promise<IOrder[]>;
+	addToCart(item_id: ObjectId): Promise<void>;
+	deleteItemFromCart(item_id: ObjectId): Promise<void>;
 }
 
 interface IUserModel extends Model<IUser> {

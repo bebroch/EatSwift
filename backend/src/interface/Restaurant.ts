@@ -1,7 +1,7 @@
-import { ObjectId } from "mongoose";
+import { Model, ObjectId } from "mongoose";
 
-interface IRestaurant extends Document {
-	_id: ObjectId;
+interface IRestaurant {
+	_id?: ObjectId;
 	name: string;
 	email: string;
 	description: string;
@@ -12,4 +12,8 @@ interface IRestaurant extends Document {
 	verified: boolean;
 }
 
-export default IRestaurant;
+interface IRestaurantModel extends Model<IRestaurant> {
+	createRestaurant(restaurantData: IRestaurant): Promise<IRestaurant>;
+}
+
+export { IRestaurant, IRestaurantModel };
