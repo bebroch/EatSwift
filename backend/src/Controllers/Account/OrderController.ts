@@ -3,7 +3,7 @@ import { getUser } from "../../Services/getBody";
 import Status from "../../Services/Status";
 
 class OrderController {
-	// Показать историю заказов пользователя
+	// Показать историю заказов пользователя //TODO: Доделать Просмотр заказова
 	async getOrderHistory(req: Request, res: Response) {
 		const user = await getUser(req);
 		const orders = user.getOrders();
@@ -11,7 +11,7 @@ class OrderController {
 		return Status.success(res, orders);
 	}
 
-	// Создать заказ пользователя
+	// Создать заказ пользователя //TODO: Сделать оформление заказа
 	async createOrder(req: Request, res: Response) {
 		const user = await getUser(req);
 	}
