@@ -1,4 +1,3 @@
-import { IUser } from "../interface/User";
 import { Request } from "express";
 
 async function getToken(req: Request & { user?: any }) {
@@ -9,4 +8,4 @@ async function getUser(req: Request & { user?: any }) {
 	return req.user;
 }
 
-export { getToken };
+export { getToken, getUser };

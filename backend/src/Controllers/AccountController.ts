@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Status from "../Services/Status";
-import { IUser } from "../interface/User";
+import { getUser } from "../Services/getBody";
 
 class AccountController {
 	async index(req: Request & { user?: any }, res: Response) {
@@ -35,14 +35,3 @@ class AccountController {
 }
 
 export default new AccountController();
-function getUser(
-	req: Request<
-		import("express-serve-static-core").ParamsDictionary,
-		any,
-		any,
-		import("qs").ParsedQs,
-		Record<string, any>
-	> & { user?: any }
-) {
-	throw new Error("Function not implemented.");
-}
