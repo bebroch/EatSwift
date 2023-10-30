@@ -4,9 +4,9 @@ import menu from "./Restaurant/menu";
 
 const router = Router();
 
-router.get("/", RestaurantController.index); // Покажет сортированные рестораны
-router.get("/:name", RestaurantController.index); // Покажет ресторан по названию
+router.get("/", RestaurantController.getAllRestaurant); // Покажет сортированные рестораны
+router.get("/:login", RestaurantController.getRestaurant); // Покажет ресторан по названию
 
-router.use("/:name", menu);
+router.use("/:login/menus", menu);
 
 export default router;

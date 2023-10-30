@@ -2,8 +2,12 @@ import { Request, Response } from "express";
 import Status from "../Services/Status";
 
 class RestaurantController {
-	async index(req: Request, res: Response) {
-		Status.success(res, "RestaurantController");
+	async getAllRestaurant(req: Request, res: Response) {
+		Status.success(res, "getAllRestaurant");
+	}
+
+	async getRestaurant(req: Request, res: Response) {
+		Status.success(res, "getRestaurant");
 	}
 }
 

@@ -16,8 +16,13 @@ class AuthController {
 			return Status.notFound(res, ERROR_MESSAGES.NOT_FOUND);
 		}
 
-		const isRightPassword = await verifyPassword(password, user.password);
-		if (!isRightPassword) {
+		const isRightPassword = await verifyPassword(
+			password,
+			user.password as string
+		);
+		const isRightPasswordTESTING = password === user.password; // TODO: Нужно потому будет убрать эту строчку и в if: "&& !isRightPasswordTESTING" - эту
+
+		if (!isRightPassword && !isRightPasswordTESTING) {
 			return Status.badRequest(
 				res,
 				ERROR_MESSAGES.INVALID_LOGIN_OR_PASSWORD

@@ -5,11 +5,12 @@ import User from "../models/User";
 import Status from "../Services/Status";
 
 async function AuthMiddleware(
-	req: Request & { user?: any },
+	req: Request & { user?: any; login?: string },
 	res: Response,
 	next: NextFunction
 ) {
 	const token = await getToken(req);
+	req.login = req.params.login;
 
 	if (!token) {
 		return Status.unauthorized(res, ERROR_MESSAGES.UN_AUTHORIZED);
