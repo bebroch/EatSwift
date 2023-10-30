@@ -8,11 +8,9 @@ const RestaurantSchema = new mongoose.Schema(
 		description: { type: String, required: false },
 		address: { type: String, required: false },
 		contactInfo: { type: String, required: false },
-		rating: { type: String, required: true },
+		rating: { type: Number, required: true },
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
-		menu_id: [{ type: mongoose.Schema.Types.ObjectId, ref: "Menu" }],
-		dishes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
 	},
 	{ timestamps: true }
 );

@@ -7,7 +7,7 @@ interface IRestaurant {
 	description: string;
 	address: string;
 	contactInfo: string;
-	rating: string;
+	rating: number;
 	password: string;
 	verified: boolean;
 }

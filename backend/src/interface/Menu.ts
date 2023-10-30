@@ -1,11 +1,14 @@
-import { ObjectId } from "mongoose";
+import { Model, ObjectId } from "mongoose";
 
-interface IMenu extends Document {
-	_id: ObjectId;
+interface IMenu {
+	_id?: ObjectId;
 	restaurant_id: ObjectId;
 	name: string;
 	description: string;
-	mealPeriod: string;
 }
 
-export default IMenu;
+interface IRestaurant extends Model<IMenu> {
+	createMenu(menuData: IMenu): Promise<IMenu>;
+}
+
+export { IMenu, IRestaurant };
