@@ -1,16 +1,21 @@
 import mongoose, { Model } from "mongoose";
 import IRestaurant from "../interface/Restaurant";
 
-const RestaurantSchema = new mongoose.Schema({
-	name: { type: String, required: true },
-	email: { type: String, required: true },
-	description: { type: String, required: false },
-	address: { type: String, required: false },
-	contactInfo: { type: String, required: false },
-	rating: { type: String, required: true },
-	password: { type: String, required: true },
-	verified: { type: Boolean, required: false },
-});
+const RestaurantSchema = new mongoose.Schema(
+	{
+		name: { type: String, required: true },
+		email: { type: String, required: true },
+		description: { type: String, required: false },
+		address: { type: String, required: false },
+		contactInfo: { type: String, required: false },
+		rating: { type: String, required: true },
+		password: { type: String, required: true },
+		verified: { type: Boolean, required: false, default: false },
+		menu_id: [{ type: mongoose.Schema.Types.ObjectId, ref: "Menu" }],
+		dishes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
+	},
+	{ timestamps: true }
+);
 
 const Restaurant: Model<IRestaurant> = mongoose.model<IRestaurant>(
 	"Restaurant",

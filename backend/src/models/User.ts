@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { IUser, IUserModel } from "../interface/User";
 import { decodeToken } from "../Services/Jwt";
+import Cart from "./Cart";
+import { ICart } from "../interface/Cart";
 
 const UserSchema = new mongoose.Schema(
 	{
@@ -9,7 +11,8 @@ const UserSchema = new mongoose.Schema(
 		address: { type: String, required: false },
 		phoneNumber: { type: String, required: false },
 		password: { type: String, required: true },
-		verified: { type: Boolean, required: false },
+		verified: { type: Boolean, required: false, default: false },
+		cart_id: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
 	},
 	{ timestamps: true }
 );
@@ -27,9 +30,20 @@ UserSchema.statics.findUserWithToken = async function (token: string) {
 	return this.findOne(userData);
 };
 
-UserSchema.statics.createUser = async function (userData: any) {
+UserSchema.statics.createUser = async function (userData: IUser) {
 	const user = new this(userData);
 	return user.save();
+};
+
+UserSchema.methods.getCart = async function () {
+	const user_id = this.id;
+	var cart = (await Cart.findOne({ user_id })) as ICart | null;
+
+	if (!cart) {
+		cart = await Cart.createCart(user_id);
+	}
+
+	return cart;
 };
 
 const User = mongoose.model<IUser, IUserModel>("User", UserSchema);

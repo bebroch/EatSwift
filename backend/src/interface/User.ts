@@ -1,13 +1,16 @@
 import { Model, ObjectId } from "mongoose";
+import { ICart } from "./Cart";
 
 interface IUser extends Document {
-	_id: ObjectId;
+	_id?: ObjectId;
 	login: string;
-	email: string;
+	email?: string;
 	address?: string;
 	phoneNumber?: string;
 	password: string;
 	verified?: boolean;
+
+	getCart(): Promise<ICart>;
 }
 
 interface IUserModel extends Model<IUser> {

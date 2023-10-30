@@ -1,10 +1,14 @@
-import { ObjectId } from "mongoose";
+import mongoose, { Model, ObjectId } from "mongoose";
 
 interface ICart extends Document {
-	_id: ObjectId;
-	user_id: ObjectId;
-	status: string;
-	items: ObjectId[];
+	_id?: ObjectId;
+	user_id?: ObjectId;
+	status?: string;
+	items?: ObjectId[];
 }
 
-export default ICart;
+interface ICartModel extends Model<ICart> {
+	createCart(user_id: ObjectId): Promise<ICart>;
+}
+
+export { ICart, ICartModel };
