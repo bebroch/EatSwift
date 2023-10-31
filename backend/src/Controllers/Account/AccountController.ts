@@ -1,20 +1,28 @@
 import { Request, Response } from "express";
 import Status from "../../Services/Status";
 import { getUser, getUserProfile } from "../../Services/getBody";
-import { IUser } from "../../interface/User";
+import {
+	getUserDataService,
+	getUserProfileDataService,
+} from "../../Services/getUserDataService";
+import ERROR_MESSAGES from "../../Message/Errors";
 
 class AccountController {
-	// TODO Нужно доделать аутентификацию
 	async index(req: Request & { user?: any; login?: string }, res: Response) {
-		console.log(req.login);
-		return Status.success(res, req.params.login);
+		const user = getUser(req);
+		const userProfile = await getUserProfile(req);
 
-		const user = getUser(req) as IUser;
-		const userProfile = getUserProfile(req);
+		if (!userProfile) {
+			return Status.notFound(res, ERROR_MESSAGES.USER_NOT_FOUND);
+		}
 
 		const userData = getUserDataService(user);
+		const userProfileData = getUserProfileDataService(userProfile);
 
-		return Status.success(res, "Hello"); // { user: userData });
+		return Status.success(res, {
+			user: userData,
+			userProfile: userProfileData,
+		});
 	}
 }
 
