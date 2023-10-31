@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 function createRandomRestaurant() {
 	return {
+		login: faker.person.firstName(),
 		name: faker.company.name(),
 		email: faker.internet.email(),
 		description: faker.commerce.productDescription(),
