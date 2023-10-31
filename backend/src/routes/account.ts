@@ -5,7 +5,7 @@ import profile from "./User/profile";
 
 const router = Router();
 
-router.use("/auth", auth);
+router.use("/auth", auth); // Сделать регистрацию для Ресторанов и  Доставщиков
 
 router.use("/:login", AuthMiddleware as RequestHandler, profile);
 

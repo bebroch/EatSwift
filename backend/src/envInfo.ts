@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 
 const envFilePath = "../.env";
 dotenv.config({ path: envFilePath });

@@ -1,4 +1,4 @@
-import { MONGO_URL } from "../envinfo";
+import { MONGO_URL } from "../envInfo";
 import mongoose from "mongoose";
 
 async function connectDB() {

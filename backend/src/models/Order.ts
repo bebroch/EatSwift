@@ -1,5 +1,5 @@
 import mongoose, { Model } from "mongoose";
-import { IOrder } from "../interface/Order";
+import { IOrder, OrderStatus } from "../interface/Order";
 
 const OrderSchema = new mongoose.Schema(
 	{
@@ -11,11 +11,11 @@ const OrderSchema = new mongoose.Schema(
 		status: {
 			type: String,
 			enum: [
-				"active",
-				"isProcessed",
-				"delivered",
-				"completed",
-				"canceled",
+				OrderStatus.active,
+				OrderStatus.isProcessed,
+				OrderStatus.delivered,
+				OrderStatus.completed,
+				OrderStatus.canceled,
 			],
 			default: "active",
 		},

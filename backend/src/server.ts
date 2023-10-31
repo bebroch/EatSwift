@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 import { connectDB, disconnectDB } from "./database/connect";
-import { PORT } from "./envinfo";
+import { PORT } from "./envInfo";
 import routes from "./routes/index";
 
 const app: Application = express();

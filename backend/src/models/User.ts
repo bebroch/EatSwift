@@ -3,6 +3,7 @@ import { IUser, IUserModel } from "../interface/User";
 import { decodeToken } from "../Services/Jwt";
 import Order from "./Order";
 import Dish from "./Dish";
+import ERROR_MESSAGES from "../Message/Errors";
 
 const UserSchema = new mongoose.Schema(
 	{
@@ -26,7 +27,7 @@ UserSchema.statics.findUserByEmail = async function (email: string) {
 };
 
 UserSchema.statics.findUserWithToken = async function (token: string) {
-	const userData = await decodeToken(token);
+	const userData = (await decodeToken(token)) as IUser;
 	return this.findOne(userData);
 };
 
@@ -47,7 +48,7 @@ UserSchema.methods.getOrders = async function () {
 UserSchema.methods.addToCart = async function (item_id: ObjectId) {
 	const dishExists = await Dish.findById(item_id);
 	if (!dishExists) {
-		throw new Error("Dish not found");
+		throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
 	}
 
 	this.cart.push(item_id);
@@ -58,7 +59,7 @@ UserSchema.methods.deleteItemFromCart = async function (dish_id: ObjectId) {
 	const dishExists = await Dish.findById(dish_id);
 
 	if (!dishExists) {
-		throw new Error("Dish not found");
+		throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
 	}
 
 	// Находим индекс элемента в массиве cart
@@ -68,7 +69,7 @@ UserSchema.methods.deleteItemFromCart = async function (dish_id: ObjectId) {
 		this.cart.splice(itemIndex, 1);
 		this.save();
 	} else {
-		throw new Error("Dish not found");
+		throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
 	}
 };
 

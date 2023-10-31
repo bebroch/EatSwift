@@ -1,12 +1,13 @@
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 import { IRestaurant, IRestaurantModel } from "../interface/Restaurant";
 
 const RestaurantSchema = new mongoose.Schema(
 	{
 		name: { type: String, required: true },
+		login: { type: String, required: true },
 		email: { type: String, required: true },
 		description: { type: String, required: false },
-		address: { type: String, required: false },
+		address: [{ type: String, required: false }],
 		contactInfo: { type: String, required: false },
 		rating: { type: Number, required: true },
 		password: { type: String, required: true },
@@ -20,6 +21,18 @@ RestaurantSchema.statics.createRestaurant = async function (
 ) {
 	const restaurant = new this(restaurantData);
 	return restaurant.save();
+};
+
+RestaurantSchema.statics.findRestaurantByLogin = async function (
+	login: string
+) {
+	return this.findOne({ login });
+};
+
+RestaurantSchema.statics.findRestaurantByEmail = async function (
+	email: string
+) {
+	return this.findOne({ email });
 };
 
 const Restaurant = mongoose.model<IRestaurant, IRestaurantModel>(

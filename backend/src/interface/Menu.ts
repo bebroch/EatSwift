@@ -7,8 +7,8 @@ interface IMenu {
 	description: string;
 }
 
-interface IRestaurant extends Model<IMenu> {
+interface IMenuModel extends Model<IMenu> {
 	createMenu(menuData: IMenu): Promise<IMenu>;
 }
 
-export { IMenu, IRestaurant };
+export { IMenu, IMenuModel };

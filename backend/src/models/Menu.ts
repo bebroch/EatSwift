@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, ObjectId } from "mongoose";
-import { IMenu, IRestaurant } from "../interface/Menu";
+import { IMenu, IMenuModel } from "../interface/Menu";
 
 const MenuSchema = new mongoose.Schema(
 	{
@@ -9,7 +9,7 @@ const MenuSchema = new mongoose.Schema(
 			ref: "Restaurant",
 		},
 		name: { type: String, required: true },
-		description: { type: String, required: true }
+		description: { type: String, required: true },
 	},
 	{ timestamps: true }
 );
@@ -19,6 +19,6 @@ MenuSchema.statics.createMenu = async function (menuData: IMenu) {
 	return menu.save();
 };
 
-const Menu = mongoose.model<IMenu, IRestaurant>("Menu", MenuSchema);
+const Menu = mongoose.model<IMenu, IMenuModel>("Menu", MenuSchema);
 
 export default Menu;

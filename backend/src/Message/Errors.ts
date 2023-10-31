@@ -11,6 +11,9 @@ const ERROR_MESSAGES = {
 	INVALID_TOKEN: "Invalid token payload",
 	LOGIN_OR_PASSWORD_REQUIRED: "Login or password are required",
 	INVALID_LOGIN_OR_PASSWORD: "Invalid login or password",
+	INVALID_ROLE: "Invalid role",
+	DISH_NOT_FOUND: "Dish not found",
+	ACCOUNT_ALREADY_EXISTS: "Account already exists",
 };
 
 export default ERROR_MESSAGES;

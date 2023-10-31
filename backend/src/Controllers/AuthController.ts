@@ -5,6 +5,8 @@ import Status from "../Services/Status";
 import ERROR_MESSAGES from "../Message/Errors";
 import { hashingPassword, verifyPassword } from "../Services/Password";
 import { IUser } from "../interface/User";
+import { getRegisterData } from "../Services/getBody";
+import createAccount from "../Services/DatabaseServices/CreateAccountService";
 
 class AuthController {
 	async login(req: Request, res: Response) {
@@ -20,7 +22,7 @@ class AuthController {
 			password,
 			user.password as string
 		);
-		const isRightPasswordTESTING = password === user.password; // TODO: Нужно потому будет убрать эту строчку и в if: "&& !isRightPasswordTESTING" - эту
+		const isRightPasswordTESTING = password === user.password; // TODO: Нужно потом будет убрать эту строчку и в if: "&& !isRightPasswordTESTING" - эту
 
 		if (!isRightPassword && !isRightPasswordTESTING) {
 			return Status.badRequest(
@@ -35,19 +37,11 @@ class AuthController {
 	}
 
 	async register(req: Request, res: Response) {
-		const { login, email, password } = req.body;
+		const registerData = await getRegisterData(req);
 
-		const passwordHash = await hashingPassword(password);
+		const auth = await createAccount(registerData);
 
-		const user = (await User.createUser({
-			login,
-			email,
-			password: passwordHash,
-		})) as IUser;
-
-		const token = await generateToken(user);
-
-		return Status.success(res, { auth: { token, user } });
+		return Status.success(res, { auth });
 	}
 }
 

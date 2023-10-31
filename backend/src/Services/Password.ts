@@ -1,4 +1,4 @@
-import { SALT_STRING } from "../envinfo";
+import { SALT_STRING } from "../envInfo";
 import bcrypt from "bcrypt";
 
 async function hashingPassword(password: string) {

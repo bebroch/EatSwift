@@ -1,6 +1,8 @@
 import { Request } from "express";
 import { IUser, IUserFunctions } from "../interface/User";
 import User from "../models/User";
+import { IRegisterData } from "../interface/RegisterInterface/RegisterData";
+import { EnumRole } from "../interface/Role";
 
 function getToken(req: Request & { user?: IUser }) {
 	if (req.headers.authorization)
@@ -22,16 +24,8 @@ async function getUserProfile(req: Request & { user?: IUser; login?: string }) {
 	return user;
 }
 
-async function getRegisterData(req: Request) {
-	const { login, email, password, confirmPassword, role } = req.body;
-
-	return {
-		login,
-		email,
-		password,
-		confirmPassword,
-		role,
-	};
+async function getRegisterData(req: Request): Promise<IRegisterData> {
+	return req.body;
 }
 
 function getItem(req: Request) {
