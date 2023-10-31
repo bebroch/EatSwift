@@ -9,6 +9,8 @@ import createRandomDish from "./createRandomDish";
 import createRandomMenu from "./createRandomMenu";
 import createRandomRestaurant from "./createRandomRestaurant";
 import createRandomUser from "./createRandomUser";
+import createRandomCourier from "./createRandomCourier";
+import Courier from "../../src/models/Courier";
 
 async function generate() {
 	await connectDB();
@@ -38,9 +40,15 @@ async function generate() {
 			}
 		}
 	}
+
 	for (let i = 0; i < 10; i++) {
 		const userData = createRandomUser();
 		await User.createUser(userData);
+	}
+
+	for (let i = 0; i < 10; i++) {
+		const courierData = createRandomCourier();
+		await Courier.createCourier(courierData);
 	}
 
 	await disconnectDB();
