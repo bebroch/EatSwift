@@ -15,19 +15,6 @@ async function checkMissingFields(fields: any): Promise<boolean> {
 		role,
 	} = fields;
 
-	console.log(fields.firstName);
-
-	console.log(
-		!firstName,
-		!lastName,
-		!name,
-		!login,
-		!email,
-		!password,
-		!confirmPassword,
-		!role
-	);
-
 	switch (role) {
 		case EnumRole.User:
 			return !login || !email || !password || !confirmPassword;
