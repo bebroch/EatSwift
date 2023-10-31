@@ -1,16 +1,16 @@
 import { ObjectId } from "mongoose";
 import { connectDB, disconnectDB } from "../../src/database/connect";
 import { IMenu } from "../../src/interface/Menu";
+import Courier from "../../src/models/Courier";
 import Dish from "../../src/models/Dish";
 import Menu from "../../src/models/Menu";
 import Restaurant from "../../src/models/Restaurant";
 import User from "../../src/models/User";
+import createRandomCourier from "./createRandomCourier";
 import createRandomDish from "./createRandomDish";
 import createRandomMenu from "./createRandomMenu";
 import createRandomRestaurant from "./createRandomRestaurant";
 import createRandomUser from "./createRandomUser";
-import createRandomCourier from "./createRandomCourier";
-import Courier from "../../src/models/Courier";
 
 async function generate() {
 	await connectDB();
