@@ -54,7 +54,7 @@ async function createRestaurantAccount(
 async function createCourierAccount(
 	data: ICourierRegisterData
 ): Promise<ICourierAccountData | undefined> {
-	return (await accountCreate(Restaurant, data)) as ICourierAccountData;
+	return (await accountCreate(Courier, data)) as ICourierAccountData;
 }
 
 // ОСНОВНАЯ ФУНКЦИЯ ----------------------------------------

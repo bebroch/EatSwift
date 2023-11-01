@@ -20,15 +20,15 @@ const UserSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-UserSchema.statics.findUserByLogin = async function (login: string) {
+UserSchema.statics.findAccountByLogin = async function (login: string) {
 	return this.findOne({ login });
 };
 
-UserSchema.statics.findUserByEmail = async function (email: string) {
+UserSchema.statics.findAccountByEmail = async function (email: string) {
 	return this.findOne({ email });
 };
 
-UserSchema.statics.findUserWithToken = async function (token: string) {
+UserSchema.statics.findAccountWithToken = async function (token: string) {
 	const userData = (await decodeToken(token)) as IUser;
 	return this.findOne(userData);
 };

@@ -22,13 +22,13 @@ const RestaurantSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-RestaurantSchema.statics.findRestaurantByLogin = async function (
+RestaurantSchema.statics.findAccountByLogin = async function (
 	login: string
 ) {
 	return this.findOne({ login });
 };
 
-RestaurantSchema.statics.findRestaurantByEmail = async function (
+RestaurantSchema.statics.findAccountByEmail = async function (
 	email: string
 ) {
 	return this.findOne({ email });
@@ -66,9 +66,7 @@ RestaurantSchema.methods.generateToken = async function () {
 	return await generateToken(restaurantData);
 };
 
-RestaurantSchema.statics.findRestaurantByToken = async function (
-	token: string
-) {
+RestaurantSchema.statics.findAccountWithToken = async function (token: string) {
 	const restaurantData = (await decodeToken(token)) as IRestaurant;
 	return await this.findOne(restaurantData);
 };

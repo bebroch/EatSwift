@@ -20,15 +20,15 @@ const CourierSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-CourierSchema.statics.findCourierByLogin = async function (login: string) {
+CourierSchema.statics.findAccountByLogin = async function (login: string) {
 	return this.findOne({ login });
 };
 
-CourierSchema.statics.findCourierByEmail = async function (email: string) {
+CourierSchema.statics.findAccountByEmail = async function (email: string) {
 	return this.findOne({ email });
 };
 
-CourierSchema.statics.findCourierWithToken = async function (token: string) {
+CourierSchema.statics.findAccountWithToken = async function (token: string) {
 	const courierData = (await decodeToken(token)) as ICourier;
 	return this.findOne(courierData);
 };

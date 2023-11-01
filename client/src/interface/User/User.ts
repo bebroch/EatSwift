@@ -24,7 +24,7 @@ interface IUserModel extends Model<IUserFunctions, IAccountModel> {
 	createAccount(
 		accountData: IUserRegisterData
 	): Promise<IUserFunctions | null>;
-	findUserWithToken(token: string): Promise<IUser | null>;
+	findAccountWithToken(token: string): Promise<IUser | null>;
 }
 
 export { IUser, IUserFunctions, IUserModel };
