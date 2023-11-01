@@ -6,7 +6,7 @@ RUN apk --no-cache add git
 
 COPY . .
 
-WORKDIR /usr/src/EatSwift/backend
+WORKDIR /usr/src/EatSwift/client
 
 RUN npm install
 
