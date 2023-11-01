@@ -1,9 +1,11 @@
 import mongoose, { ObjectId } from "mongoose";
-import { IUser, IUserModel } from "../interface/User";
-import { decodeToken } from "../Services/Jwt";
+import { IUser, IUserModel } from "../interface/User/User";
+import { decodeToken, generateToken } from "../Services/Jwt";
 import Order from "./Order";
 import Dish from "./Dish";
 import ERROR_MESSAGES from "../Message/Errors";
+import { hashingPassword } from "../Services/Password";
+import { EnumRole } from "../interface/Account/Role";
 
 const UserSchema = new mongoose.Schema(
 	{
@@ -31,9 +33,32 @@ UserSchema.statics.findUserWithToken = async function (token: string) {
 	return this.findOne(userData);
 };
 
-UserSchema.statics.createUser = async function (userData: IUser) {
-	const user = new this(userData);
+UserSchema.statics.createAccount = async function (userData: IUser) {
+	const { login, email, password } = userData;
+
+	const passwordHash = await hashingPassword(password);
+
+	const user = new this({
+		login,
+		email,
+		password: passwordHash,
+	});
+
 	return user.save();
+};
+
+UserSchema.methods.generateToken = async function () {
+	const { login, email } = this;
+
+	const restaurantData = {
+		login,
+		email,
+		role: EnumRole.User,
+	};
+
+	const token = await generateToken(restaurantData);
+
+	return token;
 };
 
 UserSchema.methods.getCart = async function () {
@@ -62,7 +87,6 @@ UserSchema.methods.deleteItemFromCart = async function (dish_id: ObjectId) {
 		throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
 	}
 
-	// Находим индекс элемента в массиве cart
 	const itemIndex = this.cart.indexOf(dish_id);
 
 	if (itemIndex !== -1) {

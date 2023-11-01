@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
-import { IRestaurant, IRestaurantModel } from "../interface/Restaurant";
-import { decodeToken } from "../Services/Jwt";
+import {
+	IRestaurant,
+	IRestaurantModel,
+} from "../interface/Restaurant/Restaurant";
+import { decodeToken, generateToken } from "../Services/Jwt";
+import { hashingPassword } from "../Services/Password";
+import { EnumRole } from "../interface/Account/Role";
 
 const RestaurantSchema = new mongoose.Schema(
 	{
@@ -29,11 +34,36 @@ RestaurantSchema.statics.findRestaurantByEmail = async function (
 	return this.findOne({ email });
 };
 
-RestaurantSchema.statics.createRestaurant = async function (
+RestaurantSchema.statics.createAccount = async function (
 	restaurantData: IRestaurant
 ) {
-	const restaurant = new this(restaurantData);
+	const { name, login, email, password } = restaurantData;
+
+	const passwordHash = await hashingPassword(password);
+
+	const restaurant = new this({
+		name,
+		login,
+		email,
+		rating: 0,
+		password: passwordHash,
+		verified: false,
+	});
+
 	return restaurant.save();
+};
+
+RestaurantSchema.methods.generateToken = async function () {
+	const { name, login, email } = this;
+
+	const restaurantData = {
+		name,
+		login,
+		email,
+		role: EnumRole.Restaurant,
+	};
+
+	return await generateToken(restaurantData);
 };
 
 RestaurantSchema.statics.findRestaurantByToken = async function (

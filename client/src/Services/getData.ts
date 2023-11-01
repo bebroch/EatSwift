@@ -1,7 +1,7 @@
-import { ICourier } from "../interface/Courier";
-import { IRestaurant } from "../interface/Restaurant";
-import { EnumRole } from "../interface/Role";
-import { IUser } from "../interface/User";
+import { ICourier } from "../interface/Courier/Courier";
+import { IRestaurant } from "../interface/Restaurant/Restaurant";
+import { EnumRole } from "../interface/Account/Role";
+import { IUser } from "../interface/User/User";
 
 class GetData {
 	async handleUser(data: IUser): Promise<any | undefined> {
