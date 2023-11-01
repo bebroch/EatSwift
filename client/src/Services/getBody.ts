@@ -2,6 +2,9 @@ import { Request } from "express";
 import { IUser, IUserFunctions } from "../interface/User/User";
 import User from "../models/User";
 import { IRegisterData } from "../interface/RegisterInterface/RegisterData";
+import { IRestaurant } from "../interface/Restaurant/Restaurant";
+import { ICourier } from "../interface/Courier/Courier";
+import ILoginData from "../interface/LoginInterface/AccountData";
 
 function getToken(req: Request & { user?: IUser }) {
 	if (req.headers.authorization)
@@ -31,9 +34,12 @@ async function getItem(req: Request) {
 	return req.body.dish;
 }
 
-async function getLoginData(req: Request) {
+async function getLoginData(
+	req: Request & { account?: IUser | IRestaurant | ICourier }
+): Promise<ILoginData> {
 	const { login, password, role } = req.body;
-	return { login, password, role };
+	const account = req.account as IUser | IRestaurant | ICourier;
+	return { account, login, password, role };
 }
 
 export {

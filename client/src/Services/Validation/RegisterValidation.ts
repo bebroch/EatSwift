@@ -67,11 +67,7 @@ async function checkAccountExist(fields: any): Promise<boolean> {
 async function checkRoleExist(fields: any): Promise<boolean> {
 	const { role } = fields;
 
-	if (Object.values(EnumRole).includes(role)) {
-		return true;
-	} else {
-		return false;
-	}
+	return Object.values(EnumRole).includes(role);
 }
 
 export {

@@ -11,12 +11,18 @@ async function checkMissingFields(fields: ILoginData) {
 }
 
 async function checkAccountExist(fields: ILoginData) {
-	const { login, password, role } = fields;
+	const { login, role } = fields;
 
 	return executeFunctionBasedOnRole(role, {
-		user: await User.findOne({ login }),
-		restaurant: await Restaurant.findOne({ login, password }),
-		courier: await Courier.findOne({ login, password }),
+		user: async () => {
+			return await User.findOne({ login });
+		},
+		restaurant: async () => {
+			return await Restaurant.findOne({ login });
+		},
+		courier: async () => {
+			return await Courier.findOne({ login });
+		},
 	});
 }
 

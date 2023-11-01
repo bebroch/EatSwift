@@ -17,16 +17,14 @@ async function error(res: Response, message: string) {
 
 async function loginValidation(
 	req: Request & {
-		user?: IUser;
-		restaurant?: IRestaurant;
-		courier?: ICourier;
+		account?: IUser | IRestaurant | ICourier;
 	},
 	res: Response,
 	next: NextFunction
 ) {
 	const loginData = await getLoginData(req);
 
-	if (await checkRoleExist(loginData)) {
+	if (!(await checkRoleExist(loginData))) {
 		return error(res, ERROR_MESSAGES.INVALID_ROLE);
 	}
 
@@ -34,9 +32,13 @@ async function loginValidation(
 		return error(res, ERROR_MESSAGES.LOGIN_OR_PASSWORD_REQUIRED);
 	}
 
-	if (await checkAccountExist(loginData)) {
-		return error(res, ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS);
+	const account = await checkAccountExist(loginData);
+
+	if (!account) {
+		return error(res, ERROR_MESSAGES.ACCOUNT_NOT_FOUND);
 	}
+
+	req.account = account;
 
 	return next();
 }

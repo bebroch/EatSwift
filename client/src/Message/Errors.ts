@@ -14,6 +14,8 @@ const ERROR_MESSAGES = {
 	INVALID_ROLE: "Invalid role",
 	DISH_NOT_FOUND: "Dish not found",
 	ACCOUNT_ALREADY_EXISTS: "Account already exists",
+	ACCOUNT_NOT_FOUND: "Account not found",
+	ACCOUNT_NOT_CREATED: "Account not created",
 };
 
 export default ERROR_MESSAGES;

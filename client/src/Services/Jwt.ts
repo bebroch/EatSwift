@@ -20,9 +20,15 @@ async function decodingWithRole(
 	data: any
 ): Promise<IUser | IRestaurant | ICourier | null> {
 	return executeFunctionBasedOnRole(data.role, {
-		user: await User.findOne({ login: data.login }),
-		restaurant: await Restaurant.findOne({ name: data.name }),
-		courier: await Courier.findOne({ login: data.login }),
+		user: async () => {
+			return await User.findOne({ login: data.login });
+		},
+		restaurant: async () => {
+			return await Restaurant.findOne({ name: data.login });
+		},
+		courier: async () => {
+			return await Courier.findOne({ login: data.login });
+		},
 	});
 }
 

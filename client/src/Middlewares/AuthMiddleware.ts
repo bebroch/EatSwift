@@ -4,6 +4,7 @@ import { getToken } from "../Services/getBody";
 import User from "../models/User";
 import Status from "../Services/Status";
 
+// TOD: Редактировать
 async function AuthMiddleware(
 	req: Request & { user?: any; login?: string },
 	res: Response,
@@ -17,7 +18,7 @@ async function AuthMiddleware(
 	}
 
 	try {
-		const user = await User.findUserWithToken(token);
+		const user = await User.findAccountWithToken(token);
 
 		if (!user) {
 			return Status.unauthorized(res, ERROR_MESSAGES.UN_AUTHORIZED);
