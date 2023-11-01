@@ -1,3 +1,0 @@
-const SUCCESS_MESSAGE = {
-
-}
