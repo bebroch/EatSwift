@@ -5,6 +5,7 @@ import { IRegisterData } from "../interface/RegisterInterface/RegisterData";
 import { IRestaurant } from "../interface/Restaurant/Restaurant";
 import { ICourier } from "../interface/Courier/Courier";
 import ILoginData from "../interface/LoginInterface/AccountData";
+import { TAccount } from "../interface/Account/Account";
 
 function getToken(req: Request & { user?: IUser }) {
 	if (req.headers.authorization)
@@ -12,8 +13,8 @@ function getToken(req: Request & { user?: IUser }) {
 	return null;
 }
 
-function getUser(req: Request & { user?: IUser }): IUserFunctions {
-	return req.user as IUserFunctions;
+function getUser(req: Request & { account?: IUser }): IUserFunctions {
+	return req.account as IUserFunctions;
 }
 
 async function getUserProfile(req: Request & { user?: IUser; login?: string }) {
@@ -35,10 +36,10 @@ async function getItem(req: Request) {
 }
 
 async function getLoginData(
-	req: Request & { account?: IUser | IRestaurant | ICourier }
+	req: Request & { account?: TAccount }
 ): Promise<ILoginData> {
 	const { login, password, role } = req.body;
-	const account = req.account as IUser | IRestaurant | ICourier;
+	const account = req.account as TAccount;
 	return { account, login, password, role };
 }
 

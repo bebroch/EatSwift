@@ -21,7 +21,7 @@ class AccountController {
 
 		return Status.success(res, {
 			user: userData,
-			userProfile: userProfileData,
+			userProfile: userProfileData, // TODO Нужно будет убрать чужой аккаунт, т.к. нельзя просматривать аккаунты других пользователей
 		});
 	}
 }
