@@ -4,6 +4,7 @@ import { decodeToken, generateToken } from "../Services/Jwt";
 import Order from "./Order";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
+import { IAccountInformation } from "../interface/Account/Account";
 
 const CourierSchema = new mongoose.Schema(
 	{
@@ -29,8 +30,8 @@ CourierSchema.statics.findAccountByEmail = async function (email: string) {
 };
 
 CourierSchema.statics.findAccountWithToken = async function (token: string) {
-	const courierData = (await decodeToken(token)) as ICourier;
-	return this.findOne(courierData);
+	const { login } = (await decodeToken(token)) as IAccountInformation;
+	return this.findOne({ login });
 };
 
 CourierSchema.statics.createAccount = async function (courierData: ICourier) {

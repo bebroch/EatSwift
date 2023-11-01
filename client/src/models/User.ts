@@ -6,6 +6,7 @@ import Dish from "./Dish";
 import ERROR_MESSAGES from "../Message/Errors";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
+import { getAccount } from "../Services/DatabaseServices/AccountService";
 
 const UserSchema = new mongoose.Schema(
 	{
@@ -29,8 +30,8 @@ UserSchema.statics.findAccountByEmail = async function (email: string) {
 };
 
 UserSchema.statics.findAccountWithToken = async function (token: string) {
-	const userData = (await decodeToken(token)) as IUser;
-	return this.findOne(userData);
+	const { login } = (await decodeToken(token)) as { login: string };
+	return this.findOne({ login });
 };
 
 UserSchema.statics.createAccount = async function (userData: IUser) {
