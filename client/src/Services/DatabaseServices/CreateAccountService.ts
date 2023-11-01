@@ -52,12 +52,13 @@ async function createUserAccount(
 async function createRestaurantAccount(
 	data: IRestaurantRegisterData
 ): Promise<IRestaurantAccountData | undefined> {
-	const { name, email, password } = data;
+	const { name, login, email, password } = data;
 
 	const passwordHash = await hashingPassword(password);
 
 	const restaurant = await Restaurant.createRestaurant({
 		name,
+		login,
 		email,
 		rating: 0,
 		password: passwordHash,
@@ -74,7 +75,7 @@ async function createRestaurantAccount(
 		role: EnumRole.Restaurant,
 	};
 
-	const token = await generateToken(restaurant);
+	const token = await generateToken(restaurantData);
 
 	return { token, restaurant };
 }
@@ -84,11 +85,13 @@ async function createRestaurantAccount(
 async function createCourierAccount(
 	data: ICourierRegisterData
 ): Promise<ICourierAccountData | undefined> {
-	const { login, email, password } = data;
+	const { firstName, lastName, login, email, password } = data;
 
 	const passwordHash = await hashingPassword(password);
 
 	const courier = await Courier.createCourier({
+		firstName,
+		lastName,
 		login,
 		email,
 		password: passwordHash,

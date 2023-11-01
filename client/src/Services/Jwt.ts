@@ -29,7 +29,9 @@ async function decodingWithRole(
 	}
 }
 
-async function decodeToken(token: string) {
+async function decodeToken(
+	token: string
+): Promise<IUser | IRestaurant | ICourier | null> {
 	const decoded = jwt.verify(token, SECRET_KEY);
 
 	if (typeof decoded === "string") {
