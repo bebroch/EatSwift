@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import ERROR_MESSAGES from "../Message/Errors";
 import { getToken } from "../Services/getBody";
-import User from "../models/User";
 import Status from "../Services/Status";
+import { TAccount } from "../interface/Account/Account";
+import { getAccountWithToken } from "../Services/DatabaseServices/AccountService";
 
-// TOD: Редактировать
 async function AuthMiddleware(
-	req: Request & { user?: any; login?: string },
+	req: Request & { account?: TAccount; login?: string },
 	res: Response,
 	next: NextFunction
 ) {
@@ -18,13 +18,13 @@ async function AuthMiddleware(
 	}
 
 	try {
-		const user = await User.findAccountWithToken(token);
+		const account = await getAccountWithToken(token);
 
-		if (!user) {
+		if (!account) {
 			return Status.unauthorized(res, ERROR_MESSAGES.UN_AUTHORIZED);
 		}
 
-		req.user = user;
+		req.account = account;
 	} catch (err) {
 		return Status.internalError(res, ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
 	}
