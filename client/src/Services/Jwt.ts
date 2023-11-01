@@ -2,13 +2,7 @@ import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../envInfo";
 import ERROR_MESSAGES from "../Message/Errors";
 import { EnumRole } from "../interface/Account/Role";
-import User from "../models/User";
-import Restaurant from "../models/Restaurant";
-import Courier from "../models/Courier";
-import { IUser } from "../interface/User/User";
-import { IRestaurant } from "../interface/Restaurant/Restaurant";
-import { ICourier } from "../interface/Courier/Courier";
-import executeFunctionBasedOnRole from "./ExecuteFunctionBasedOnRole";
+import { IAccountInformation } from "../interface/Account/Account";
 
 async function generateToken(data: any) {
 	return jwt.sign(data, SECRET_KEY, {
@@ -16,34 +10,14 @@ async function generateToken(data: any) {
 	});
 }
 
-async function decodingWithRole(
-	data: any
-): Promise<IUser | IRestaurant | ICourier | null> {
-	return executeFunctionBasedOnRole(data.role, {
-		user: async () => {
-			return await User.findOne({ login: data.login });
-		},
-		restaurant: async () => {
-			return await Restaurant.findOne({ name: data.login });
-		},
-		courier: async () => {
-			return await Courier.findOne({ login: data.login });
-		},
-	});
-}
-
-async function decodeToken(
-	token: string
-): Promise<IUser | IRestaurant | ICourier | null> {
+async function decodeToken(token: string): Promise<IAccountInformation | null> {
 	const decoded = jwt.verify(token, SECRET_KEY);
 
 	if (typeof decoded === "string") {
 		throw new Error(ERROR_MESSAGES.INVALID_TOKEN);
 	}
 
-	const account = decodingWithRole(decoded);
-
-	return account;
+	return decoded as IAccountInformation;
 }
 
 export { generateToken, decodeToken };
