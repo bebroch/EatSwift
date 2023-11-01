@@ -7,9 +7,7 @@ import {
 } from "../../../Services/Validation/LoginValidation";
 import { checkRoleExist } from "../../../Services/Validation/RegisterValidation";
 import { getLoginData } from "../../../Services/getBody";
-import { ICourier } from "../../../interface/Courier/Courier";
-import { IRestaurant } from "../../../interface/Restaurant/Restaurant";
-import { IUser } from "../../../interface/User/User";
+import { TAccount } from "../../../interface/Account/Account";
 
 async function error(res: Response, message: string) {
 	return Status.badRequest(res, message);
@@ -17,7 +15,7 @@ async function error(res: Response, message: string) {
 
 async function loginValidation(
 	req: Request & {
-		account?: IUser | IRestaurant | ICourier;
+		account?: TAccount;
 	},
 	res: Response,
 	next: NextFunction

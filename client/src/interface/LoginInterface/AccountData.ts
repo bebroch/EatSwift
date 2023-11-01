@@ -1,10 +1,8 @@
+import { TAccount } from "../Account/Account";
 import { EnumRole } from "../Account/Role";
-import { ICourier } from "../Courier/Courier";
-import { IRestaurant } from "../Restaurant/Restaurant";
-import { IUser } from "../User/User";
 
 interface ILoginData {
-	account: IUser | IRestaurant | ICourier;
+	account: TAccount;
 	login: string;
 	password: string;
 	role: EnumRole;
