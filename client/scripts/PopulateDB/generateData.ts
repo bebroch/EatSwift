@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
 import { connectDB, disconnectDB } from "../../src/database/connect";
-import { IMenu } from "../../src/interface/Menu";
+import { IMenu } from "../../src/interface/Restaurant/Menu";
 import Courier from "../../src/models/Courier";
 import Dish from "../../src/models/Dish";
 import Menu from "../../src/models/Menu";

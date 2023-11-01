@@ -17,7 +17,7 @@ class CartController {
 	// Добавить в корзину пользователя
 	async addToCart(req: Request, res: Response) {
 		const user = getUser(req);
-		const item = getItem(req);
+		const item = await getItem(req);
 
 		try {
 			await user.addToCart(item);
@@ -33,7 +33,7 @@ class CartController {
 	// Удалить блюдо из корзины пользователя
 	async deleteItemFromCart(req: Request, res: Response) {
 		const user = getUser(req);
-		const item = getItem(req);
+		const item = await getItem(req);
 
 		try {
 			await user.deleteItemFromCart(item);

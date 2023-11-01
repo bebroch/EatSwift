@@ -1,5 +1,5 @@
 import mongoose, { Model } from "mongoose";
-import { IOrder, OrderStatus } from "../interface/Order";
+import { IOrder, OrderStatus } from "../interface/User/Order";
 
 const OrderSchema = new mongoose.Schema(
 	{

@@ -4,7 +4,7 @@ import User from "../models/User";
 import Status from "../Services/Status";
 import ERROR_MESSAGES from "../Message/Errors";
 import { hashingPassword, verifyPassword } from "../Services/Password";
-import { IUser } from "../interface/User";
+import { IUser } from "../interface/User/User";
 import { getRegisterData } from "../Services/getBody";
 import createAccount from "../Services/DatabaseServices/CreateAccountService";
 

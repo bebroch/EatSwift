@@ -1,8 +1,7 @@
 import { Request } from "express";
-import { IUser, IUserFunctions } from "../interface/User";
+import { IUser, IUserFunctions } from "../interface/User/User";
 import User from "../models/User";
 import { IRegisterData } from "../interface/RegisterInterface/RegisterData";
-import { EnumRole } from "../interface/Role";
 
 function getToken(req: Request & { user?: IUser }) {
 	if (req.headers.authorization)
@@ -19,7 +18,7 @@ async function getUserProfile(req: Request & { user?: IUser; login?: string }) {
 
 	if (!login) return null;
 
-	const user = await User.findUserByLogin(login);
+	const user = await User.findAccountByLogin(login);
 
 	return user;
 }
@@ -28,8 +27,20 @@ async function getRegisterData(req: Request): Promise<IRegisterData> {
 	return req.body;
 }
 
-function getItem(req: Request) {
+async function getItem(req: Request) {
 	return req.body.dish;
 }
 
-export { getToken, getUser, getUserProfile, getRegisterData, getItem };
+async function getLoginData(req: Request) {
+	const { login, password, role } = req.body;
+	return { login, password, role };
+}
+
+export {
+	getToken,
+	getUser,
+	getUserProfile,
+	getRegisterData,
+	getItem,
+	getLoginData,
+};

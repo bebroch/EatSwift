@@ -1,5 +1,5 @@
 interface IRegisterData {
-	login?: string;
+	login: string;
 	name?: string;
 	firstName?: string;
 	lastName?: string;
@@ -9,9 +9,7 @@ interface IRegisterData {
 	role: string;
 }
 
-interface IUserRegisterData extends IRegisterData {
-	login: string;
-}
+interface IUserRegisterData extends IRegisterData {}
 
 interface IRestaurantRegisterData extends IRegisterData {
 	name: string;
