@@ -2,27 +2,25 @@ import { ObjectId } from "mongoose";
 import User from "../../models/User";
 import Dish from "../../models/Dish";
 import { IDish } from "../../interface/Restaurant/Dish";
+import { ICartItem, IUserFunctions } from "../../interface/User/User";
 
 class CartService {
-	async getCartDetails(userId: ObjectId) {
-		const user = await User.findById(userId).populate("cart");
-
-		if (!user) {
-			throw new Error("User not found");
-		}
-
+	async getCartDetails(user: IUserFunctions) {
 		const cartItems = user.cart;
 
 		const cartDetails = await Promise.all(
-			cartItems.map(async item => {
-				const dish = (await Dish.findById(item)) as IDish;
+			cartItems.map(async (cartItem: ICartItem) => {
+				const dish = (await Dish.findById(cartItem.dish)) as IDish;
 				return {
-					_id: dish._id,
-					name: dish.name,
-					description: dish.description,
-					ingredients: dish.ingredients,
-					picture: dish.picture,
-					price: dish.price,
+					dish: {
+						_id: dish._id,
+						name: dish.name,
+						description: dish.description,
+						ingredients: dish.ingredients,
+						picture: dish.picture,
+						price: dish.price,
+					},
+					quantity: cartItem.quantity,
 				};
 			})
 		);

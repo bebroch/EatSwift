@@ -1,6 +1,6 @@
 import { IUser } from "../interface/User/User";
 
-function getUserDataService(user: IUser) {
+async function getUserDataService(user: IUser) {
 	return {
 		login: user.login,
 		email: user.email,
@@ -11,12 +11,4 @@ function getUserDataService(user: IUser) {
 	};
 }
 
-function getUserProfileDataService(user: IUser) {
-	return {
-		login: user.login,
-		email: user.email,
-		createdAt: user.createdAt,
-	};
-}
-
-export { getUserDataService, getUserProfileDataService };
+export { getUserDataService };

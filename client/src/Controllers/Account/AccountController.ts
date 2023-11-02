@@ -1,27 +1,16 @@
 import { Request, Response } from "express";
 import Status from "../../Services/Status";
-import { getUser, getUserProfile } from "../../Services/getBody";
-import {
-	getUserDataService,
-	getUserProfileDataService,
-} from "../../Services/getUserDataService";
-import ERROR_MESSAGES from "../../Message/Errors";
+import { getUser } from "../../Services/getBody";
+import { getUserDataService } from "../../Services/getUserDataService";
 
 class AccountController {
 	async index(req: Request & { user?: any; login?: string }, res: Response) {
-		const user = getUser(req);
-		const userProfile = await getUserProfile(req);
+		const user = await getUser(req);
 
-		if (!userProfile) {
-			return Status.notFound(res, ERROR_MESSAGES.USER_NOT_FOUND);
-		}
-
-		const userData = getUserDataService(user);
-		const userProfileData = getUserProfileDataService(userProfile);
+		const userData = await getUserDataService(user);
 
 		return Status.success(res, {
 			user: userData,
-			userProfile: userProfileData, // TODO Нужно будет убрать чужой аккаунт, т.к. нельзя просматривать аккаунты других пользователей
 		});
 	}
 }

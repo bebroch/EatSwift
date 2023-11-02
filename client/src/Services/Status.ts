@@ -22,6 +22,10 @@ class Status {
 		return this.response(res, 401, message);
 	}
 
+	async forbidden(res: Response, message: any) {
+		return this.response(res, 403, message);
+	}
+
 	async notFound(res: Response, message: any) {
 		return this.response(res, 404, message);
 	}

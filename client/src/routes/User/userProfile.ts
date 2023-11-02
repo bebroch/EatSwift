@@ -14,6 +14,7 @@ router.post("/cart", CartController.addToCart);
 router.delete("/cart", CartController.deleteItemFromCart);
 
 router.get("/orders", OrderController.getOrderHistory);
+router.post("/orders", OrderController.makeOrder);
 router.get("/orders/:id", OrderController.createOrder);
 
 export default router;

@@ -26,7 +26,7 @@ async function AuthMiddleware(
 
 		req.account = account;
 	} catch (err) {
-		return Status.internalError(res, ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
+		return Status.unauthorized(res, ERROR_MESSAGES.INVALID_TOKEN);
 	}
 
 	return next();

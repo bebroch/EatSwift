@@ -8,9 +8,9 @@ const router = Router();
 
 // Аутентификация пользователя, ресторана и курьера
 
-router.use("/user/:login", AuthMiddleware, UserProfile);
-router.use("/restaurant/:login", AuthMiddleware, RestaurantProfile);
-router.use("/courier/:login", AuthMiddleware, CourierProfile);
+router.use("/user/profile", AuthMiddleware, UserProfile); // TODO: Доделать аккаунт пользователей
+router.use("/restaurant/profile", AuthMiddleware, RestaurantProfile); // TODO: Сделать аккаунт ресторану
+router.use("/courier/profile", AuthMiddleware, CourierProfile); // TODO: Сделать аккаунт курьеру
 
 // router.use("/:login", AuthMiddleware as RequestHandler, profile);
 

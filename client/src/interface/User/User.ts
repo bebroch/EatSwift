@@ -3,19 +3,25 @@ import { ICart } from "./Cart";
 import { IOrder } from "./Order";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { IUserRegisterData } from "../RegisterInterface/RegisterData";
+import { IDish } from "../Restaurant/Dish";
+
+interface ICartItem {
+	dish: ObjectId;
+	quantity: number;
+}
 
 interface IUser extends IAccount {
 	address?: string;
 	phoneNumber?: string;
 	password: string;
-	cart: ObjectId[];
+	cart: ICartItem[];
 }
 
 interface IUserFunctions extends IUser, IAccountFunction {
 	getCart(): Promise<ICart>;
 	getOrders(): Promise<IOrder[]>;
-	addToCart(item_id: ObjectId): Promise<void>;
-	deleteItemFromCart(item_id: ObjectId): Promise<void>;
+	addToCart(itemData: any): Promise<void>;
+	deleteItemFromCart(itemData: any): Promise<void>;
 }
 
 interface IUserModel extends Model<IUserFunctions, IAccountModel> {
@@ -27,4 +33,4 @@ interface IUserModel extends Model<IUserFunctions, IAccountModel> {
 	findAccountWithToken(token: string): Promise<IUser | null>;
 }
 
-export { IUser, IUserFunctions, IUserModel };
+export { ICartItem, IUser, IUserFunctions, IUserModel };

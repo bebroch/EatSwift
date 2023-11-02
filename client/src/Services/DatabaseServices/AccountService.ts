@@ -7,7 +7,6 @@ import executeFunctionBasedOnRole from "../ExecuteFunctionBasedOnRole";
 import { decodeToken } from "../Jwt";
 
 async function getAccountWithToken(token: string) {
-
 	const accountData = await decodeToken(token);
 
 	if (!accountData) {
