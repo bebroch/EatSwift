@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
 import { connectDB, disconnectDB } from "../../src/database/connect";
-import { IMenu } from "../../src/interface/Menu";
+import { IMenu } from "../../src/interface/Restaurant/Menu";
 import Courier from "../../src/models/Courier";
 import Dish from "../../src/models/Dish";
 import Menu from "../../src/models/Menu";
@@ -11,12 +11,15 @@ import createRandomDish from "./createRandomDish";
 import createRandomMenu from "./createRandomMenu";
 import createRandomRestaurant from "./createRandomRestaurant";
 import createRandomUser from "./createRandomUser";
+import { IRestaurant } from "../../src/interface/Restaurant/Restaurant";
 
 async function generate() {
 	await connectDB();
 	for (let i = 0; i < 10; i++) {
 		const restaurantData = createRandomRestaurant();
-		const restaurant = await Restaurant.createRestaurant(restaurantData);
+		const restaurant = (await Restaurant.createAccount(
+			restaurantData
+		)) as IRestaurant;
 
 		for (let i = 0; i < 3; i++) {
 			var menuData = createRandomMenu();
@@ -43,12 +46,12 @@ async function generate() {
 
 	for (let i = 0; i < 10; i++) {
 		const userData = createRandomUser();
-		await User.createUser(userData);
+		await User.createAccount(userData);
 	}
 
 	for (let i = 0; i < 10; i++) {
 		const courierData = createRandomCourier();
-		await Courier.createCourier(courierData);
+		await Courier.createAccount(courierData);
 	}
 
 	await disconnectDB();

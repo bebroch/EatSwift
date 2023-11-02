@@ -1,13 +1,20 @@
-import { IRouter, RequestHandler, Router } from "express";
+import { IRouter, Router } from "express";
 import account from "./account";
-import auth from "./User/auth";
 import home from "./home";
-import restaurant from "./restaurant";
+import publicRestaurantProfile from "./Restaurant/publicRestaurantProfile.ts";
+import publicCourierProfile from "./Courier/publicCourierProfile";
+import auth from "./auth";
 
 const router: IRouter = Router();
 
+// Главный Router
+
 router.use("/", home);
 router.use("/account", account);
-router.use("/restaurant", restaurant);
+
+router.use("/auth", auth);
+
+router.use("/restaurants", publicRestaurantProfile);
+router.use("/couriers", publicCourierProfile);
 
 export default router;

@@ -1,21 +1,23 @@
-import { ICourier } from "../Courier";
-import { IRestaurant } from "../Restaurant";
-import { IUser } from "../User";
+import { TAccount } from "../Account/Account";
+import { ICourier } from "../Courier/Courier";
+import { IRestaurant } from "../Restaurant/Restaurant";
+import { IUser } from "../User/User";
 
 interface IAccountData {
 	token: string;
+	account?: TAccount;
 }
 
 interface IUserAccountData extends IAccountData {
-	user: IUser;
+	account: IUser;
 }
 
 interface IRestaurantAccountData extends IAccountData {
-	restaurant: IRestaurant;
+	account: IRestaurant;
 }
 
 interface ICourierAccountData extends IAccountData {
-	courier: ICourier;
+	account: ICourier;
 }
 
 export {

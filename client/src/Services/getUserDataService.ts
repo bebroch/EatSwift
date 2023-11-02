@@ -1,4 +1,4 @@
-import { IUser } from "../interface/User";
+import { IUser } from "../interface/User/User";
 
 function getUserDataService(user: IUser) {
 	return {

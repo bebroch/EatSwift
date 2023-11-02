@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, ObjectId } from "mongoose";
-import { IDish, IDishModel } from "../interface/Dish";
+import { IDish, IDishModel } from "../interface/Restaurant/Dish";
 
 const DishSchema = new mongoose.Schema(
 	{

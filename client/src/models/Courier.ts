@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
-import { ICourier, ICourierModel } from "../interface/Courier";
-import { decodeToken } from "../Services/Jwt";
+import { ICourier, ICourierModel } from "../interface/Courier/Courier";
+import { decodeToken, generateToken } from "../Services/Jwt";
 import Order from "./Order";
+import { hashingPassword } from "../Services/Password";
+import { EnumRole } from "../interface/Account/Role";
+import { IAccountInformation } from "../interface/Account/Account";
 
 const CourierSchema = new mongoose.Schema(
 	{
 		firstName: { type: String, required: true },
-        lastName: { type: String, required: true },
+		lastName: { type: String, required: true },
 		login: { type: String, required: true, unique: true },
 		email: { type: String, required: true, unique: true },
 		address: { type: String, required: false },
@@ -18,27 +21,53 @@ const CourierSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-CourierSchema.statics.findCourierByLogin = async function (login: string) {
+CourierSchema.statics.findAccountByLogin = async function (login: string) {
 	return this.findOne({ login });
 };
 
-CourierSchema.statics.findCourierByEmail = async function (email: string) {
+CourierSchema.statics.findAccountByEmail = async function (email: string) {
 	return this.findOne({ email });
 };
 
-CourierSchema.statics.findCourierWithToken = async function (token: string) {
-	const courierData = (await decodeToken(token)) as ICourier;
-	return this.findOne(courierData);
+CourierSchema.statics.findAccountWithToken = async function (token: string) {
+	const { login } = (await decodeToken(token)) as IAccountInformation;
+	return this.findOne({ login });
 };
 
-CourierSchema.statics.createCourier = async function (courierData: ICourier) {
-	const courier = new this(courierData);
+CourierSchema.statics.createAccount = async function (courierData: ICourier) {
+	const { firstName, lastName, login, email, password } = courierData;
+
+	const passwordHash = await hashingPassword(password);
+
+	const courier = new this({
+		firstName,
+		lastName,
+		login,
+		email,
+		password: passwordHash,
+		verified: false,
+	});
+
 	return courier.save();
 };
 
 CourierSchema.methods.getOrder = async function () {
 	const orders = await Order.find({ courier_id: this._id });
 	return orders;
+};
+
+CourierSchema.methods.generateToken = async function () {
+	const { firstName, lastName, login, email, password } = this;
+
+	const restaurantData = {
+		firstName,
+		lastName,
+		login,
+		email,
+		role: EnumRole.Restaurant,
+	};
+
+	return await generateToken(restaurantData);
 };
 
 const Courier = mongoose.model<ICourier, ICourierModel>(

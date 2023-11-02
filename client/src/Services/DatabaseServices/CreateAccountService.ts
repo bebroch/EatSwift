@@ -10,128 +10,72 @@ import {
 	IRestaurantRegisterData,
 	IUserRegisterData,
 } from "../../interface/RegisterInterface/RegisterData";
-import { EnumRole } from "../../interface/Role";
+import { EnumRole } from "../../interface/Account/Role";
 import Courier from "../../models/Courier";
 import Restaurant from "../../models/Restaurant";
 import User from "../../models/User";
-import { generateToken } from "../Jwt";
-import { hashingPassword } from "../Password";
+import { ICourierModel } from "../../interface/Courier/Courier";
+import { IRestaurantModel } from "../../interface/Restaurant/Restaurant";
+import { IUser, IUserFunctions, IUserModel } from "../../interface/User/User";
+import executeFunctionBasedOnRole from "../ExecuteFunctionBasedOnRole";
 
-// ПОЛЬЗОВАТЕЛЬ --------------------------------------------------
+async function accountCreate(
+	model: IUserModel | IRestaurantModel | ICourierModel,
+	data: any
+): Promise<IAccountData | undefined> {
+	const account = await model.createAccount(data);
+
+	if (!account) {
+		return undefined;
+	}
+
+	const token = await account.generateToken();
+
+	return { token, account };
+}
+
+// ПОЛЬЗОВАТЕЛЬ V--------------------------------------------------V
 
 async function createUserAccount(
 	data: IUserRegisterData
 ): Promise<IUserAccountData | undefined> {
-	const { login, email, password } = data;
-
-	const passwordHash = await hashingPassword(password);
-
-	const user = await User.createUser({
-		login,
-		email,
-		password: passwordHash,
-	});
-
-	if (!user) {
-		return undefined;
-	}
-
-	const userData = {
-		login: user.login,
-		email: user.email,
-		role: EnumRole.User,
-	};
-
-	const token = await generateToken(userData);
-
-	return { token, user };
+	return (await accountCreate(User, data)) as IUserAccountData;
 }
 
-// РЕСТОРАН --------------------------------------------------
+// РЕСТОРАН V--------------------------------------------------V
 
 async function createRestaurantAccount(
-	data: IRestaurantRegisterData
+	data: IUserRegisterData
 ): Promise<IRestaurantAccountData | undefined> {
-	const { name, login, email, password } = data;
-
-	const passwordHash = await hashingPassword(password);
-
-	const restaurant = await Restaurant.createRestaurant({
-		name,
-		login,
-		email,
-		rating: 0,
-		password: passwordHash,
-		verified: false,
-	});
-
-	if (!restaurant) {
-		return undefined;
-	}
-
-	const restaurantData = {
-		name: restaurant.name,
-		email: restaurant.email,
-		role: EnumRole.Restaurant,
-	};
-
-	const token = await generateToken(restaurantData);
-
-	return { token, restaurant };
+	return (await accountCreate(Restaurant, data)) as IRestaurantAccountData;
 }
 
-// КУРЬЕР --------------------------------------------------
+// КУРЬЕР V--------------------------------------------------V
 
 async function createCourierAccount(
-	data: ICourierRegisterData
+	data: IUserRegisterData
 ): Promise<ICourierAccountData | undefined> {
-	const { firstName, lastName, login, email, password } = data;
-
-	const passwordHash = await hashingPassword(password);
-
-	const courier = await Courier.createCourier({
-		firstName,
-		lastName,
-		login,
-		email,
-		password: passwordHash,
-		verified: false,
-	});
-
-	if (!courier) {
-		return undefined;
-	}
-
-	const restaurantData = {
-		name: courier.login,
-		email: courier.email,
-		role: EnumRole.Restaurant,
-	};
-
-	const token = await generateToken(restaurantData);
-
-	return { token, courier };
+	return (await accountCreate(Courier, data)) as ICourierAccountData;
 }
 
-// ОСНОВНАЯ ФУНКЦИЯ ----------------------------------------
+// ОСНОВНАЯ ФУНКЦИЯ V----------------------------------------V
 
 async function createAccount(
 	registerData: IRegisterData
 ): Promise<IAccountData | undefined> {
 	const { role } = registerData;
 
-	switch (role) {
-		case EnumRole.User:
-			return await createUserAccount(registerData as IUserRegisterData);
-		case EnumRole.Restaurant:
-			return await createRestaurantAccount(
-				registerData as IRestaurantRegisterData
-			);
-		case EnumRole.Courier:
-			return await createCourierAccount(
-				registerData as ICourierRegisterData
-			);
-	}
+	return (await executeFunctionBasedOnRole(role, {
+		user: async () => {
+			return await createUserAccount(registerData);
+		},
+		restaurant: async () => {
+			return await createRestaurantAccount(registerData);
+		},
+		courier: async () => {
+			return await createCourierAccount(registerData);
+		},
+	})) as IAccountData | undefined;
 }
 
 export default createAccount;

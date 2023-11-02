@@ -1,4 +1,4 @@
-import { EnumRole } from "../../interface/Role";
+import { EnumRole } from "../../interface/Account/Role";
 import Courier from "../../models/Courier";
 import Restaurant from "../../models/Restaurant";
 import User from "../../models/User";
@@ -46,18 +46,18 @@ async function checkAccountExist(fields: any): Promise<boolean> {
 	switch (role) {
 		case EnumRole.User:
 			return (
-				Boolean(await User.findUserByLogin(login)) &&
-				Boolean(await User.findUserByEmail(email))
+				Boolean(await User.findAccountByLogin(login)) &&
+				Boolean(await User.findAccountByEmail(email))
 			);
 		case EnumRole.Restaurant:
 			return (
-				Boolean(await Restaurant.findRestaurantByLogin(login)) &&
-				Boolean(await Restaurant.findRestaurantByEmail(email))
+				Boolean(await Restaurant.findAccountByLogin(login)) &&
+				Boolean(await Restaurant.findAccountByEmail(email))
 			);
 		case EnumRole.Courier:
 			return (
-				Boolean(await Courier.findCourierByLogin(login)) &&
-				Boolean(await Courier.findCourierByEmail(email))
+				Boolean(await Courier.findAccountByLogin(login)) &&
+				Boolean(await Courier.findAccountByEmail(email))
 			);
 	}
 
@@ -67,11 +67,7 @@ async function checkAccountExist(fields: any): Promise<boolean> {
 async function checkRoleExist(fields: any): Promise<boolean> {
 	const { role } = fields;
 
-	if (Object.values(EnumRole).includes(role)) {
-		return true;
-	} else {
-		return false;
-	}
+	return Object.values(EnumRole).includes(role);
 }
 
 export {

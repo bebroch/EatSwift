@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose";
 import User from "../../models/User";
 import Dish from "../../models/Dish";
-import { IDish } from "../../interface/Dish";
+import { IDish } from "../../interface/Restaurant/Dish";
 
 class CartService {
 	async getCartDetails(userId: ObjectId) {

@@ -1,13 +1,8 @@
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../envInfo";
 import ERROR_MESSAGES from "../Message/Errors";
-import { EnumRole } from "../interface/Role";
-import User from "../models/User";
-import Restaurant from "../models/Restaurant";
-import Courier from "../models/Courier";
-import { IUser } from "../interface/User";
-import { IRestaurant } from "../interface/Restaurant";
-import { ICourier } from "../interface/Courier";
+import { EnumRole } from "../interface/Account/Role";
+import { IAccountInformation } from "../interface/Account/Account";
 
 async function generateToken(data: any) {
 	return jwt.sign(data, SECRET_KEY, {
@@ -15,32 +10,14 @@ async function generateToken(data: any) {
 	});
 }
 
-async function decodingWithRole(
-	data: any
-): Promise<IUser | IRestaurant | ICourier | null> {
-	switch (data.role) {
-		case EnumRole.User:
-			return await User.findOne({ login: data.login });
-		case EnumRole.Restaurant:
-			return await Restaurant.findOne({ name: data.name });
-		case EnumRole.Courier:
-		default:
-			return await Courier.findOne({ login: data.login });
-	}
-}
-
-async function decodeToken(
-	token: string
-): Promise<IUser | IRestaurant | ICourier | null> {
+async function decodeToken(token: string): Promise<IAccountInformation | null> {
 	const decoded = jwt.verify(token, SECRET_KEY);
 
 	if (typeof decoded === "string") {
 		throw new Error(ERROR_MESSAGES.INVALID_TOKEN);
 	}
 
-	const account = decodingWithRole(decoded);
-
-	return account;
+	return decoded as IAccountInformation;
 }
 
 export { generateToken, decodeToken };
