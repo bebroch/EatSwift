@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { ICartItem, IUser, IUserModel } from "../interface/User/User";
-import { decodeToken, generateToken } from "../Services/Jwt";
+import { decodeToken, generateToken } from "../Services/Internet/Jwt";
 import Order from "./Order";
 import Dish from "./Dish";
 import ERROR_MESSAGES from "../Message/Errors";
@@ -8,7 +8,7 @@ import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
 import { IDish } from "../interface/Restaurant/Dish";
 
-const UserSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema<IUser, IUserModel>(
 	{
 		login: { type: String, required: true, unique: true },
 		email: { type: String, required: true, unique: true },
@@ -34,7 +34,7 @@ UserSchema.statics.findAccountByEmail = async function (email: string) {
 	return this.findOne({ email });
 };
 
-UserSchema.statics.findAccountWithToken = async function (token: string) {
+UserSchema.statics.findAccountByToken = async function (token: string) {
 	const { login } = (await decodeToken(token)) as { login: string };
 	return this.findOne({ login });
 };

@@ -30,7 +30,7 @@ interface IUserModel extends Model<IUserFunctions, IAccountModel> {
 	createAccount(
 		accountData: IUserRegisterData
 	): Promise<IUserFunctions | null>;
-	findAccountWithToken(token: string): Promise<IUser | null>;
+	findAccountByToken(token: string): Promise<IUser | null>;
 }
 
 export { ICartItem, IUser, IUserFunctions, IUserModel };
