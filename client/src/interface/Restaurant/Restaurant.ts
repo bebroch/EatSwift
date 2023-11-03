@@ -1,6 +1,7 @@
 import { Model, ObjectId } from "mongoose";
 import { IRestaurantRegisterData } from "../RegisterInterface/RegisterData";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
+import { IMenuItem } from "./Menu";
 
 interface IRestaurant extends IAccount {
 	name: string;
@@ -9,6 +10,7 @@ interface IRestaurant extends IAccount {
 	contactInfo?: string;
 	rating: number;
 	password: string;
+	menu: IMenuItem[];
 }
 
 interface IRestaurantFunctions extends IRestaurant, IAccountFunction {}

@@ -3,7 +3,7 @@ import {
 	IRestaurant,
 	IRestaurantModel,
 } from "../interface/Restaurant/Restaurant";
-import { decodeToken, generateToken } from "../Services/Jwt";
+import { decodeToken, generateToken } from "../Services/Internet/Jwt";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
 import { IAccountInformation } from "../interface/Account/Account";
@@ -14,11 +14,19 @@ const RestaurantSchema = new mongoose.Schema(
 		login: { type: String, required: true, unique: true },
 		email: { type: String, required: true, unique: true },
 		description: { type: String, required: false },
-		address: [{ type: String, required: false }],
+		addresses: [{ type: String, required: false }],
 		contactInfo: { type: String, required: false },
 		rating: { type: Number, required: true },
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
+		menu: [
+			{
+				type: mongoose.Schema.Types.ObjectId, ref: "Menu",
+				dish: [
+					{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" },
+				]
+			}
+		],
 	},
 	{ timestamps: true }
 );
@@ -63,10 +71,12 @@ RestaurantSchema.methods.generateToken = async function () {
 	return await generateToken(restaurantData);
 };
 
-RestaurantSchema.statics.findAccountWithToken = async function (token: string) {
+RestaurantSchema.statics.findAccountByToken = async function (token: string) {
 	const { login } = (await decodeToken(token)) as IAccountInformation;
 	return await this.findOne({ login });
 };
+
+RestaurantSchema.statics.getRestaurantWithItems = async function (data: any) {};
 
 const Restaurant = mongoose.model<IRestaurant, IRestaurantModel>(
 	"Restaurant",

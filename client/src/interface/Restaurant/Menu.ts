@@ -1,4 +1,10 @@
 import { Model, ObjectId } from "mongoose";
+import { IDishItem } from "./Dish";
+
+interface IMenuItem {
+	menu_id: ObjectId;
+	dish: IDishItem[];
+}
 
 interface IMenu {
 	_id?: ObjectId;
@@ -11,4 +17,4 @@ interface IMenuModel extends Model<IMenu> {
 	createMenu(menuData: IMenu): Promise<IMenu>;
 }
 
-export { IMenu, IMenuModel };
+export { IMenuItem, IMenu, IMenuModel };

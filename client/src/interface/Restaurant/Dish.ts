@@ -1,5 +1,9 @@
 import { Model, ObjectId } from "mongoose";
 
+interface IDishItem {
+	dish: ObjectId;
+}
+
 interface IDish {
 	_id?: ObjectId;
 	restaurant_id: ObjectId;
@@ -15,4 +19,4 @@ interface IDishModel extends Model<IDish> {
 	createDish(dishData: IDish): Promise<IDish>;
 }
 
-export { IDish, IDishModel };
+export { IDishItem, IDish, IDishModel };
