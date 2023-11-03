@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { getUser } from "../../Services/getBody";
-import Status from "../../Services/Status";
+import Status from "../../Services/Internet/Status";
+import getUser from "../../Services/Internet/GetBody/getUser";
 
 class OrderController {
 	// Показать историю заказов пользователя //TODO: Доделать Просмотр заказов

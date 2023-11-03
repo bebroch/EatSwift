@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "../envInfo";
-import ERROR_MESSAGES from "../Message/Errors";
-import { EnumRole } from "../interface/Account/Role";
-import { IAccountInformation } from "../interface/Account/Account";
+import { SECRET_KEY } from "../../envInfo";
+import ERROR_MESSAGES from "../../Message/Errors";
+import { EnumRole } from "../../interface/Account/Role";
+import { IAccountInformation } from "../../interface/Account/Account";
 
 async function generateToken(data: any) {
 	return jwt.sign(data, SECRET_KEY, {

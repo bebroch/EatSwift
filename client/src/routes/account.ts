@@ -1,6 +1,6 @@
 import { AuthMiddleware } from "../Middlewares/AuthMiddleware";
 import UserProfile from "./User/userProfile";
-import RestaurantProfile from "./Restaurant/restaurantProfile";
+import RestaurantProfile from "./Restaurant/private/restaurantProfile";
 import CourierProfile from "./Courier/courierProfile";
 import { Router } from "express";
 

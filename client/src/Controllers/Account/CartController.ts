@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import Status from "../../Services/Status";
-import { getItem, getUser } from "../../Services/getBody";
+import Status from "../../Services/Internet/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Seccuess";
-import CartService from "../../Services/DatabaseServices/CartService";
+import CartService from "../../Services/DatabaseServices/Cart/CartService";
+import getUser from "../../Services/Internet/GetBody/getUser";
+import { getDish } from "../../Services/Internet/GetBody/getDish";
 
 class CartController {
 	// Показать корзину пользователя
@@ -17,7 +18,7 @@ class CartController {
 	// Добавить в корзину пользователя
 	async addToCart(req: Request, res: Response) {
 		const user = await getUser(req);
-		const item_id = await getItem(req);
+		const item_id = await getDish(req);
 
 		try {
 			await user.addToCart({ _id: item_id });
@@ -33,7 +34,7 @@ class CartController {
 	// Удалить блюдо из корзины пользователя
 	async deleteItemFromCart(req: Request, res: Response) {
 		const user = await getUser(req);
-		const item_id = await getItem(req);
+		const item_id = await getDish(req);
 
 		try {
 			await user.deleteItemFromCart({ _id: item_id });

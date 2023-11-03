@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import ERROR_MESSAGES from "../Message/Errors";
-import { getToken } from "../Services/getBody";
-import Status from "../Services/Status";
+import Status from "../Services/Internet/Status";
 import { TAccount } from "../interface/Account/Account";
-import { getAccountWithToken } from "../Services/DatabaseServices/AccountService";
+import { getAccountWithToken } from "../Services/DatabaseServices/Accounts/AccountService";
+import getToken from "../Services/Internet/GetBody/getToken";
 
 async function AuthMiddleware(
 	req: Request & { account?: TAccount; login?: string },

@@ -3,21 +3,25 @@ import {
 	IRestaurantAccountData,
 	ICourierAccountData,
 	IAccountData,
-} from "../../interface/RegisterInterface/AccountData";
+} from "../../../interface/RegisterInterface/AccountData";
 import {
 	ICourierRegisterData,
 	IRegisterData,
 	IRestaurantRegisterData,
 	IUserRegisterData,
-} from "../../interface/RegisterInterface/RegisterData";
-import { EnumRole } from "../../interface/Account/Role";
-import Courier from "../../models/Courier";
-import Restaurant from "../../models/Restaurant";
-import User from "../../models/User";
-import { ICourierModel } from "../../interface/Courier/Courier";
-import { IRestaurantModel } from "../../interface/Restaurant/Restaurant";
-import { IUser, IUserFunctions, IUserModel } from "../../interface/User/User";
-import executeFunctionBasedOnRole from "../ExecuteFunctionBasedOnRole";
+} from "../../../interface/RegisterInterface/RegisterData";
+import { EnumRole } from "../../../interface/Account/Role";
+import Courier from "../../../models/Courier";
+import Restaurant from "../../../models/Restaurant";
+import User from "../../../models/User";
+import { ICourierModel } from "../../../interface/Courier/Courier";
+import { IRestaurantModel } from "../../../interface/Restaurant/Restaurant";
+import {
+	IUser,
+	IUserFunctions,
+	IUserModel,
+} from "../../../interface/User/User";
+import executeFunctionBasedOnRole from "../../ExecuteFunctionBasedOnRole";
 
 async function accountCreate(
 	model: IUserModel | IRestaurantModel | ICourierModel,

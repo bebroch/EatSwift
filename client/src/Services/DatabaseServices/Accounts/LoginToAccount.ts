@@ -1,7 +1,7 @@
-import ILoginData from "../../interface/LoginInterface/AccountData";
-import { IAccountData } from "../../interface/RegisterInterface/AccountData";
-import { generateToken } from "../Jwt";
-import { verifyPassword } from "../Password";
+import ILoginData from "../../../interface/LoginInterface/AccountData";
+import { IAccountData } from "../../../interface/RegisterInterface/AccountData";
+import { generateToken } from "../../Internet/Jwt";
+import { verifyPassword } from "../../Password";
 
 async function loginToAccount(
 	loginData: ILoginData

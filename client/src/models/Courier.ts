@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { ICourier, ICourierModel } from "../interface/Courier/Courier";
-import { decodeToken, generateToken } from "../Services/Jwt";
+import { decodeToken, generateToken } from "../Services/Internet/Jwt";
 import Order from "./Order";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
@@ -33,7 +33,7 @@ CourierSchema.statics.findAccountByEmail = async function (email: string) {
 	return this.findOne({ email });
 };
 
-CourierSchema.statics.findAccountWithToken = async function (token: string) {
+CourierSchema.statics.findAccountByToken = async function (token: string) {
 	const { login } = (await decodeToken(token)) as IAccountInformation;
 	return this.findOne({ login });
 };

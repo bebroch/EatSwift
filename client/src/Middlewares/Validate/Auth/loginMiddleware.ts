@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import ERROR_MESSAGES from "../../../Message/Errors";
-import Status from "../../../Services/Status";
+import Status from "../../../Services/Internet/Status";
 import {
 	checkAccountExist,
 	checkMissingFields,
 } from "../../../Services/Validation/LoginValidation";
 import { checkRoleExist } from "../../../Services/Validation/RegisterValidation";
-import { getLoginData } from "../../../Services/getBody";
 import { TAccount } from "../../../interface/Account/Account";
+import getLoginData from "../../../Services/Internet/GetBody/Auth/getLoginData";
 
 async function error(res: Response, message: string) {
 	return Status.badRequest(res, message);

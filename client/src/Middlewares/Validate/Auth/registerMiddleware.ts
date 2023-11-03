@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../../../models/User";
 import ERROR_MESSAGES from "../../../Message/Errors";
-import Status from "../../../Services/Status";
+import Status from "../../../Services/Internet/Status";
 import {
 	checkMissingFields,
 	checkConfirmPassword,
 	checkAccountExist,
 	checkRoleExist,
 } from "../../../Services/Validation/RegisterValidation";
-import { getRegisterData } from "../../../Services/getBody";
+import getRegisterData from "../../../Services/Internet/GetBody/Auth/getRegisterData";
 
 async function error(res: Response, message: string) {
 	return Status.badRequest(res, message);

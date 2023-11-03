@@ -1,7 +1,7 @@
 import { IRouter, Router } from "express";
 import account from "./account";
 import home from "./home";
-import publicRestaurantProfile from "./Restaurant/publicRestaurantProfile.ts";
+import publicRestaurantProfile from "./Restaurant/public/publicRestaurantProfile.ts";
 import publicCourierProfile from "./Courier/publicCourierProfile";
 import auth from "./auth";
 

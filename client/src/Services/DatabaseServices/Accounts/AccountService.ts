@@ -1,10 +1,13 @@
-import { IAccountInformation, TAccount } from "../../interface/Account/Account";
-import { EnumRole } from "../../interface/Account/Role";
-import Courier from "../../models/Courier";
-import Restaurant from "../../models/Restaurant";
-import User from "../../models/User";
-import executeFunctionBasedOnRole from "../ExecuteFunctionBasedOnRole";
-import { decodeToken } from "../Jwt";
+import {
+	IAccountInformation,
+	TAccount,
+} from "../../../interface/Account/Account";
+import { EnumRole } from "../../../interface/Account/Role";
+import Courier from "../../../models/Courier";
+import Restaurant from "../../../models/Restaurant";
+import User from "../../../models/User";
+import executeFunctionBasedOnRole from "../../ExecuteFunctionBasedOnRole";
+import { decodeToken } from "../../Internet/Jwt";
 
 async function getAccountWithToken(token: string) {
 	const accountData = await decodeToken(token);
