@@ -14,9 +14,13 @@ const CourierSchema = new mongoose.Schema(
 		email: { type: String, required: true, unique: true },
 		address: { type: String, required: false },
 		phoneNumber: { type: String, required: false },
+		order: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Order",
+			required: false,
+		},
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
-		cart: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
 	},
 	{ timestamps: true }
 );

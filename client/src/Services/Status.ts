@@ -1,7 +1,6 @@
 import { Response } from "express";
 
 class Status {
-	Ok: any;
 	private async response(res: Response, statusCode: number, message: any) {
 		if (typeof message === "string") {
 			return res.status(statusCode).json({ message });

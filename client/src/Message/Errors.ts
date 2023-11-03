@@ -18,6 +18,7 @@ const ERROR_MESSAGES = {
 	ACCOUNT_NOT_FOUND: "Account not found",
 	ACCOUNT_NOT_CREATED: "Account not created",
 	DISH_NOT_FOUND_IN_CART: "Dish not found in cart",
+	RESTAURANT_NOT_FOUND: "Restaurant not found",
 };
 
 export default ERROR_MESSAGES;
