@@ -34,7 +34,7 @@ class CartController {
 
 	// Удалить блюдо из корзины пользователя
 	async deleteItemFromCart(req: Request, res: Response) {
-		const user = await getUser(req) as IUserFunctions;
+		const user = (await getUser(req)) as IUserFunctions;
 		const item_id = await getDish(req);
 
 		try {
@@ -44,7 +44,6 @@ class CartController {
 				SUCCESS_MESSAGE.ITEM_SUCCESSFULLY_DELETED_FROM_CART
 			);
 		} catch (err) {
-			console.log(err);
 			return Status.badRequest(
 				res,
 				ERROR_MESSAGES.DISH_NOT_FOUND_IN_CART

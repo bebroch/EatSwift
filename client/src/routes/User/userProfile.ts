@@ -7,7 +7,7 @@ import UserAccountController from "../../Controllers/Account/UserAccountControll
 const router = Router();
 
 // Личный кабинет Пользователя
-
+// TODO: Доделать аккаунт пользователей
 router.get("/", UserAccountController.index);
 
 router.get("/cart", CartController.getCart);
