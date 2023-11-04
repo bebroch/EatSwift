@@ -7,11 +7,8 @@ import { decodeToken, generateToken } from "../Services/Internet/Jwt";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
 import { IAccountInformation } from "../interface/Account/Account";
-import Menu from "./Menu";
-import ERROR_MESSAGES from "../Message/Errors";
 import MenuSchema from "./Menu";
-import { IMenu } from "../interface/Restaurant/Menu";
-
+import { IMenu, IMenuData } from "../interface/Restaurant/Menu";
 
 const RestaurantSchema = new mongoose.Schema(
 	{
@@ -74,15 +71,24 @@ RestaurantSchema.statics.findAccountByToken = async function (token: string) {
 	return await this.findOne({ login });
 };
 
-
-RestaurantSchema.methods.createMenu = async function (menuData: IMenu) {
-
-	this.menu.push(menuData);
-	console.log(this.menu);
+RestaurantSchema.methods.createMenu = async function (menuData: IMenuData) {
+	const id = this.menu.push(menuData);
 
 	this.save();
 
-	return this.menu;
+	return this.menu[id - 1];
+};
+
+RestaurantSchema.methods.deleteMenu = async function (menuData: IMenuData) {
+	const menuId = this.menu.find(
+		(item: IMenu) => item._id.toString() === menuData.id
+	);
+
+	if (!menuId) {
+		throw new Error("Menu not found");
+	}
+	this.menu.splice(this.menu.indexOf(menuId), 1);
+	this.save();
 };
 
 RestaurantSchema.methods.createDish = async function (dishData: any) {};

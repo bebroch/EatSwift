@@ -7,13 +7,13 @@ interface IMenuItem {
 }
 
 interface IMenuData {
-	restaurant_id?: ObjectId;
-	name: string;
-	description: string;
+	id?: string;
+	name?: string;
+	description?: string;
 }
 
 interface IMenu {
-	_id?: ObjectId;
+	_id: ObjectId;
 	name: string;
 	description: string;
 	dish: IDish[];
@@ -22,6 +22,5 @@ interface IMenu {
 interface IMenuModel extends Model<IMenu> {
 	createMenu(menuData: IMenuData): Promise<IMenu>;
 }
-
 
 export { IMenuItem, IMenuData, IMenu, IMenuModel };

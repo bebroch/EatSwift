@@ -10,11 +10,12 @@ interface IRestaurant extends IAccount {
 	contactInfo?: string;
 	rating: number;
 	password: string;
-	menu: IMenuItem[];
+	menu: IMenu[];
 }
 
 interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
 	createMenu(MenuData: IMenuData): Promise<IMenu>;
+	deleteMenu(MenuData: IMenuData): Promise<void>;
 }
 
 interface IRestaurantModel extends Model<IRestaurantFunctions, IAccountModel> {

@@ -1,26 +1,69 @@
 import { Request, Response } from "express";
-import Menu from "../../models/Menu";
 import getMenuData from "../../Services/Internet/GetBody/Restaurant/getMenuData";
 import Status from "../../Services/Internet/Status";
-import { getRestaurant } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
+import {
+	getRestaurantFromAccount,
+	getRestaurantFromParams,
+} from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
 import { TAccount } from "../../interface/Account/Account";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import {
+	IRestaurant,
+	IRestaurantFunctions,
+} from "../../interface/Restaurant/Restaurant";
+import getMenu from "../../Services/Internet/GetBody/Restaurant/getMenu";
+import SUCCESS_MESSAGE from "../../Message/Success";
+import ERROR_MESSAGES from "../../Message/Errors";
 
 class MenuController {
-	async getMenus(req: Request, res: Response) {}
+	// TODO Сделать показ всех меню
+	async getMenus(req: Request, res: Response) {
+		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
+		return Status.success(res, restaurant.menu);
+	}
 
-	async getMenu(req: Request, res: Response) {}
+	// TODO Сделать показ одного меню
+	async getMenu(req: Request, res: Response) {
+		const menu = await getMenu(req);
+		return Status.success(res, menu);
+	}
 
 	async createMenu(req: Request & { account?: TAccount }, res: Response) {
 		const menuData = await getMenuData(req);
-		const restaurant = (await getRestaurant(req)) as IRestaurantFunctions;
+		const restaurant = (await getRestaurantFromAccount(
+			req
+		)) as IRestaurantFunctions;
 
 		const menu = await restaurant.createMenu(menuData);
 
 		return Status.success(res, menu);
 	}
 
-	async deleteMenu(req: Request, res: Response) {}
+	// TODO Сделать удаление меню
+	async deleteMenu(req: Request, res: Response) {
+		const menuData = await getMenuData(req);
+		const restaurant = (await getRestaurantFromAccount(
+			req
+		)) as IRestaurantFunctions;
+
+		type NewType = Error;
+
+		try {
+			await restaurant.deleteMenu(menuData);
+		} catch (err: any) {
+			if (err.message === ERROR_MESSAGES.MENU_NOT_FOUND) {
+				return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
+			}
+			return Status.internalError(
+				res,
+				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
+			);
+		}
+
+		return Status.success(
+			res,
+			SUCCESS_MESSAGE.MENU_SUCCESSFULLY_DELETED_FROM_RESTAURANT
+		);
+	}
 }
 
 export default new MenuController();

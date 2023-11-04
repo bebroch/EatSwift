@@ -14,7 +14,7 @@ router.use("/account", account);
 
 router.use("/auth", auth);
 
-router.use("/restaurants", publicRestaurantProfile); // TODO: Сделать публичную страницу ресторанов, также сделать показ меню и блюд
-router.use("/couriers", publicCourierProfile); // TODO: Сделать публичную страницу курьеров
+router.use("/restaurants", publicRestaurantProfile);
+router.use("/couriers", publicCourierProfile);
 
 export default router;

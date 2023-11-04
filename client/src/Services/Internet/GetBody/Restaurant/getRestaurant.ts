@@ -4,11 +4,20 @@ import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
 import { TAccount } from "../../../../interface/Account/Account";
 
 async function getRestaurantFromParams(
-	req: Request
+	req: Request & { login?: string }
 ): Promise<IRestaurant | null> {
-	const { login } = req.params;
-	const restaurant = await Restaurant.findAccountByLogin(login);
-	return restaurant;
+	const { loginFromParams } = req.params;
+	const login = req.login;
+
+	if (login) {
+		return await Restaurant.findAccountByLogin(login);
+	}
+
+	if (loginFromParams) {
+		return await Restaurant.findAccountByLogin(loginFromParams);
+	}
+
+	return null;
 }
 
 async function getRestaurantFromAccount(

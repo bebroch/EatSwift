@@ -3,6 +3,6 @@ import DishController from "../../../Controllers/Restaurant/DishController";
 
 const router = Router();
 
-router.use("/dish", DishController.getDishes);
-router.use("/dish/:id", DishController.getDish);
+router.use("/", DishController.getDishes);
+router.use("/:id", DishController.getDish);
 export default router;
