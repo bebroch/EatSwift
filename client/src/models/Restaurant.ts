@@ -7,6 +7,11 @@ import { decodeToken, generateToken } from "../Services/Internet/Jwt";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
 import { IAccountInformation } from "../interface/Account/Account";
+import Menu from "./Menu";
+import ERROR_MESSAGES from "../Message/Errors";
+import MenuSchema from "./Menu";
+import { IMenu } from "../interface/Restaurant/Menu";
+
 
 const RestaurantSchema = new mongoose.Schema(
 	{
@@ -19,14 +24,7 @@ const RestaurantSchema = new mongoose.Schema(
 		rating: { type: Number, required: true },
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
-		menu: [
-			{
-				type: mongoose.Schema.Types.ObjectId, ref: "Menu",
-				dish: [
-					{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" },
-				]
-			}
-		],
+		menu: [MenuSchema],
 	},
 	{ timestamps: true }
 );
@@ -76,7 +74,18 @@ RestaurantSchema.statics.findAccountByToken = async function (token: string) {
 	return await this.findOne({ login });
 };
 
-RestaurantSchema.statics.getRestaurantWithItems = async function (data: any) {};
+
+RestaurantSchema.methods.createMenu = async function (menuData: IMenu) {
+
+	this.menu.push(menuData);
+	console.log(this.menu);
+
+	this.save();
+
+	return this.menu;
+};
+
+RestaurantSchema.methods.createDish = async function (dishData: any) {};
 
 const Restaurant = mongoose.model<IRestaurant, IRestaurantModel>(
 	"Restaurant",

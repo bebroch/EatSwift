@@ -6,8 +6,6 @@ interface IDishItem {
 
 interface IDish {
 	_id?: ObjectId;
-	restaurant_id: ObjectId;
-	menu_id?: ObjectId;
 	name: string;
 	description: string;
 	ingredients: string[];

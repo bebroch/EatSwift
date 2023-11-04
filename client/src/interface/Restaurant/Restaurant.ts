@@ -1,7 +1,7 @@
-import { Model, ObjectId } from "mongoose";
+import { Model } from "mongoose";
 import { IRestaurantRegisterData } from "../RegisterInterface/RegisterData";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
-import { IMenuItem } from "./Menu";
+import { IMenu, IMenuData, IMenuItem } from "./Menu";
 
 interface IRestaurant extends IAccount {
 	name: string;
@@ -13,7 +13,9 @@ interface IRestaurant extends IAccount {
 	menu: IMenuItem[];
 }
 
-interface IRestaurantFunctions extends IRestaurant, IAccountFunction {}
+interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
+	createMenu(MenuData: IMenuData): Promise<IMenu>;
+}
 
 interface IRestaurantModel extends Model<IRestaurantFunctions, IAccountModel> {
 	findAccountByLogin(login: string): Promise<IRestaurantFunctions | null>;
@@ -24,4 +26,4 @@ interface IRestaurantModel extends Model<IRestaurantFunctions, IAccountModel> {
 	findAccountByToken(token: string): Promise<IRestaurantFunctions | null>;
 }
 
-export { IRestaurant, IRestaurantModel };
+export { IRestaurant, IRestaurantFunctions, IRestaurantModel };
