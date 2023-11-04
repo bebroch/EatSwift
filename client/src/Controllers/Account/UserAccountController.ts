@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
-import ClearDataService from "../../Services/DatabaseServices/Data/ClearData";
+import ClearDataService from "../../Services/DatabaseServices/Data/ClearDataService";
 import getUser from "../../Services/Internet/GetBody/getAccount";
 import { IUserFunctions } from "../../interface/User/User";
 import { IAccount } from "../../interface/Account/Account";

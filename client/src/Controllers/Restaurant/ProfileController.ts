@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 
+// TODO: Сделать аккаунт ресторану
 class ProfileController {
 	async getProfile(req: Request, res: Response) {}
 

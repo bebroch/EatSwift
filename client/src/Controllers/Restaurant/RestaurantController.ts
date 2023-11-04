@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
 import Restaurant from "../../models/Restaurant";
 import ERROR_MESSAGES from "../../Message/Errors";
-import ClearDataService from "../../Services/DatabaseServices/Data/ClearData";
+import ClearDataService from "../../Services/DatabaseServices/Data/ClearDataService";
 import getRestaurantWithItems from "../../Services/DatabaseServices/Restaurant/getRestaurantWithItems";
 import { getRestaurantFromParams } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
 
@@ -13,7 +13,7 @@ class RestaurantController {
 		const restaurantsData =
 			await ClearDataService.getRestaurantData(restaurants);
 
-		Status.success(res, { restaurantsData });
+		Status.success(res, { restaurant: restaurantsData });
 	}
 
 	async getRestaurant(req: Request, res: Response) {
@@ -23,9 +23,10 @@ class RestaurantController {
 			return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
 		}
 
-		const restaurantWithItems = await getRestaurantWithItems(restaurant);
+		const restaurantData =
+			await ClearDataService.getRestaurantData(restaurant);
 
-		Status.success(res, { restaurant: restaurantWithItems });
+		Status.success(res, { restaurant: restaurantData });
 	}
 }
 

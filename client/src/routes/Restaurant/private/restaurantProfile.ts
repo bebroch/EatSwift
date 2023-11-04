@@ -6,7 +6,6 @@ import profile from "./profile";
 const router = Router();
 
 // Личный кабинет ресторана
-// TODO: Сделать аккаунт ресторану
 
 // Профиль
 router.use("/", profile);
