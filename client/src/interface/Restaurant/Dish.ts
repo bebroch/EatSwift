@@ -14,6 +14,15 @@ interface IDishDataForDelete {
 	restaurant_id?: ObjectId;
 }
 
+interface IDishDataForFindOne {
+	_id: string | ObjectId;
+	restaurant_id?: ObjectId;
+}
+
+interface IDishDataForFindMany {
+	restaurant_id?: ObjectId;
+}
+
 interface IDish {
 	_id: ObjectId;
 	name: string;
@@ -24,8 +33,17 @@ interface IDish {
 }
 
 interface IDishModel extends Model<IDish> {
+	getDishes(dishData: IDishDataForFindMany): Promise<IDish[]>;
+	getDish(dishData: IDishDataForFindOne): Promise<IDish>;
 	createDish(dishData: IDishDataForCreate): Promise<IDish>;
 	deleteDish(dishData: IDishDataForDelete): Promise<void>;
 }
 
-export { IDishDataForCreate, IDishDataForDelete, IDish, IDishModel };
+export {
+	IDishDataForCreate,
+	IDishDataForDelete,
+	IDishDataForFindMany,
+	IDishDataForFindOne,
+	IDish,
+	IDishModel,
+};

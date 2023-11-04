@@ -1,8 +1,8 @@
 import { Model } from "mongoose";
 import { IRestaurantRegisterData } from "../RegisterInterface/RegisterData";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
-import { IMenu, IMenuDataForCreate, IMenuDataForDelete } from "./Menu";
-import { IDish, IDishDataForCreate, IDishDataForDelete } from "./Dish";
+import { IMenu, IMenuDataForCreate, IMenuDataForDelete, IMenuDataForFind } from "./Menu";
+import { IDish, IDishDataForCreate, IDishDataForDelete, IDishDataForFind } from "./Dish";
 
 interface IRestaurant extends IAccount {
 	name: string;
@@ -16,12 +16,12 @@ interface IRestaurant extends IAccount {
 
 interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
 	getMenus(): Promise<IMenu[]>;
-	getMenu(): Promise<IMenu>;
+	getMenu(menuData: IMenuDataForFind): Promise<IMenu>;
 	createMenu(MenuData: IMenuDataForCreate): Promise<IMenu>;
 	deleteMenu(MenuData: IMenuDataForDelete): Promise<void>;
 
 	getDishes(): Promise<IDish[]>;
-	getDish(): Promise<IDish>;
+	getDish(dishData: IDishDataForFind): Promise<IDish>;
 	createDish(dishData: IDishDataForCreate): Promise<IDish>;
 	deleteDish(dishData: IDishDataForDelete): Promise<void>;
 }

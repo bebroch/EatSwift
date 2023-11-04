@@ -1,17 +1,20 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import {
 	IDishDataForCreate,
 	IDishDataForDelete,
+	IDishDataForFindMany,
+	IDishDataForFindOne,
 } from "../../interface/Restaurant/Dish";
 import Dish from "../Dish";
 
 export function DishMethods(schema: mongoose.Schema) {
-	schema.methods.getDishes = async function (id: string) {
-		return await this.findById(id);
+	schema.methods.getDishes = async function () {
+		return await Dish.find({ restaurant_id: this._id });
 	};
 
-	schema.methods.getDish = async function (id: string) {
-		return await this.findById(id);
+	schema.methods.getDish = async function (dishData: IDishDataForFindOne) {
+		const { _id, restaurant_id } = dishData;
+		return await this.find({ _id, restaurant_id });
 	};
 
 	schema.methods.createDish = async function (dishData: IDishDataForCreate) {
