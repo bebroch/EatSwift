@@ -3,6 +3,11 @@ import Restaurant from "../../../../models/Restaurant";
 import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
 import { TAccount } from "../../../../interface/Account/Account";
 
+async function getAccount() {
+	
+}
+
+
 async function getRestaurantFromParams(
 	req: Request & { login?: string }
 ): Promise<IRestaurant | null> {

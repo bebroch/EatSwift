@@ -15,15 +15,29 @@ import SUCCESS_MESSAGE from "../../Message/Success";
 import ERROR_MESSAGES from "../../Message/Errors";
 
 class MenuController {
-	// TODO Сделать показ всех меню
+	// TODO Сделать, показ всех меню
 	async getMenus(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
 		return Status.success(res, restaurant.menu);
 	}
 
-	// TODO Сделать показ одного меню
+	// TODO Сделать, показ одного меню
 	async getMenu(req: Request, res: Response) {
-		const menu = await getMenu(req);
+		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
+		const menu = await getMenu(req, restaurant);
+		return Status.success(res, menu);
+	}
+
+	// TODO Сделать, показ всех меню
+	async getRestaurantProfileMenus(req: Request, res: Response) {
+		const restaurant = (await getRestaurantFromAccount(req)) as IRestaurant;
+		return Status.success(res, restaurant.menu);
+	}
+
+	// TODO Сделать, показ одного меню
+	async getRestaurantProfileMenu(req: Request, res: Response) {
+		const restaurant = (await getRestaurantFromAccount(req)) as IRestaurant;
+		const menu = await getMenu(req, restaurant);
 		return Status.success(res, menu);
 	}
 
@@ -38,9 +52,10 @@ class MenuController {
 		return Status.success(res, menu);
 	}
 
-	// TODO Сделать удаление меню
+	// TODO Сделать, удаление меню
 	async deleteMenu(req: Request, res: Response) {
 		const menuData = await getMenuData(req);
+
 		const restaurant = (await getRestaurantFromAccount(
 			req
 		)) as IRestaurantFunctions;

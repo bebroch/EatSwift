@@ -3,8 +3,8 @@ import MenuController from "../../../Controllers/Restaurant/MenuController";
 
 const router = Router();
 
-router.get("/", MenuController.getMenus);
-router.get("/:id", MenuController.getMenu);
+router.get("/", MenuController.getRestaurantProfileMenus);
+router.get("/:id", MenuController.getRestaurantProfileMenu);
 router.post("/", MenuController.createMenu);
 router.delete("/", MenuController.deleteMenu);
 

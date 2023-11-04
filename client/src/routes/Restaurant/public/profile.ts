@@ -9,7 +9,7 @@ const router = Router();
 
 router.get("/", RestaurantController.getRestaurant);
 
-router.use("/menus", menu);
+router.use("/menu", menu);
 
 router.use("/dish", dish);
 
