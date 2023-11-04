@@ -27,7 +27,7 @@ async function getAccount(account: IAccountInformation): Promise<TAccount> {
 			return await User.findOne({ login: account.login });
 		},
 		restaurant: async () => {
-			return await Restaurant.findOne({ name: account.login });
+			return await Restaurant.findOne({ login: account.login });
 		},
 		courier: async () => {
 			return await Courier.findOne({ login: account.login });

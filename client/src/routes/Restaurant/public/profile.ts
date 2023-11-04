@@ -7,7 +7,7 @@ const router = Router();
 
 // Публичный кабинет ресторана
 
-router.get("/", RestaurantController.getRestaurant); // Покажет ресторан по названию
+router.get("/", RestaurantController.getRestaurant);
 
 router.use("/menus", menu);
 

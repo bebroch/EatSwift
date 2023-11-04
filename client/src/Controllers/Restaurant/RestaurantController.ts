@@ -4,7 +4,7 @@ import Restaurant from "../../models/Restaurant";
 import ERROR_MESSAGES from "../../Message/Errors";
 import ClearDataService from "../../Services/DatabaseServices/Data/ClearData";
 import getRestaurantWithItems from "../../Services/DatabaseServices/Restaurant/getRestaurantWithItems";
-import getRestaurant from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
+import { getRestaurantFromParams } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
 
 class RestaurantController {
 	async getAllRestaurant(req: Request, res: Response) {
@@ -17,7 +17,7 @@ class RestaurantController {
 	}
 
 	async getRestaurant(req: Request, res: Response) {
-		const restaurant = await getRestaurant(req);
+		const restaurant = await getRestaurantFromParams(req);
 
 		if (!restaurant) {
 			return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);

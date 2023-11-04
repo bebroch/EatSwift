@@ -8,7 +8,7 @@ async function checkMissingFields(fields: ILoginData) {
 }
 
 async function checkAccountExist(fields: ILoginData) {
-	return getAccount(fields);
+	return await getAccount(fields);
 }
 
 export { checkMissingFields, checkAccountExist };

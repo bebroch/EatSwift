@@ -8,7 +8,7 @@ const router = Router();
 // Личный кабинет ресторана
 
 // Профиль
-router.use("/profile", profile);
+router.use("/", profile);
 
 // Меню
 router.use("/menu", menu);

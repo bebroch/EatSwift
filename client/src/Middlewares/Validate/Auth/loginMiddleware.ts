@@ -33,7 +33,7 @@ async function loginValidation(
 	const account = await checkAccountExist(loginData);
 
 	if (!account) {
-		return error(res, ERROR_MESSAGES.ACCOUNT_NOT_FOUND);
+		return Status.notFound(res, ERROR_MESSAGES.ACCOUNT_NOT_FOUND);
 	}
 
 	req.account = account;
