@@ -12,6 +12,10 @@ interface IMenuDataForDelete {
 	restaurant_id?: ObjectId;
 }
 
+interface IMenuDataForFind {
+	_id: string | ObjectId;
+}
+
 interface IMenu {
 	_id: ObjectId;
 	name: string;
@@ -26,4 +30,10 @@ interface IMenuModel extends Model<IMenu> {
 	deleteMenu(menuData: IMenuDataForDelete): Promise<void>;
 }
 
-export { IMenuDataForCreate, IMenuDataForDelete, IMenu, IMenuModel };
+export {
+	IMenuDataForCreate,
+	IMenuDataForDelete,
+	IMenuDataForFind,
+	IMenu,
+	IMenuModel,
+};

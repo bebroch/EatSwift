@@ -2,7 +2,7 @@ import { Request } from "express";
 import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
 import { IMenu } from "../../../../interface/Restaurant/Menu";
 
-async function getMenu(req: Request, restaurant: IRestaurant) {
+async function getMenuFromRequest(req: Request, restaurant: IRestaurant) {
 	const id = req.params.id as string;
 	const menu = restaurant.menu.find(
 		(item: IMenu) => item._id.toString() === id
@@ -11,4 +11,4 @@ async function getMenu(req: Request, restaurant: IRestaurant) {
 	return menu;
 }
 
-export default getMenu;
+export default getMenuFromRequest;

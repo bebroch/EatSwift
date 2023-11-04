@@ -18,6 +18,7 @@ import {
 	getMenuDataForDelete,
 } from "../../Services/Internet/GetBody/Restaurant/getMenuData";
 import Menu from "../../models/Menu";
+import getMenuFromRequest from "../../Services/Internet/GetBody/Restaurant/getMenu";
 
 class MenuController {
 	// TODO Сделать, показ всех меню
@@ -29,7 +30,7 @@ class MenuController {
 	// TODO Сделать, показ одного меню
 	async getMenuFromPublicRestaurantProfile(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
-		const menu = await getMenu(req, restaurant);
+		const menu = await getMenuFromRequest(req, restaurant);
 		return Status.success(res, menu);
 	}
 
@@ -38,14 +39,14 @@ class MenuController {
 		const restaurant = (await getRestaurantFromAccount(
 			req
 		)) as IRestaurantFunctions;
-		const menu = await restaurant.getMenu();
+		const menu = await restaurant.getMenus();
 		return Status.success(res, menu);
 	}
 
 	// TODO Сделать, показ одного меню
 	async getMenuFromPrivateRestaurantProfile(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromAccount(req)) as IRestaurant;
-		const menu = await getMenu(req, restaurant);
+		const menu = await getMenuFromRequest(req, restaurant);
 		return Status.success(res, menu);
 	}
 
@@ -60,8 +61,6 @@ class MenuController {
 		if (!menu) {
 			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_CREATED);
 		}
-
-		console.log(menu);
 
 		const formattedMenuData = await DataFormatter.getMenu(menu);
 
