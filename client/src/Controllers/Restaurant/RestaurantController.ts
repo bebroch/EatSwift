@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
 import Restaurant from "../../models/Restaurant";
 import ERROR_MESSAGES from "../../Message/Errors";
-import ClearDataService from "../../Services/DatabaseServices/Data/ClearDataService";
-import getRestaurantWithItems from "../../Services/DatabaseServices/Restaurant/getRestaurantWithItems";
+import FormatterData from "../../Services/DatabaseServices/Data/DataFormatter";
 import { getRestaurantFromParams } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
 
 class RestaurantController {
@@ -11,7 +10,7 @@ class RestaurantController {
 		const restaurants = await Restaurant.find().sort({ name: 1 });
 
 		const restaurantsData =
-			await ClearDataService.getRestaurantData(restaurants);
+			await FormatterData.getRestaurantData(restaurants);
 
 		Status.success(res, { restaurant: restaurantsData });
 	}
@@ -24,7 +23,7 @@ class RestaurantController {
 		}
 
 		const restaurantData =
-			await ClearDataService.getRestaurantData(restaurant);
+			await FormatterData.getRestaurantData(restaurant);
 
 		Status.success(res, { restaurant: restaurantData });
 	}

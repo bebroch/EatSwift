@@ -1,9 +1,17 @@
 import { Request } from "express";
-import { IMenu, IMenuData } from "../../../../interface/Restaurant/Menu";
+import {
+	IMenuDataForCreate,
+	IMenuDataForDelete,
+} from "../../../../interface/Restaurant/Menu";
 
-async function getMenuData(req: Request): Promise<IMenuData> {
-	const { id, name, description } = req.body;
-	return { id, name, description };
+async function getMenuDataForCreate(req: Request): Promise<IMenuDataForCreate> {
+	const { name, description } = req.body;
+	return { name, description };
 }
 
-export default getMenuData;
+async function getMenuDataForDelete(req: Request): Promise<IMenuDataForDelete> {
+	const { _id } = req.body;
+	return { _id };
+}
+
+export { getMenuDataForCreate, getMenuDataForDelete };

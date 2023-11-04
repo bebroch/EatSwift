@@ -1,24 +1,33 @@
 import mongoose from "mongoose";
-import { IMenu } from "../interface/Restaurant/Menu";
+import {
+	IMenu,
+	IMenuDataForCreate,
+	IMenuDataForDelete,
+	IMenuModel,
+} from "../interface/Restaurant/Menu";
 
-const MenuSchema = new mongoose.Schema(
-	{
-		name: { type: String, required: true },
-		description: { type: String, required: true },
-		dish: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
+const MenuSchema = new mongoose.Schema({
+	name: { type: String, required: true },
+	description: { type: String, required: true },
+	restaurant_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Restaurant",
+		required: true,
 	},
-	{ timestamps: true }
-);
+	dish: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
+});
 
-MenuSchema.statics.createMenu = async function (menuData: IMenu) {
-
-	const { name, description } = menuData;
-
-	const menu = new this({ name, description });
-
+MenuSchema.statics.createMenu = async function (menuData: IMenuDataForCreate) {
+	const menu = new this(menuData);
 	return menu.save();
 };
 
-// const Menu = mongoose.model<IMenu, IMenuModel>("Menu", MenuSchema);
+MenuSchema.statics.deleteMenu = async function (menuData: IMenuDataForDelete) {
+	const { _id, restaurant_id } = menuData;
+	this.find({ restaurant_id, _id }).remove();
+	// TODO Проверить ошибки
+};
 
-export default MenuSchema;
+const Menu = mongoose.model<IMenu, IMenuModel>("Menu", MenuSchema);
+
+export default Menu;

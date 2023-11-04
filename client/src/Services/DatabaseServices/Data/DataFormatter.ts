@@ -1,8 +1,8 @@
 import { ICourier } from "../../../interface/Courier/Courier";
 import { IUser } from "../../../interface/User/User";
-import ClearDataRestaurant from "./ClearDataRestaurant";
+import DataFormatterRestaurant from "./DataFormatterRestaurant";
 
-class ClearDataService extends ClearDataRestaurant {
+class DataFormatter extends DataFormatterRestaurant {
 	// Пользователи
 	async getUserData(user: IUser) {
 		const { login, email, address, phoneNumber, cart, createdAt } = user;
@@ -17,4 +17,4 @@ class ClearDataService extends ClearDataRestaurant {
 	}
 }
 
-export default new ClearDataService();
+export default new DataFormatter();

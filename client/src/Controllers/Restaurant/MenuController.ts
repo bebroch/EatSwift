@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import getMenuData from "../../Services/Internet/GetBody/Restaurant/getMenuData";
 import Status from "../../Services/Internet/Status";
 import {
 	getRestaurantFromAccount,
@@ -13,48 +12,65 @@ import {
 import getMenu from "../../Services/Internet/GetBody/Restaurant/getMenu";
 import SUCCESS_MESSAGE from "../../Message/Success";
 import ERROR_MESSAGES from "../../Message/Errors";
+import DataFormatter from "../../Services/DatabaseServices/Data/DataFormatter";
+import {
+	getMenuDataForCreate,
+	getMenuDataForDelete,
+} from "../../Services/Internet/GetBody/Restaurant/getMenuData";
+import Menu from "../../models/Menu";
 
 class MenuController {
 	// TODO Сделать, показ всех меню
-	async getMenus(req: Request, res: Response) {
+	async getMenusFromPublicRestaurantProfile(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
 		return Status.success(res, restaurant.menu);
 	}
 
 	// TODO Сделать, показ одного меню
-	async getMenu(req: Request, res: Response) {
+	async getMenuFromPublicRestaurantProfile(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
 		const menu = await getMenu(req, restaurant);
 		return Status.success(res, menu);
 	}
 
 	// TODO Сделать, показ всех меню
-	async getRestaurantProfileMenus(req: Request, res: Response) {
-		const restaurant = (await getRestaurantFromAccount(req)) as IRestaurant;
-		return Status.success(res, restaurant.menu);
+	async getMenusFromPrivateRestaurantProfile(req: Request, res: Response) {
+		const restaurant = (await getRestaurantFromAccount(
+			req
+		)) as IRestaurantFunctions;
+		const menu = await restaurant.getMenu();
+		return Status.success(res, menu);
 	}
 
 	// TODO Сделать, показ одного меню
-	async getRestaurantProfileMenu(req: Request, res: Response) {
+	async getMenuFromPrivateRestaurantProfile(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromAccount(req)) as IRestaurant;
 		const menu = await getMenu(req, restaurant);
 		return Status.success(res, menu);
 	}
 
 	async createMenu(req: Request & { account?: TAccount }, res: Response) {
-		const menuData = await getMenuData(req);
+		const menuDataForCreate = await getMenuDataForCreate(req);
 		const restaurant = (await getRestaurantFromAccount(
 			req
 		)) as IRestaurantFunctions;
 
-		const menu = await restaurant.createMenu(menuData);
+		const menu = await restaurant.createMenu(menuDataForCreate);
 
-		return Status.success(res, menu);
+		if (!menu) {
+			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_CREATED);
+		}
+
+		console.log(menu);
+
+		const formattedMenuData = await DataFormatter.getMenu(menu);
+
+		return Status.success(res, { menu: formattedMenuData });
 	}
 
 	// TODO Сделать, удаление меню
 	async deleteMenu(req: Request, res: Response) {
-		const menuData = await getMenuData(req);
+		const menuData = await getMenuDataForDelete(req);
 
 		const restaurant = (await getRestaurantFromAccount(
 			req

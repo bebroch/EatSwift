@@ -1,26 +1,29 @@
 import { Model, ObjectId } from "mongoose";
-import { IDish, IDishItem } from "./Dish";
+import { IDish } from "./Dish";
 
-interface IMenuItem {
-	menu_id: ObjectId;
-	dish: IDishItem[];
+interface IMenuDataForCreate {
+	restaurant_id?: string;
+	name: string;
+	description: string;
 }
 
-interface IMenuData {
-	id?: string;
-	name?: string;
-	description?: string;
+interface IMenuDataForDelete {
+	_id: string | ObjectId;
+	restaurant_id?: ObjectId;
 }
 
 interface IMenu {
 	_id: ObjectId;
 	name: string;
 	description: string;
+	restaurant_id: ObjectId;
 	dish: IDish[];
+	createdAt: Date;
 }
 
 interface IMenuModel extends Model<IMenu> {
-	createMenu(menuData: IMenuData): Promise<IMenu>;
+	createMenu(menuData: IMenuDataForCreate): Promise<IMenu>;
+	deleteMenu(menuData: IMenuDataForDelete): Promise<void>;
 }
 
-export { IMenuItem, IMenuData, IMenu, IMenuModel };
+export { IMenuDataForCreate, IMenuDataForDelete, IMenu, IMenuModel };

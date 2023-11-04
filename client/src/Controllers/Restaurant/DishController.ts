@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 class DishController {
 	// TODO Сделать показ всех Блюд
 	async getDishes(req: Request, res: Response) {
-		//const restaurant = await getRestaurantFromAccount(req);
+		// const restaurant = await getRestaurantFromAccount(req);
 	}
 
 	// TODO Сделать показ одного Блюда

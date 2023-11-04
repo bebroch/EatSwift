@@ -3,7 +3,7 @@ import MenuController from "../../../Controllers/Restaurant/MenuController";
 
 const router = Router();
 
-router.get("/", MenuController.getMenus);
-router.get("/:id", MenuController.getMenu);
+router.get("/", MenuController.getMenusFromPublicRestaurantProfile);
+router.get("/:id", MenuController.getMenuFromPublicRestaurantProfile);
 
 export default router;

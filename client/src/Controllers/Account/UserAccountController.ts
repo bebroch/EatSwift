@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
-import ClearDataService from "../../Services/DatabaseServices/Data/ClearDataService";
+import FormatterData from "../../Services/DatabaseServices/Data/DataFormatter";
 import getUser from "../../Services/Internet/GetBody/getAccount";
 import { IUserFunctions } from "../../interface/User/User";
 import { IAccount } from "../../interface/Account/Account";
@@ -12,7 +12,7 @@ class UserAccountController {
 	) {
 		const user = (await getUser(req)) as IUserFunctions;
 
-		const userData = await ClearDataService.getUserData(user);
+		const userData = await FormatterData.getUserData(user);
 
 		return Status.success(res, {
 			user: userData,
