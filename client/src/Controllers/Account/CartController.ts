@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
-import SUCCESS_MESSAGE from "../../Message/Seccuess";
+import SUCCESS_MESSAGE from "../../Message/Success";
 import CartService from "../../Services/DatabaseServices/Cart/CartService";
 import getUser from "../../Services/Internet/GetBody/getAccount";
 import { getDish } from "../../Services/Internet/GetBody/getDish";
