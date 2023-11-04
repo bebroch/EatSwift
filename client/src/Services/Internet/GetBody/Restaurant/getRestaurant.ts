@@ -1,11 +1,21 @@
 import { Request } from "express";
 import Restaurant from "../../../../models/Restaurant";
 import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
+import { TAccount } from "../../../../interface/Account/Account";
 
-async function getRestaurant(req: Request): Promise<IRestaurant | null> {
+async function getRestaurantFromParams(
+	req: Request
+): Promise<IRestaurant | null> {
 	const { login } = req.params;
 	const restaurant = await Restaurant.findAccountByLogin(login);
 	return restaurant;
 }
 
-export default getRestaurant;
+async function getRestaurantFromAccount(
+	req: Request & { account?: TAccount }
+): Promise<IRestaurant | null> {
+	const restaurant = req.account;
+	return restaurant as IRestaurant;
+}
+
+export { getRestaurantFromParams, getRestaurantFromAccount };

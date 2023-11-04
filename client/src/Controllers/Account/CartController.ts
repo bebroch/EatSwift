@@ -3,13 +3,14 @@ import Status from "../../Services/Internet/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Seccuess";
 import CartService from "../../Services/DatabaseServices/Cart/CartService";
-import getUser from "../../Services/Internet/GetBody/getUser";
+import getUser from "../../Services/Internet/GetBody/getAccount";
 import { getDish } from "../../Services/Internet/GetBody/getDish";
+import { IUserFunctions } from "../../interface/User/User";
 
 class CartController {
 	// Показать корзину пользователя
 	async getCart(req: Request, res: Response) {
-		const user = await getUser(req);
+		const user = (await getUser(req)) as IUserFunctions;
 		const cart = await CartService.getCartDetails(user);
 
 		return Status.success(res, { cart });
@@ -17,7 +18,7 @@ class CartController {
 
 	// Добавить в корзину пользователя
 	async addToCart(req: Request, res: Response) {
-		const user = await getUser(req);
+		const user = (await getUser(req)) as IUserFunctions;
 		const item_id = await getDish(req);
 
 		try {
@@ -33,7 +34,7 @@ class CartController {
 
 	// Удалить блюдо из корзины пользователя
 	async deleteItemFromCart(req: Request, res: Response) {
-		const user = await getUser(req);
+		const user = await getUser(req) as IUserFunctions;
 		const item_id = await getDish(req);
 
 		try {

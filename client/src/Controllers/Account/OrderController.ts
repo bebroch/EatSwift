@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
-import getUser from "../../Services/Internet/GetBody/getUser";
+import getUser from "../../Services/Internet/GetBody/getAccount";
+import { IUserFunctions } from "../../interface/User/User";
 
 class OrderController {
 	// Показать историю заказов пользователя //TODO: Доделать Просмотр заказов
 	async getOrderHistory(req: Request, res: Response) {
-		const user = await getUser(req);
+		const user = await getUser(req) as IUserFunctions;
 		const orders = user.getOrders();
 
 		return Status.success(res, orders);
