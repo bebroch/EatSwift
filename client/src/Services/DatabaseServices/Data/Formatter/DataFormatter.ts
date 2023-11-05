@@ -37,8 +37,6 @@ class DataFormatter {
 			price,
 		};
 	}
-
-	getBaseFieldsUser(data: TAccount) {}
 }
 
 export default DataFormatter;

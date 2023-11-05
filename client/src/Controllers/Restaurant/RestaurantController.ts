@@ -2,15 +2,15 @@ import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
 import Restaurant from "../../models/Restaurant";
 import ERROR_MESSAGES from "../../Message/Errors";
-import FormatterData from "../../Services/DatabaseServices/Data/Formatter/DataFormatter";
 import { getRestaurantFromParams } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
+import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/DataFormatterRestaurant";
 
 class RestaurantController {
 	async getAllRestaurant(req: Request, res: Response) {
 		const restaurants = await Restaurant.find().sort({ name: 1 });
 
 		const restaurantsData =
-			await FormatterData.getRestaurantData(restaurants);
+			DataFormatterRestaurant.getRestaurantData(restaurants);
 
 		Status.success(res, { restaurant: restaurantsData });
 	}
@@ -23,7 +23,7 @@ class RestaurantController {
 		}
 
 		const restaurantData =
-			await FormatterData.getRestaurantData(restaurant);
+			DataFormatterRestaurant.getRestaurantData(restaurant);
 
 		Status.success(res, { restaurant: restaurantData });
 	}

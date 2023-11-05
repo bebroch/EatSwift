@@ -4,6 +4,7 @@ import FormatterData from "../../Services/DatabaseServices/Data/Formatter/DataFo
 import getUser from "../../Services/Internet/GetBody/getAccount";
 import { IUserFunctions } from "../../interface/User/User";
 import { IAccount } from "../../interface/Account/Account";
+import DataFormatterUser from "../../Services/DatabaseServices/Data/Formatter/DataFormatterUser";
 
 class UserAccountController {
 	async index(
@@ -12,7 +13,7 @@ class UserAccountController {
 	) {
 		const user = (await getUser(req)) as IUserFunctions;
 
-		const userData = await FormatterData.getUserData(user);
+		const userData = await DataFormatterUser.getUserData(user);
 
 		return Status.success(res, {
 			user: userData,

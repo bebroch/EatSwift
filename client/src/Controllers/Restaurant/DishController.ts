@@ -14,7 +14,7 @@ import {
 import Status from "../../Services/Internet/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
-import DataFormatter from "../../Services/DatabaseServices/Data/Formatter/DataFormatter";
+import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/DataFormatterRestaurant";
 
 class DishController {
 	async getDishes(req: Request, res: Response) {
@@ -22,8 +22,8 @@ class DishController {
 			req
 		)) as IRestaurantFunctions;
 		const dishes = await restaurant.getDishes();
-		const dishesDataFormatted = DataFormatter.getDish(dishes);
-		return Status.success(res, { dish: dishes }); // TODO: Выделить  { dish: dishes } в отедльный метод, DataFormatter
+		const dishesDataFormatted = DataFormatterRestaurant.getDish(dishes);
+		return Status.success(res, dishesDataFormatted); // TODO: Выделить  { dish: dishes } в отедльный метод, DataFormatter
 	}
 
 	async getDish(

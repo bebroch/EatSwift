@@ -19,6 +19,7 @@ import {
 } from "../../Services/Internet/GetBody/Restaurant/getMenuData";
 import Menu from "../../models/Menu";
 import getMenuFromRequest from "../../Services/Internet/GetBody/Restaurant/getMenu";
+import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/DataFormatterRestaurant";
 
 class MenuController {
 	// TODO Сделать, показ всех меню
@@ -62,7 +63,7 @@ class MenuController {
 			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_CREATED);
 		}
 
-		const formattedMenuData = await DataFormatter.getMenu(menu);
+		const formattedMenuData = DataFormatterRestaurant.getMenuData(menu);
 
 		return Status.success(res, { menu: formattedMenuData });
 	}

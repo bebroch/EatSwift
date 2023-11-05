@@ -2,7 +2,7 @@ import { ICourier } from "../../../../interface/Courier/Courier";
 import DataFormatter from "./DataFormatter";
 
 class DataFormatterCourier extends DataFormatter {
-	async getCourierData(courier: ICourier) {
+	getCourierData(courier: ICourier) {
 		const { firstName, lastName, phoneNumber } = courier;
 
 		return {
