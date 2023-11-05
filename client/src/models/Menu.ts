@@ -3,6 +3,8 @@ import {
 	IMenu,
 	IMenuDataForCreate,
 	IMenuDataForDelete,
+	IMenuDataForFindMany,
+	IMenuDataForFindOne,
 	IMenuModel,
 } from "../interface/Restaurant/Menu";
 
@@ -14,8 +16,19 @@ const MenuSchema = new mongoose.Schema({
 		ref: "Restaurant",
 		required: true,
 	},
-	dish: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
 });
+
+MenuSchema.statics.getMenus = async function (menuData: IMenuDataForFindMany) {
+	const { restaurant_id } = menuData;
+	const menus = await this.find({ restaurant_id });
+	return menus;
+};
+
+MenuSchema.statics.getMenu = async function (menuData: IMenuDataForFindOne) {
+	const { _id, restaurant_id } = menuData;
+	const menu = this.findOne({ _id, restaurant_id });
+	return menu;
+};
 
 MenuSchema.statics.createMenu = async function (menuData: IMenuDataForCreate) {
 	const menu = new this(menuData);
@@ -25,7 +38,6 @@ MenuSchema.statics.createMenu = async function (menuData: IMenuDataForCreate) {
 MenuSchema.statics.deleteMenu = async function (menuData: IMenuDataForDelete) {
 	const { _id, restaurant_id } = menuData;
 	this.find({ restaurant_id, _id }).remove();
-	// TODO Проверить ошибки
 };
 
 const Menu = mongoose.model<IMenu, IMenuModel>("Menu", MenuSchema);

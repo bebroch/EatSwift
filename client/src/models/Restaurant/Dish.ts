@@ -9,12 +9,14 @@ import Dish from "../Dish";
 
 export function DishMethods(schema: mongoose.Schema) {
 	schema.methods.getDishes = async function () {
-		return await Dish.find({ restaurant_id: this._id });
+		return await Dish.getDishes({ restaurant_id: this._id });
 	};
 
 	schema.methods.getDish = async function (dishData: IDishDataForFindOne) {
-		const { _id, restaurant_id } = dishData;
-		return await this.find({ _id, restaurant_id });
+		return await Dish.getDish({
+			_id: dishData._id,
+			restaurant_id: this._id,
+		});
 	};
 
 	schema.methods.createDish = async function (dishData: IDishDataForCreate) {

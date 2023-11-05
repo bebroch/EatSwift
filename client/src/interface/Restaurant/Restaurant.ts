@@ -1,13 +1,23 @@
 import { Model } from "mongoose";
 import { IRestaurantRegisterData } from "../RegisterInterface/RegisterData";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
-import { IMenu, IMenuDataForCreate, IMenuDataForDelete, IMenuDataForFind } from "./Menu";
-import { IDish, IDishDataForCreate, IDishDataForDelete, IDishDataForFind } from "./Dish";
+import {
+	IMenu,
+	IMenuDataForCreate,
+	IMenuDataForDelete,
+	IMenuDataForFindOne,
+} from "./Menu";
+import {
+	IDish,
+	IDishDataForCreate,
+	IDishDataForDelete,
+	IDishDataForFindOne,
+} from "./Dish";
 
 interface IRestaurant extends IAccount {
 	name: string;
 	description?: string;
-	address?: string;
+	addresses?: string;
 	contactInfo?: string;
 	rating: number;
 	password: string;
@@ -15,13 +25,15 @@ interface IRestaurant extends IAccount {
 }
 
 interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
+	getRestaurantData(): Promise<IRestaurant>;
+
 	getMenus(): Promise<IMenu[]>;
-	getMenu(menuData: IMenuDataForFind): Promise<IMenu>;
+	getMenu(menuData: IMenuDataForFindOne): Promise<IMenu>;
 	createMenu(MenuData: IMenuDataForCreate): Promise<IMenu>;
 	deleteMenu(MenuData: IMenuDataForDelete): Promise<void>;
 
 	getDishes(): Promise<IDish[]>;
-	getDish(dishData: IDishDataForFind): Promise<IDish>;
+	getDish(dishData: IDishDataForFindOne): Promise<IDish>;
 	createDish(dishData: IDishDataForCreate): Promise<IDish>;
 	deleteDish(dishData: IDishDataForDelete): Promise<void>;
 }

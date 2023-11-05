@@ -22,10 +22,12 @@ class RestaurantController {
 			return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
 		}
 
-		const restaurantData =
-			DataFormatterRestaurant.getRestaurantData(restaurant);
+		const restaurantData = await restaurant.getRestaurantData();
 
-		Status.success(res, { restaurant: restaurantData });
+		const restaurantFormattedData =
+			DataFormatterRestaurant.getRestaurantData(restaurantData);
+
+		Status.success(res, { restaurant: restaurantFormattedData });
 	}
 }
 

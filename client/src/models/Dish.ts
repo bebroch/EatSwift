@@ -38,7 +38,6 @@ DishSchema.statics.createDish = async function (dishData: IDishDataForCreate) {
 DishSchema.statics.deleteDish = async function (dishData: IDishDataForDelete) {
 	const { _id, restaurant_id } = dishData;
 	const dish = await this.findOne({ _id, restaurant_id });
-	console.log(dish);
 	if (!dish) throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
 
 	await this.deleteOne({ _id, restaurant_id });

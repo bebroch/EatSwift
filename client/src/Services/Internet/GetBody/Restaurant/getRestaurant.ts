@@ -1,16 +1,16 @@
 import { Request } from "express";
 import Restaurant from "../../../../models/Restaurant";
-import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
+import {
+	IRestaurant,
+	IRestaurantFunctions,
+} from "../../../../interface/Restaurant/Restaurant";
 import { TAccount } from "../../../../interface/Account/Account";
 
-async function getAccount() {
-	
-}
-
+async function getAccount() {}
 
 async function getRestaurantFromParams(
 	req: Request & { login?: string }
-): Promise<IRestaurant | null> {
+): Promise<IRestaurantFunctions | null> {
 	const { loginFromParams } = req.params;
 	const login = req.login;
 
@@ -27,9 +27,9 @@ async function getRestaurantFromParams(
 
 async function getRestaurantFromAccount(
 	req: Request & { account?: TAccount }
-): Promise<IRestaurant | null> {
+): Promise<IRestaurantFunctions | null> {
 	const restaurant = req.account;
-	return restaurant as IRestaurant;
+	return restaurant as IRestaurantFunctions;
 }
 
 export { getRestaurantFromParams, getRestaurantFromAccount };

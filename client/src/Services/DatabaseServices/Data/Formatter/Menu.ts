@@ -5,7 +5,7 @@ class DataFormatterMenu extends DataFormatterDish {
 	// Меню
 	getMenuData(menu: IMenu | Array<IMenu>) {
 		if (Array.isArray(menu)) {
-			return menu.map(async (menu: any) => {
+			return menu.map((menu: any) => {
 				return {
 					...this.getBaseFieldsMenu(menu),
 					dish: this.getDishData(menu.dish),

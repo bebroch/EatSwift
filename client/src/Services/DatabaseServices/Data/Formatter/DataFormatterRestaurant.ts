@@ -11,6 +11,7 @@ class DataFormatterRestaurant extends DataFormatterMenu {
 
 		return {
 			...this.getBaseFieldsRestaurant(restaurant),
+			addresses: restaurant.addresses,
 			menu: this.getMenuData(restaurant.menu),
 		};
 	}

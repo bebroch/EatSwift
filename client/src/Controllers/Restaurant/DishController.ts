@@ -22,7 +22,7 @@ class DishController {
 			req
 		)) as IRestaurantFunctions;
 		const dishes = await restaurant.getDishes();
-		const dishesDataFormatted = DataFormatterRestaurant.getDish(dishes);
+		const dishesDataFormatted = DataFormatterRestaurant.getDishData(dishes);
 		return Status.success(res, dishesDataFormatted); // TODO: Выделить  { dish: dishes } в отедльный метод, DataFormatter
 	}
 

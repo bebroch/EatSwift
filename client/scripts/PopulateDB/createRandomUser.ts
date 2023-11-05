@@ -6,7 +6,7 @@ function createRandomUser() {
 	return {
 		login: faker.person.firstName(),
 		email: faker.internet.email(),
-		address: faker.location.city(),
+		addresses: faker.location.city(),
 		phoneNumber: faker.person.firstName(),
 		password: password,
 		confirmPassword: password,
