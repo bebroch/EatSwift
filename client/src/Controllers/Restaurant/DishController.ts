@@ -14,18 +14,18 @@ import {
 import Status from "../../Services/Internet/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
+import DataFormatter from "../../Services/DatabaseServices/Data/Formatter/DataFormatter";
 
 class DishController {
-	
 	async getDishes(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromAccount(
 			req
 		)) as IRestaurantFunctions;
 		const dishes = await restaurant.getDishes();
+		const dishesDataFormatted = DataFormatter.getDish(dishes);
 		return Status.success(res, { dish: dishes }); // TODO: Выделить  { dish: dishes } в отедльный метод, DataFormatter
 	}
 
-	
 	async getDish(
 		req: Request | (Request & IDishDataForFindOne),
 		res: Response
@@ -40,7 +40,6 @@ class DishController {
 		return Status.success(res, dishes);
 	}
 
-	
 	async createDish(
 		req: Request | (Request & IDishDataForCreate),
 		res: Response
@@ -55,7 +54,6 @@ class DishController {
 		return Status.success(res, dish);
 	}
 
-	
 	async deleteDish(
 		req: Request | (Request & IDishDataForDelete),
 		res: Response

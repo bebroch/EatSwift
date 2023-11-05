@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
 import Restaurant from "../../models/Restaurant";
 import ERROR_MESSAGES from "../../Message/Errors";
-import FormatterData from "../../Services/DatabaseServices/Data/DataFormatter";
+import FormatterData from "../../Services/DatabaseServices/Data/Formatter/DataFormatter";
 import { getRestaurantFromParams } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
 
 class RestaurantController {

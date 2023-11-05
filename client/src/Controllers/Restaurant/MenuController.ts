@@ -12,7 +12,7 @@ import {
 import getMenu from "../../Services/Internet/GetBody/Restaurant/getMenu";
 import SUCCESS_MESSAGE from "../../Message/Success";
 import ERROR_MESSAGES from "../../Message/Errors";
-import DataFormatter from "../../Services/DatabaseServices/Data/DataFormatter";
+import DataFormatter from "../../Services/DatabaseServices/Data/Formatter/DataFormatter";
 import {
 	getMenuDataForCreate,
 	getMenuDataForDelete,
