@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import {
+	IMenuDataForFindOne,
 	IMenuDataForCreate,
 	IMenuDataForDelete,
-	IMenuDataForFindOne,
-} from "../../interface/Restaurant/Menu";
+	IMenuDataForAddToMenu,
+} from "../../interface/Restaurant/Menu/MenuTypes";
 import Menu from "../Menu";
 
 export function MenuMethods(schema: mongoose.Schema) {
@@ -26,5 +27,11 @@ export function MenuMethods(schema: mongoose.Schema) {
 	schema.methods.deleteMenu = async function (menuData: IMenuDataForDelete) {
 		menuData.restaurant_id = this._id;
 		await Menu.deleteMenu(menuData);
+	};
+
+	schema.methods.addDishToMenu = async function (
+		menuData: IMenuDataForAddToMenu
+	) {
+		return await Menu.addDishToMenu(menuData);
 	};
 }

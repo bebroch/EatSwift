@@ -1,11 +1,11 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose from "mongoose";
+
+import Dish from "../Dish";
 import {
+	IDishDataForFindOne,
 	IDishDataForCreate,
 	IDishDataForDelete,
-	IDishDataForFindMany,
-	IDishDataForFindOne,
-} from "../../interface/Restaurant/Dish";
-import Dish from "../Dish";
+} from "../../interface/Restaurant/DIsh/DishTypes";
 
 export function DishMethods(schema: mongoose.Schema) {
 	schema.methods.getDishes = async function () {

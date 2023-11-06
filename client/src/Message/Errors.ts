@@ -21,7 +21,7 @@ const ERROR_MESSAGES = {
 	RESTAURANT_NOT_FOUND: "Restaurant not found",
 	MENU_NOT_CREATED: "Menu not created",
 	MENU_NOT_FOUND: "Menu not found",
-	
+	MENU_ID_AND_DISH_ID_REQUIRED: "menu_id and dish_id are required",
 };
 
 export default ERROR_MESSAGES;

@@ -3,7 +3,7 @@ import { ICart } from "./Cart";
 import { IOrder } from "./Order";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { IUserRegisterData } from "../RegisterInterface/RegisterData";
-import { IDish } from "../Restaurant/Dish";
+import { IDish } from "../Restaurant/DIsh/DishModel";
 
 interface ICartItem {
 	dish: ObjectId;
