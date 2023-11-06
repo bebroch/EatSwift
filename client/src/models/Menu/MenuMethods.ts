@@ -14,11 +14,6 @@ import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
 import { formatterDataMenu } from "../../Services/DatabaseServices/Data/Formatter/Menu";
 
 export function MenuMethods(schema: mongoose.Schema) {
-	schema.path("dish").validate(async function (value) {
-		const uniqueDishIds = [...new Set(value)];
-		return uniqueDishIds.length === value.length;
-	}, "Dish IDs in the array must be unique.");
-
 	schema.statics.getMenus = async function (menuData: IMenuDataForFindMany) {
 		const { restaurant_id } = menuData;
 		const menus = await this.find({ restaurant_id });

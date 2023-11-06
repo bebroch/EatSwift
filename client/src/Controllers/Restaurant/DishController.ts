@@ -54,6 +54,7 @@ class DishController {
 		return Status.success(res, dish);
 	}
 
+	// TODO Блюдо не удаляется из меню
 	async deleteDish(
 		req: Request | (Request & IDishDataForDelete),
 		res: Response
@@ -62,6 +63,7 @@ class DishController {
 			req
 		) as IRestaurantFunctions;
 
+		// TODO: Переделать: брать из строки поиска
 		const dishData = await getDishDataForDelete(
 			req as Request & IDishDataForDelete
 		);
@@ -73,6 +75,7 @@ class DishController {
 				SUCCESS_MESSAGE.DISH_SUCCESSFULLY_DELETED_FROM_RESTAURANT
 			);
 		} catch (err: any) {
+			console.log(err.message);
 			if (err.message === ERROR_MESSAGES.DISH_NOT_FOUND) {
 				return Status.notFound(res, ERROR_MESSAGES.DISH_NOT_FOUND);
 			}
