@@ -6,19 +6,15 @@ import {
 	getDishDataForDelete,
 	getDishDataForFind,
 } from "../../Services/Internet/GetBody/Restaurant/getDishData";
-import {
-	IDishDataForCreate,
-	IDishDataForDelete,
-	IDishDataForFindOne,
-} from "../../interface/Restaurant/Dish";
 import Status from "../../Services/Internet/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
 import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/DataFormatterRestaurant";
+import { IDishDataForFindOne, IDishDataForCreate, IDishDataForDelete } from "../../interface/Restaurant/DIsh/DishTypes";
 
 class DishController {
 	async getDishes(req: Request, res: Response) {
-		const restaurant = (await getRestaurantFromAccount(
+		const restaurant = ( getRestaurantFromAccount(
 			req
 		)) as IRestaurantFunctions;
 		const dishes = await restaurant.getDishes();
@@ -30,7 +26,7 @@ class DishController {
 		req: Request | (Request & IDishDataForFindOne),
 		res: Response
 	) {
-		const restaurant = (await getRestaurantFromAccount(
+		const restaurant = ( getRestaurantFromAccount(
 			req
 		)) as IRestaurantFunctions;
 		const dishData = await getDishDataForFind(
@@ -44,7 +40,7 @@ class DishController {
 		req: Request | (Request & IDishDataForCreate),
 		res: Response
 	) {
-		const restaurant = (await getRestaurantFromAccount(
+		const restaurant = ( getRestaurantFromAccount(
 			req
 		)) as IRestaurantFunctions;
 		const dishDataForCreate = await getDishDataForCreate(
@@ -58,7 +54,7 @@ class DishController {
 		req: Request | (Request & IDishDataForDelete),
 		res: Response
 	) {
-		const restaurant = (await getRestaurantFromAccount(
+		const restaurant = ( getRestaurantFromAccount(
 			req
 		)) as IRestaurantFunctions;
 

@@ -25,9 +25,9 @@ async function getRestaurantFromParams(
 	return null;
 }
 
-async function getRestaurantFromAccount(
+function getRestaurantFromAccount(
 	req: Request & { account?: TAccount }
-): Promise<IRestaurantFunctions | null> {
+): IRestaurantFunctions | null {
 	const restaurant = req.account;
 	return restaurant as IRestaurantFunctions;
 }

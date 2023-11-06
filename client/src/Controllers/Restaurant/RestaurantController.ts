@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Status from "../../Services/Internet/Status";
 import Restaurant from "../../models/Restaurant";
 import ERROR_MESSAGES from "../../Message/Errors";
-import { getRestaurantFromParams } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
+import { getRestaurantFromAccount } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
 import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/DataFormatterRestaurant";
 
 class RestaurantController {
@@ -16,7 +16,7 @@ class RestaurantController {
 	}
 
 	async getRestaurant(req: Request, res: Response) {
-		const restaurant = await getRestaurantFromParams(req);
+		const restaurant = getRestaurantFromAccount(req);
 
 		if (!restaurant) {
 			return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
