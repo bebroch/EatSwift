@@ -18,6 +18,10 @@ import {
 	IRestaurant,
 	IRestaurantFunctions,
 } from "../../interface/Restaurant/Restaurant";
+import {
+	getMenuWithDishDetails,
+	getMenusWithDishDetails,
+} from "../../Services/DatabaseServices/Data/Menu/getMenuWithDishDetails";
 
 class MenuController {
 	// TODO Сделать, показ всех меню
@@ -28,7 +32,9 @@ class MenuController {
 
 	// TODO Сделать, показ одного меню
 	async getMenuFromPublicRestaurantProfile(req: Request, res: Response) {
-		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
+		const restaurant = (await getRestaurantFromParams(
+			req
+		)) as IRestaurantFunctions;
 		const menu = await getMenuFromRequest(req, restaurant);
 		return Status.success(res, menu);
 	}
@@ -39,14 +45,28 @@ class MenuController {
 			req
 		) as IRestaurantFunctions;
 		const menu = await restaurant.getMenus();
-		return Status.success(res, menu);
+		const menusWithDishData = await getMenusWithDishDetails(menu);
+		const formattedMenu =
+			DataFormatterRestaurant.getMenuData(menusWithDishData);
+
+		return Status.success(res, formattedMenu);
 	}
 
 	// TODO Сделать, показ одного меню
 	async getMenuFromPrivateRestaurantProfile(req: Request, res: Response) {
-		const restaurant = getRestaurantFromAccount(req) as IRestaurant;
+		const restaurant = getRestaurantFromAccount(
+			req
+		) as IRestaurantFunctions;
 		const menu = await getMenuFromRequest(req, restaurant);
-		return Status.success(res, menu);
+
+		if (!menu) {
+			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
+		}
+
+		const menuWithDishData = await getMenuWithDishDetails(menu);
+		const formattedMenu =
+			DataFormatterRestaurant.getMenuData(menuWithDishData); // 1
+		return Status.success(res, formattedMenu);
 	}
 
 	async createMenu(req: Request & { account?: TAccount }, res: Response) {

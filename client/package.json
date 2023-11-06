@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "ts-node-dev --respawn src/server.ts",
+		"test": "ts-node-dev test/index.ts",
 		"populateDB": "ts-node-dev scripts/PopulateDB/generateData.ts",
 		"prod": "node dist/server.js",
 		"build": "tsc",

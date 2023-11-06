@@ -10,13 +10,17 @@ import Status from "../../Services/Internet/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
 import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/DataFormatterRestaurant";
-import { IDishDataForFindOne, IDishDataForCreate, IDishDataForDelete } from "../../interface/Restaurant/DIsh/DishTypes";
+import {
+	IDishDataForFindOne,
+	IDishDataForCreate,
+	IDishDataForDelete,
+} from "../../interface/Restaurant/DIsh/DishTypes";
 
 class DishController {
 	async getDishes(req: Request, res: Response) {
-		const restaurant = ( getRestaurantFromAccount(
+		const restaurant = getRestaurantFromAccount(
 			req
-		)) as IRestaurantFunctions;
+		) as IRestaurantFunctions;
 		const dishes = await restaurant.getDishes();
 		const dishesDataFormatted = DataFormatterRestaurant.getDishData(dishes);
 		return Status.success(res, dishesDataFormatted); // TODO: Выделить  { dish: dishes } в отедльный метод, DataFormatter
@@ -26,9 +30,9 @@ class DishController {
 		req: Request | (Request & IDishDataForFindOne),
 		res: Response
 	) {
-		const restaurant = ( getRestaurantFromAccount(
+		const restaurant = getRestaurantFromAccount(
 			req
-		)) as IRestaurantFunctions;
+		) as IRestaurantFunctions;
 		const dishData = await getDishDataForFind(
 			req as Request & IDishDataForFindOne
 		);
@@ -40,9 +44,9 @@ class DishController {
 		req: Request | (Request & IDishDataForCreate),
 		res: Response
 	) {
-		const restaurant = ( getRestaurantFromAccount(
+		const restaurant = getRestaurantFromAccount(
 			req
-		)) as IRestaurantFunctions;
+		) as IRestaurantFunctions;
 		const dishDataForCreate = await getDishDataForCreate(
 			req as Request & IDishDataForCreate
 		);
@@ -54,9 +58,9 @@ class DishController {
 		req: Request | (Request & IDishDataForDelete),
 		res: Response
 	) {
-		const restaurant = ( getRestaurantFromAccount(
+		const restaurant = getRestaurantFromAccount(
 			req
-		)) as IRestaurantFunctions;
+		) as IRestaurantFunctions;
 
 		const dishData = await getDishDataForDelete(
 			req as Request & IDishDataForDelete

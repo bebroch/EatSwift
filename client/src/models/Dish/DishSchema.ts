@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { DishMethods } from "./DishMethods";
 
 const DishSchema = new mongoose.Schema({
 	name: { type: String, required: true },
@@ -8,5 +9,7 @@ const DishSchema = new mongoose.Schema({
 	price: { type: Number, required: true },
 	restaurant_id: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
 });
+
+DishMethods(DishSchema);
 
 export default DishSchema;

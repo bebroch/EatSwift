@@ -1,12 +1,14 @@
 import { Request } from "express";
-import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
+import { IRestaurantFunctions } from "../../../../interface/Restaurant/Restaurant";
 import { IMenu } from "../../../../interface/Restaurant/Menu/MenuModel";
 
-async function getMenuFromRequest(req: Request, restaurant: IRestaurant) {
+async function getMenuFromRequest(
+	req: Request,
+	restaurant: IRestaurantFunctions
+) {
 	const id = req.params.id as string;
-	const menu = restaurant.menu.find(
-		(item: IMenu) => item._id.toString() === id
-	);
+
+	const menu = restaurant.getMenu({ _id: id });
 
 	return menu;
 }

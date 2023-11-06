@@ -13,4 +13,6 @@ class DataFormatterDish extends DataFormatter {
 	}
 }
 
-export default DataFormatterDish;
+const formatterDataDish = new DataFormatterDish();
+
+export { DataFormatterDish, formatterDataDish };

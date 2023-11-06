@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 
 // TODO: Сделать валидацию
 function CreateDishValidator(req: Request, res: Response, next: NextFunction) {
-    next();
+    
+	next();
 }
 
 export default CreateDishValidator;

@@ -1,5 +1,5 @@
 import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
-import DataFormatterMenu from "./Menu";
+import { DataFormatterMenu } from "./Menu";
 
 class DataFormatterRestaurant extends DataFormatterMenu {
 	getRestaurantData(restaurant: IRestaurant | Array<IRestaurant>) {

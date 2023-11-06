@@ -15,7 +15,7 @@ interface IMenu {
 	restaurant_id: ObjectId;
 	dish: IDish[];
 	createdAt: Date;
-	updateAt: Date;
+	updatedAt: Date;
 }
 
 interface IMenuModel extends Model<IMenu> {

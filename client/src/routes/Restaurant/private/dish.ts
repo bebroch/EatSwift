@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/", DishController.getDishes);
 router.get("/:id", DishController.getDish);
-router.post("/", CreateDishValidator, DishController.createDish);
+router.post("/", /*CreateDishValidator,*/ DishController.createDish);
 router.delete("/", DeleteDishValidator, DishController.deleteDish);
 
 export default router;

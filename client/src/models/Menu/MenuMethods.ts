@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import ERROR_MESSAGES from "../../Message/Errors";
 import {
 	IMenuDataForFindMany,
@@ -9,6 +9,9 @@ import {
 } from "../../interface/Restaurant/Menu/MenuTypes";
 import Dish from "../Dish";
 import MenuSchema from "./MenuSchema";
+import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
+import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
+import { formatterDataMenu } from "../../Services/DatabaseServices/Data/Formatter/Menu";
 
 export function MenuMethods(schema: mongoose.Schema) {
 	schema.path("dish").validate(async function (value) {
@@ -24,7 +27,7 @@ export function MenuMethods(schema: mongoose.Schema) {
 
 	schema.statics.getMenu = async function (menuData: IMenuDataForFindOne) {
 		const { _id, restaurant_id } = menuData;
-		const menu = this.findOne({ _id, restaurant_id });
+		const menu = await this.findOne({ _id, restaurant_id });
 		return menu;
 	};
 

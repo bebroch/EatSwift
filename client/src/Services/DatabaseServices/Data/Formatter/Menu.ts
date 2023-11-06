@@ -1,5 +1,5 @@
 import { IMenu } from "../../../../interface/Restaurant/Menu/MenuModel";
-import DataFormatterDish from "./Dish";
+import { DataFormatterDish } from "./Dish";
 
 class DataFormatterMenu extends DataFormatterDish {
 	// Меню
@@ -20,4 +20,6 @@ class DataFormatterMenu extends DataFormatterDish {
 	}
 }
 
-export default DataFormatterMenu;
+const formatterDataMenu = new DataFormatterMenu();
+
+export { DataFormatterMenu, formatterDataMenu };
