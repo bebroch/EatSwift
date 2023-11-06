@@ -1,7 +1,9 @@
 import { Request } from "express";
 import {
+	IDishDataForAddToCart,
 	IDishDataForCreate,
 	IDishDataForDelete,
+	IDishDataForDeleteFromCart,
 	IDishDataForFindOne,
 } from "../../../../interface/Restaurant/DIsh/DishTypes";
 
@@ -20,4 +22,22 @@ function getDishDataForFind(req: Request & IDishDataForFindOne) {
 	return { _id };
 }
 
-export { getDishDataForCreate, getDishDataForDelete, getDishDataForFind };
+function getDishDataForAddToCart(req: Request & IDishDataForAddToCart) {
+	const { _id } = req.body;
+	return { _id };
+}
+
+function getDishDataForDeleteFromCart(
+	req: Request & IDishDataForDeleteFromCart
+) {
+	const { _id } = req.body;
+	return { _id };
+}
+
+export {
+	getDishDataForCreate,
+	getDishDataForDelete,
+	getDishDataForFind,
+	getDishDataForAddToCart,
+	getDishDataForDeleteFromCart,
+};

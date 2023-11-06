@@ -1,5 +1,5 @@
-import { ICourier } from "../../../../interface/Courier/Courier";
-import DataFormatter from "./DataFormatter";
+import { ICourier } from "../../../../../interface/Courier/Courier";
+import DataFormatter from "../DataFormatter";
 
 class DataFormatterCourier extends DataFormatter {
 	getCourierData(courier: ICourier) {

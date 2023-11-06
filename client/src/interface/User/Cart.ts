@@ -1,8 +1,8 @@
 import { Model, ObjectId } from "mongoose";
 import { IDish } from "../Restaurant/DIsh/DishModel";
 
-interface ICart extends Document {
-	items?: IDish[];
+interface ICart {
+	cart: IDish[];
 }
 
 interface ICartModel extends Model<ICart> {

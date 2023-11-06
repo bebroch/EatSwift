@@ -12,5 +12,6 @@ router.post("/", CreateMenuValidator, MenuController.createMenu);
 router.delete("/", DeleteMenuValidator, MenuController.deleteMenu);
 
 router.post("/:menu_id", UpdateMenuValidator, MenuController.updateMenu);
+// TODO: Добавить удаление блюда из меню
 
 export default router;

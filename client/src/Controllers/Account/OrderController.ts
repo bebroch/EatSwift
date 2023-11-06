@@ -12,6 +12,7 @@ class OrderController {
 		return Status.success(res, orders);
 	}
 
+	// TODO: Сделать оформление заказа
 	async makeOrder(req: Request, res: Response) {
 		const user = await getUser(req);
 

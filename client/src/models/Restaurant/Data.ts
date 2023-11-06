@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { getMenusWithDishDetails } from "../../Services/DatabaseServices/Data/Menu/getMenuWithDishDetails";
+import { getMenusWithDishDetails } from "../../Services/DatabaseServices/Data/getWithDetails/Menu/getMenuWithDishDetails";
 
 export function DataMethods(schema: mongoose.Schema) {
 	schema.methods.getRestaurantData = async function () {

@@ -1,4 +1,4 @@
-import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
+import { IRestaurant } from "../../../../../interface/Restaurant/Restaurant";
 import { DataFormatterMenu } from "./Menu";
 
 class DataFormatterRestaurant extends DataFormatterMenu {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
-import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/DataFormatterRestaurant";
+import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
 import getMenuFromRequest from "../../Services/Internet/GetBody/Restaurant/getMenu";
 import {
 	getMenuDataForAddDishToMenu,
@@ -21,16 +21,14 @@ import {
 import {
 	getMenuWithDishDetails,
 	getMenusWithDishDetails,
-} from "../../Services/DatabaseServices/Data/Menu/getMenuWithDishDetails";
+} from "../../Services/DatabaseServices/Data/getWithDetails/Menu/getMenuWithDishDetails";
 
 class MenuController {
-	// TODO Сделать, показ всех меню
 	async getMenusFromPublicRestaurantProfile(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
 		return Status.success(res, restaurant.menu);
 	}
 
-	// TODO Сделать, показ одного меню
 	async getMenuFromPublicRestaurantProfile(req: Request, res: Response) {
 		const restaurant = (await getRestaurantFromParams(
 			req
@@ -39,7 +37,6 @@ class MenuController {
 		return Status.success(res, menu);
 	}
 
-	// TODO Сделать, показ всех меню
 	async getMenusFromPrivateRestaurantProfile(req: Request, res: Response) {
 		const restaurant = getRestaurantFromAccount(
 			req
@@ -52,7 +49,6 @@ class MenuController {
 		return Status.success(res, formattedMenu);
 	}
 
-	// TODO Сделать, показ одного меню
 	async getMenuFromPrivateRestaurantProfile(req: Request, res: Response) {
 		const restaurant = getRestaurantFromAccount(
 			req
@@ -86,7 +82,6 @@ class MenuController {
 		return Status.success(res, { menu: formattedMenuData });
 	}
 
-	// TODO Сделать, удаление меню
 	async deleteMenu(req: Request, res: Response) {
 		const menuData = await getMenuDataForDelete(req);
 

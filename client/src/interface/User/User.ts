@@ -1,12 +1,12 @@
 import { Model, ObjectId } from "mongoose";
-import { ICart } from "./Cart";
 import { IOrder } from "./Order";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { IUserRegisterData } from "../RegisterInterface/RegisterData";
 import { IDish } from "../Restaurant/DIsh/DishModel";
 
 interface ICartItem {
-	dish: ObjectId;
+	_id: ObjectId;
+	dish: IDish;
 	quantity: number;
 }
 
@@ -18,10 +18,11 @@ interface IUser extends IAccount {
 }
 
 interface IUserFunctions extends IUser, IAccountFunction {
-	getCart(): Promise<ICart>;
+	getCart(): Promise<ICartItem[]>;
 	getOrders(): Promise<IOrder[]>;
 	addToCart(itemData: any): Promise<void>;
 	deleteItemFromCart(itemData: any): Promise<void>;
+	getUserDataWithCart(): Promise<IUserFunctions>;
 }
 
 interface IUserModel extends Model<IUserFunctions, IAccountModel> {

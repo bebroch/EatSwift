@@ -2,6 +2,7 @@ import { TAccount } from "../../../../interface/Account/Account";
 import { IDish } from "../../../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../../../interface/Restaurant/Menu/MenuModel";
 import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
+import { ICartItem } from "../../../../interface/User/User";
 
 class DataFormatter {
 	getAccountBaseFields(data: TAccount) {
@@ -9,8 +10,8 @@ class DataFormatter {
 			return null;
 		}
 
-		const { login, email, createdAt } = data;
-		return { login, email, createdAt };
+		const { _id, login, email, createdAt } = data;
+		return { _id, login, email, createdAt };
 	}
 
 	getMenuOrDishBaseFields(data: IMenu | IDish) {
@@ -51,6 +52,11 @@ class DataFormatter {
 			picture,
 			price,
 		};
+	}
+
+	getBaseFieldsCart(data: ICartItem) {
+		const { _id, quantity } = data;
+		return { _id, quantity };
 	}
 }
 

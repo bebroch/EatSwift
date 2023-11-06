@@ -3,7 +3,7 @@ import Status from "../../Services/Internet/Status";
 import Restaurant from "../../models/Restaurant";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { getRestaurantFromAccount } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
-import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/DataFormatterRestaurant";
+import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
 
 class RestaurantController {
 	async getAllRestaurant(req: Request, res: Response) {

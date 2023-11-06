@@ -23,11 +23,19 @@ interface IDishDataForFindMany {
 	restaurant_id?: ObjectId;
 }
 
+interface IDishDataForAddToCart {
+	_id: string | ObjectId;
+}
 
+interface IDishDataForDeleteFromCart {
+	_id: string | ObjectId;
+}
 
 export {
 	IDishDataForCreate,
 	IDishDataForDelete,
 	IDishDataForFindMany,
 	IDishDataForFindOne,
+	IDishDataForAddToCart,
+	IDishDataForDeleteFromCart,
 };

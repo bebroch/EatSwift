@@ -11,7 +11,7 @@ import Dish from "../Dish";
 import MenuSchema from "./MenuSchema";
 import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
-import { formatterDataMenu } from "../../Services/DatabaseServices/Data/Formatter/Menu";
+import { formatterDataMenu } from "../../Services/DatabaseServices/Data/Formatter/Restaurant/Menu";
 
 export function MenuMethods(schema: mongoose.Schema) {
 	schema.statics.getMenus = async function (menuData: IMenuDataForFindMany) {

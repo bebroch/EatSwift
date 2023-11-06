@@ -1,5 +1,5 @@
-import { IDish } from "../../../../interface/Restaurant/DIsh/DishModel";
-import DataFormatter from "./DataFormatter";
+import { IDish } from "../../../../../interface/Restaurant/DIsh/DishModel";
+import DataFormatter from "../DataFormatter";
 
 class DataFormatterDish extends DataFormatter {
 	getDishData(dish: IDish | IDish[]) {
