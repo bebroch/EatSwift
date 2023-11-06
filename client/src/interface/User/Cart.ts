@@ -1,5 +1,5 @@
 import { Model, ObjectId } from "mongoose";
-import { IDish } from "../Restaurant/Dish";
+import { IDish } from "../Restaurant/DIsh/DishModel";
 
 interface ICart extends Document {
 	items?: IDish[];

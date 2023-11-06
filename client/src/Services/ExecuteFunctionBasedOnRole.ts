@@ -4,12 +4,14 @@ import ITask from "../interface/Account/Task";
 async function executeFunctionBasedOnRole(role: EnumRole, tasks: ITask) {
 	switch (role) {
 		case EnumRole.User:
-			return tasks.user;
+			return await tasks.user();
 		case EnumRole.Restaurant:
-			return tasks.restaurant;
+			return await tasks.restaurant();
 		case EnumRole.Courier:
-			return tasks.courier;
+			return await tasks.courier();
 	}
+
+	return undefined;
 }
 
 export default executeFunctionBasedOnRole;

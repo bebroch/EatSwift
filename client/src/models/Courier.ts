@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import { ICourier, ICourierModel } from "../interface/Courier/Courier";
-import { decodeToken, generateToken } from "../Services/Jwt";
+import { decodeToken, generateToken } from "../Services/Internet/Jwt";
 import Order from "./Order";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
+import { IAccountInformation } from "../interface/Account/Account";
 
 const CourierSchema = new mongoose.Schema(
 	{
@@ -13,24 +14,28 @@ const CourierSchema = new mongoose.Schema(
 		email: { type: String, required: true, unique: true },
 		address: { type: String, required: false },
 		phoneNumber: { type: String, required: false },
+		order: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Order",
+			required: false,
+		},
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
-		cart: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
 	},
 	{ timestamps: true }
 );
 
-CourierSchema.statics.findCourierByLogin = async function (login: string) {
+CourierSchema.statics.findAccountByLogin = async function (login: string) {
 	return this.findOne({ login });
 };
 
-CourierSchema.statics.findCourierByEmail = async function (email: string) {
+CourierSchema.statics.findAccountByEmail = async function (email: string) {
 	return this.findOne({ email });
 };
 
-CourierSchema.statics.findCourierWithToken = async function (token: string) {
-	const courierData = (await decodeToken(token)) as ICourier;
-	return this.findOne(courierData);
+CourierSchema.statics.findAccountByToken = async function (token: string) {
+	const { login } = (await decodeToken(token)) as IAccountInformation;
+	return this.findOne({ login });
 };
 
 CourierSchema.statics.createAccount = async function (courierData: ICourier) {

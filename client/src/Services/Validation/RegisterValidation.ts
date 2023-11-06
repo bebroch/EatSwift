@@ -41,7 +41,7 @@ async function checkConfirmPassword(fields: any): Promise<boolean> {
 }
 
 async function checkAccountExist(fields: any): Promise<boolean> {
-	const { login, email, role } = fields;
+	const { name, login, email, role } = fields;
 
 	switch (role) {
 		case EnumRole.User:
@@ -52,7 +52,8 @@ async function checkAccountExist(fields: any): Promise<boolean> {
 		case EnumRole.Restaurant:
 			return (
 				Boolean(await Restaurant.findAccountByLogin(login)) &&
-				Boolean(await Restaurant.findAccountByEmail(email))
+				Boolean(await Restaurant.findAccountByEmail(email)) &&
+				Boolean(await Restaurant.find({ name }))
 			);
 		case EnumRole.Courier:
 			return (
@@ -67,11 +68,7 @@ async function checkAccountExist(fields: any): Promise<boolean> {
 async function checkRoleExist(fields: any): Promise<boolean> {
 	const { role } = fields;
 
-	if (Object.values(EnumRole).includes(role)) {
-		return true;
-	} else {
-		return false;
-	}
+	return Object.values(EnumRole).includes(role);
 }
 
 export {

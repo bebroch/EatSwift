@@ -1,3 +1,5 @@
+import { EnumRole } from "../Account/Role";
+
 interface IRegisterData {
 	login: string;
 	name?: string;
@@ -6,7 +8,7 @@ interface IRegisterData {
 	email: string;
 	password: string;
 	confirmPassword: string;
-	role: string;
+	role: EnumRole;
 }
 
 interface IUserRegisterData extends IRegisterData {}

@@ -1,45 +1,35 @@
 import { Request, Response } from "express";
-import { generateToken } from "../Services/Jwt";
-import User from "../models/User";
-import Status from "../Services/Status";
+import createAccount from "../Services/DatabaseServices/Accounts/CreateAccountService";
+import loginToAccount from "../Services/DatabaseServices/Accounts/LoginToAccount";
+import Status from "../Services/Internet/Status";
 import ERROR_MESSAGES from "../Message/Errors";
-import { hashingPassword, verifyPassword } from "../Services/Password";
-import { IUser } from "../interface/User/User";
-import { getRegisterData } from "../Services/getBody";
-import createAccount from "../Services/DatabaseServices/CreateAccountService";
+import getRegisterData from "../Services/Internet/GetBody/Auth/getRegisterData";
+import getLoginData from "../Services/Internet/GetBody/Auth/getLoginData";
 
 class AuthController {
 	async login(req: Request, res: Response) {
-		const { login, password } = req.body;
+		const loginData = await getLoginData(req);
 
-		const user = await User.findOne({ login });
+		const auth = await loginToAccount(loginData);
 
-		if (!user) {
-			return Status.notFound(res, ERROR_MESSAGES.NOT_FOUND);
-		}
-
-		const isRightPassword = await verifyPassword(
-			password,
-			user.password as string
-		);
-		const isRightPasswordTESTING = password === user.password; // TODO: Нужно потом будет убрать эту строчку и в if: "&& !isRightPasswordTESTING" - эту
-
-		if (!isRightPassword && !isRightPasswordTESTING) {
+		if (!auth) {
 			return Status.badRequest(
 				res,
 				ERROR_MESSAGES.INVALID_LOGIN_OR_PASSWORD
 			);
 		}
 
-		const token = await generateToken(user);
-
-		return Status.success(res, { token, user });
+		return Status.success(res, { auth });
 	}
 
 	async register(req: Request, res: Response) {
 		const registerData = await getRegisterData(req);
 
 		const auth = await createAccount(registerData);
+
+		if (!auth) {
+			return Status.badRequest(res, ERROR_MESSAGES.ACCOUNT_NOT_CREATED);
+		}
 
 		return Status.success(res, { auth });
 	}

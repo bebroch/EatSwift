@@ -1,13 +1,14 @@
-import mongoose, { ObjectId } from "mongoose";
-import { IUser, IUserModel } from "../interface/User/User";
-import { decodeToken, generateToken } from "../Services/Jwt";
+import mongoose from "mongoose";
+import { ICartItem, IUser, IUserModel } from "../interface/User/User";
+import { decodeToken, generateToken } from "../Services/Internet/Jwt";
 import Order from "./Order";
 import Dish from "./Dish";
 import ERROR_MESSAGES from "../Message/Errors";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
+import { IDish } from "../interface/Restaurant/DIsh/DishModel";
 
-const UserSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema<IUser, IUserModel>(
 	{
 		login: { type: String, required: true, unique: true },
 		email: { type: String, required: true, unique: true },
@@ -15,22 +16,27 @@ const UserSchema = new mongoose.Schema(
 		phoneNumber: { type: String, required: false },
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
-		cart: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dish" }],
+		cart: [
+			{
+				dish: { type: mongoose.Schema.Types.ObjectId, ref: "Dish" },
+				quantity: { type: Number, default: 1 },
+			},
+		],
 	},
 	{ timestamps: true }
 );
 
-UserSchema.statics.findUserByLogin = async function (login: string) {
+UserSchema.statics.findAccountByLogin = async function (login: string) {
 	return this.findOne({ login });
 };
 
-UserSchema.statics.findUserByEmail = async function (email: string) {
+UserSchema.statics.findAccountByEmail = async function (email: string) {
 	return this.findOne({ email });
 };
 
-UserSchema.statics.findUserWithToken = async function (token: string) {
-	const userData = (await decodeToken(token)) as IUser;
-	return this.findOne(userData);
+UserSchema.statics.findAccountByToken = async function (token: string) {
+	const { login } = (await decodeToken(token)) as { login: string };
+	return this.findOne({ login });
 };
 
 UserSchema.statics.createAccount = async function (userData: IUser) {
@@ -70,30 +76,48 @@ UserSchema.methods.getOrders = async function () {
 	return orders;
 };
 
-UserSchema.methods.addToCart = async function (item_id: ObjectId) {
-	const dishExists = await Dish.findById(item_id);
-	if (!dishExists) {
+UserSchema.methods.addToCart = async function (item: IDish) {
+	const dish = await Dish.findOne(item);
+
+	if (!dish) {
 		throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
 	}
 
-	this.cart.push(item_id);
-	this.save();
+	const existingCartItemIndex = this.cart.findIndex((cartItem: ICartItem) => {
+		return cartItem.dish.toString() === dish._id.toString();
+	});
+
+	if (existingCartItemIndex !== -1) {
+		this.cart[existingCartItemIndex].quantity += 1;
+	} else {
+		this.cart.push({
+			dish: dish._id,
+			quantity: 1,
+		});
+	}
+
+	return this.save();
 };
 
-UserSchema.methods.deleteItemFromCart = async function (dish_id: ObjectId) {
-	const dishExists = await Dish.findById(dish_id);
+UserSchema.methods.deleteItemFromCart = async function (item: IDish) {
+	const dish = await Dish.findOne(item);
 
-	if (!dishExists) {
+	if (!dish) {
 		throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
 	}
 
-	const itemIndex = this.cart.indexOf(dish_id);
+	const itemIndex = this.cart.findIndex((cartItem: ICartItem) => {
+		return cartItem.dish.toString() === dish._id.toString();
+	});
 
 	if (itemIndex !== -1) {
-		this.cart.splice(itemIndex, 1);
+		this.cart[itemIndex].quantity -= 1;
+		if (this.cart[itemIndex].quantity === 0) {
+			this.cart.splice(itemIndex, 1);
+		}
 		this.save();
 	} else {
-		throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
+		throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND_IN_CART);
 	}
 };
 

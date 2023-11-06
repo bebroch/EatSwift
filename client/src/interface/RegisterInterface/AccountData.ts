@@ -1,10 +1,11 @@
+import { TAccount } from "../Account/Account";
 import { ICourier } from "../Courier/Courier";
 import { IRestaurant } from "../Restaurant/Restaurant";
 import { IUser } from "../User/User";
 
 interface IAccountData {
 	token: string;
-	account?: IUser | IRestaurant | ICourier;
+	account?: TAccount;
 }
 
 interface IUserAccountData extends IAccountData {

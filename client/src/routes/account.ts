@@ -1,12 +1,17 @@
-import { RequestHandler, Router } from "express";
-import auth from "./User/auth";
 import { AuthMiddleware } from "../Middlewares/AuthMiddleware";
-import profile from "./User/profile";
+import UserProfile from "./User/userProfile";
+import RestaurantProfile from "./Restaurant/private/restaurantProfile";
+import CourierProfile from "./Courier/courierProfile";
+import { Router } from "express";
 
 const router = Router();
 
-router.use("/auth", auth); // Сделать регистрацию для Ресторанов и  Доставщиков
+// Аутентификация пользователя, ресторана и курьера
 
-router.use("/:login", AuthMiddleware as RequestHandler, profile);
+router.use("/user/profile", AuthMiddleware, UserProfile); 
+router.use("/restaurant/profile", AuthMiddleware, RestaurantProfile); 
+router.use("/courier/profile", AuthMiddleware, CourierProfile); 
+
+// router.use("/:login", AuthMiddleware as RequestHandler, profile);
 
 export default router;
