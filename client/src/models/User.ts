@@ -6,7 +6,7 @@ import Dish from "./Dish";
 import ERROR_MESSAGES from "../Message/Errors";
 import { hashingPassword } from "../Services/Password";
 import { EnumRole } from "../interface/Account/Role";
-import { IDish } from "../interface/Restaurant/Dish";
+import { IDish } from "../interface/Restaurant/DIsh/DishModel";
 
 const UserSchema = new mongoose.Schema<IUser, IUserModel>(
 	{

@@ -1,4 +1,4 @@
-import { IDish } from "../../../../interface/Restaurant/Dish";
+import { IDish } from "../../../../interface/Restaurant/DIsh/DishModel";
 import DataFormatter from "./DataFormatter";
 
 class DataFormatterDish extends DataFormatter {

@@ -1,6 +1,6 @@
 import { TAccount } from "../../../../interface/Account/Account";
-import { IDish } from "../../../../interface/Restaurant/Dish";
-import { IMenu } from "../../../../interface/Restaurant/Menu";
+import { IDish } from "../../../../interface/Restaurant/DIsh/DishModel";
+import { IMenu } from "../../../../interface/Restaurant/Menu/MenuModel";
 import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
 
 class DataFormatter {

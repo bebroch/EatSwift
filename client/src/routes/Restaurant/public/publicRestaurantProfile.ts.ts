@@ -1,16 +1,11 @@
-import { Response, Request, Router } from "express";
+import { Router } from "express";
 import RestaurantController from "../../../Controllers/Restaurant/RestaurantController";
 import profile from "./profile";
+import restaurantParamHandler from "../../../handlers/restaurantParamHandler";
 
 const router = Router();
 
-router.param(
-	"login",
-	(req: Request & { login?: string }, res: Response, next) => {
-		req.login = req.params.login;
-		next();
-	}
-);
+router.param("login", restaurantParamHandler);
 
 // Рестораны
 router.get("/", RestaurantController.getAllRestaurant);

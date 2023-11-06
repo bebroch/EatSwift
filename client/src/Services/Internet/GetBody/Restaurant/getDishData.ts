@@ -1,9 +1,9 @@
+import { Request } from "express";
 import {
 	IDishDataForCreate,
 	IDishDataForDelete,
 	IDishDataForFindOne,
-} from "../../../../interface/Restaurant/Dish";
-import { Request } from "express";
+} from "../../../../interface/Restaurant/DIsh/DishTypes";
 
 async function getDishDataForCreate(req: Request & IDishDataForCreate) {
 	const { name, description, ingredients, picture, price } = req.body;

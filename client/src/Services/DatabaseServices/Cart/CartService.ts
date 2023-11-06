@@ -1,7 +1,5 @@
-import { ObjectId } from "mongoose";
-import User from "../../../models/User";
 import Dish from "../../../models/Dish";
-import { IDish } from "../../../interface/Restaurant/Dish";
+import { IDish } from "../../../interface/Restaurant/DIsh/DishModel";
 import { ICartItem, IUserFunctions } from "../../../interface/User/User";
 
 class CartService {

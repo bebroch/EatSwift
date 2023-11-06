@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
-import { IMenu } from "../../../../interface/Restaurant/Menu";
+import { IMenu } from "../../../../interface/Restaurant/Menu/MenuModel";
 
 async function getMenuFromRequest(req: Request, restaurant: IRestaurant) {
 	const id = req.params.id as string;

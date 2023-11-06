@@ -1,4 +1,4 @@
-import { IMenu } from "../../../../interface/Restaurant/Menu";
+import { IMenu } from "../../../../interface/Restaurant/Menu/MenuModel";
 import DataFormatterDish from "./Dish";
 
 class DataFormatterMenu extends DataFormatterDish {
