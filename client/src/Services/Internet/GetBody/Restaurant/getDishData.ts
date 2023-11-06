@@ -5,17 +5,17 @@ import {
 	IDishDataForFindOne,
 } from "../../../../interface/Restaurant/DIsh/DishTypes";
 
-async function getDishDataForCreate(req: Request & IDishDataForCreate) {
+function getDishDataForCreate(req: Request & IDishDataForCreate) {
 	const { name, description, ingredients, picture, price } = req.body;
 	return { name, description, ingredients, picture, price };
 }
 
-async function getDishDataForDelete(req: Request & IDishDataForDelete) {
-	const { _id } = req.body;
+function getDishDataForDelete(req: Request & IDishDataForDelete) {
+	const { _id } = req.params;
 	return { _id };
 }
 
-async function getDishDataForFind(req: Request & IDishDataForFindOne) {
+function getDishDataForFind(req: Request & IDishDataForFindOne) {
 	const { _id } = req.body;
 	return { _id };
 }

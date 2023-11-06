@@ -23,7 +23,7 @@ class DishController {
 		) as IRestaurantFunctions;
 		const dishes = await restaurant.getDishes();
 		const dishesDataFormatted = DataFormatterRestaurant.getDishData(dishes);
-		return Status.success(res, dishesDataFormatted); // TODO: Выделить  { dish: dishes } в отедльный метод, DataFormatter
+		return Status.success(res, dishesDataFormatted);
 	}
 
 	async getDish(
@@ -33,7 +33,7 @@ class DishController {
 		const restaurant = getRestaurantFromAccount(
 			req
 		) as IRestaurantFunctions;
-		const dishData = await getDishDataForFind(
+		const dishData = getDishDataForFind(
 			req as Request & IDishDataForFindOne
 		);
 		const dishes = await restaurant.getDish(dishData);
@@ -47,14 +47,13 @@ class DishController {
 		const restaurant = getRestaurantFromAccount(
 			req
 		) as IRestaurantFunctions;
-		const dishDataForCreate = await getDishDataForCreate(
+		const dishDataForCreate = getDishDataForCreate(
 			req as Request & IDishDataForCreate
 		);
 		const dish = await restaurant.createDish(dishDataForCreate);
 		return Status.success(res, dish);
 	}
 
-	// TODO Блюдо не удаляется из меню
 	async deleteDish(
 		req: Request | (Request & IDishDataForDelete),
 		res: Response
@@ -64,7 +63,7 @@ class DishController {
 		) as IRestaurantFunctions;
 
 		// TODO: Переделать: брать из строки поиска
-		const dishData = await getDishDataForDelete(
+		const dishData = getDishDataForDelete(
 			req as Request & IDishDataForDelete
 		);
 
