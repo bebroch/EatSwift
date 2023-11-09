@@ -1,19 +1,13 @@
 import { Request, Response } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
-import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
 import Status from "../../ServiceNew/Status";
 import { TAccount } from "../../interface/Account/Account";
-import {
-	IRestaurant,
-	IRestaurantFunctions,
-} from "../../interface/Restaurant/Restaurant";
-import {
-	getMenuWithDishDetails,
-	getMenusWithDishDetails,
-} from "../../Services/DatabaseServices/Data/getWithDetails/Menu/getMenuWithDishDetails";
+import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+
 import GetData from "../../ServiceNew/GetData";
 import DataFormatter from "../../ServiceNew/DataFormatter";
+import DetailsService from "../../ServiceNew/DetailsService";
 
 class MenuController {
 	async getMenusFromPublicRestaurantProfile(req: Request, res: Response) {
@@ -45,7 +39,8 @@ class MenuController {
 		) as IRestaurantFunctions;
 
 		const menu = await restaurant.getMenus();
-		const menusWithDishData = await getMenusWithDishDetails(menu);
+		const menusWithDishData =
+			await DetailsService.Menu.getManyWithDish(menu);
 
 		const formattedMenu = DataFormatter.Menu.get(menusWithDishData);
 
@@ -64,7 +59,7 @@ class MenuController {
 			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
 		}
 
-		const menuWithDishData = await getMenuWithDishDetails(menu);
+		const menuWithDishData = await DetailsService.Menu.getOneWithDish(menu);
 		const formattedMenu = DataFormatter.Menu.get(menuWithDishData);
 
 		return Status.success(res, formattedMenu);
@@ -82,7 +77,7 @@ class MenuController {
 			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_CREATED);
 		}
 
-		const formattedMenuData = DataFormatterRestaurant.getMenuData(menu);
+		const formattedMenuData = DataFormatter.Menu.get(menu);
 
 		return Status.success(res, { menu: formattedMenuData });
 	}

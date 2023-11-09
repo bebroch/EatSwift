@@ -1,22 +1,29 @@
-import AccountService from "../src/ServiceNew/AuthService/LoginService";
-import { EnumRole } from "../src/interface/Account/Role";
-import { IUserFunctions } from "../src/interface/User/User";
-import User from "../src/models/UserModel";
-
 async function index() {
-	const user = (await User.findOne({
-		login: "z1aaxw1f2c",
-	})) as IUserFunctions;
-
-	const userData = {
-		user,
-		login: "z1aaxw1f2c",
-		password: "tipixdxc",
-		role: EnumRole.User,
+	const test = {
+		name: "test",
+		email: "<EMAIL>",
+		password: "<PASSWORD>",
+		cart: [
+			"600000000000001000000",
+			"60000000000000000000000",
+			"60000000000000000000000",
+			"600000000000001000000",
+			"60000000000000000000000",
+			"60000000000000000000000",
+		],
 	};
 
-	const data = AccountService.Login(userData);
-	console.log(data);
+	const test1 = test.cart.map(cart => {
+		if (cart === "600000000000001000000") {
+			cart = "666";
+		}
+
+		console.log(cart);
+
+		return cart;
+	});
+
+	console.log(test1);
 }
 
 index();

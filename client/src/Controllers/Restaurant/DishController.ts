@@ -3,9 +3,9 @@ import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import Status from "../../ServiceNew/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
-import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
 import GetData from "../../ServiceNew/GetData";
 import { DishTypes } from "../../Types/DishTypes";
+import DataFormatter from "../../ServiceNew/DataFormatter";
 
 class DishController {
 	async getDishes(req: Request, res: Response) {
@@ -13,7 +13,7 @@ class DishController {
 			req
 		) as IRestaurantFunctions;
 		const dishes = await restaurant.getDishes();
-		const dishesDataFormatted = DataFormatterRestaurant.getDishData(dishes);
+		const dishesDataFormatted = DataFormatter.Dish.get(dishes);
 		return Status.success(res, dishesDataFormatted);
 	}
 

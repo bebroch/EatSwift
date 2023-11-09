@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import Status from "../../ServiceNew/Status";
-import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import GetData from "../../ServiceNew/GetData";
+import DataFormatter from "../../ServiceNew/DataFormatter";
 
 class ProfileController {
 	async getProfile(req: Request, res: Response) {
@@ -13,7 +13,7 @@ class ProfileController {
 		const restaurantData = await restaurant.getRestaurantData();
 
 		const restaurantFormattedData =
-			DataFormatterRestaurant.getRestaurantData(restaurantData);
+			DataFormatter.Restaurant.get(restaurantData);
 
 		return Status.success(res, { account: restaurantFormattedData });
 	}

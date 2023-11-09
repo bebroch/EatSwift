@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
-import { getUserWithCartDetails } from "../../Services/DatabaseServices/Data/getWithDetails/Cart/getUserWithCartDetails";
 import { IUserFunctions } from "../../interface/User/User";
+import DetailsService from "../../ServiceNew/DetailsService";
 
 export function DataMethods(schema: mongoose.Schema) {
 	schema.methods.getUserDataWithCart = async function () {
-		const user = await getUserWithCartDetails(this as IUserFunctions);
+		const user = await DetailsService.User.getWithCart(
+			this as IUserFunctions
+		);
 
 		return user;
 	};

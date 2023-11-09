@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import Status from "../../ServiceNew/Status";
 import { IAccount } from "../../interface/Account/Account";
-import DataFormatterUser from "../../Services/DatabaseServices/Data/Formatter/User/DataFormatterUser";
 import { IUserFunctions } from "../../interface/User/User";
 import GetData from "../../ServiceNew/GetData";
+import DataFormatter from "../../ServiceNew/DataFormatter";
 
 class UserAccountController {
 	async index(
@@ -13,7 +13,7 @@ class UserAccountController {
 		const user = GetData.User.get(req) as IUserFunctions;
 		const userWithCart = await user.getUserDataWithCart();
 
-		const userData = DataFormatterUser.getUserData(userWithCart);
+		const userData = DataFormatter.User.get(userWithCart);
 
 		return Status.success(res, {
 			user: userData,
