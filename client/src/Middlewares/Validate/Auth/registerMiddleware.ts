@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import User from "../../../models/User";
+import User from "../../../models/UserModel";
 import ERROR_MESSAGES from "../../../Message/Errors";
-import Status from "../../../Services/Internet/Status";
+import Status from "../../../ServiceNew/Status";
 import {
 	checkMissingFields,
 	checkConfirmPassword,

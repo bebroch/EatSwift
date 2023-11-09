@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
 import { ICartItem } from "../../interface/User/User";
-import Dish from "../Dish";
-import Order from "../Order";
+import Dish from "../DishModel";
+import Order from "../OrderModek";
 
 export function CartMethods(schema: mongoose.Schema) {
 	schema.methods.getCart = async function () {

@@ -2,17 +2,7 @@ import { Request, Response } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
 import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
-import getMenuFromRequest from "../../Services/Internet/GetBody/Restaurant/getMenu";
-import {
-	getMenuDataForAddDishToMenu,
-	getMenuDataForCreate,
-	getMenuDataForDelete,
-} from "../../Services/Internet/GetBody/Restaurant/getMenuData";
-import {
-	getRestaurantFromAccount,
-	getRestaurantFromParams,
-} from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
-import Status from "../../Services/Internet/Status";
+import Status from "../../ServiceNew/Status";
 import { TAccount } from "../../interface/Account/Account";
 import {
 	IRestaurant,
@@ -22,52 +12,67 @@ import {
 	getMenuWithDishDetails,
 	getMenusWithDishDetails,
 } from "../../Services/DatabaseServices/Data/getWithDetails/Menu/getMenuWithDishDetails";
+import GetData from "../../ServiceNew/GetData";
+import DataFormatter from "../../ServiceNew/DataFormatter";
 
 class MenuController {
 	async getMenusFromPublicRestaurantProfile(req: Request, res: Response) {
-		const restaurant = (await getRestaurantFromParams(req)) as IRestaurant;
+		const restaurant = GetData.Restaurant.getPublic(
+			req
+		) as IRestaurantFunctions;
+
 		return Status.success(res, restaurant.menu);
 	}
 
 	async getMenuFromPublicRestaurantProfile(req: Request, res: Response) {
-		const restaurant = (await getRestaurantFromParams(
+		const restaurant = GetData.Restaurant.getPublic(
 			req
-		)) as IRestaurantFunctions;
-		const menu = await getMenuFromRequest(req, restaurant);
+		) as IRestaurantFunctions;
+
+		const menuData = GetData.Menu.FindOne(req);
+		const menu = await restaurant.getMenu(menuData);
+
+		if (!menu) {
+			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
+		}
+
 		return Status.success(res, menu);
 	}
 
 	async getMenusFromPrivateRestaurantProfile(req: Request, res: Response) {
-		const restaurant = getRestaurantFromAccount(
+		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
+
 		const menu = await restaurant.getMenus();
 		const menusWithDishData = await getMenusWithDishDetails(menu);
-		const formattedMenu =
-			DataFormatterRestaurant.getMenuData(menusWithDishData);
+
+		const formattedMenu = DataFormatter.Menu.get(menusWithDishData);
 
 		return Status.success(res, formattedMenu);
 	}
 
 	async getMenuFromPrivateRestaurantProfile(req: Request, res: Response) {
-		const restaurant = getRestaurantFromAccount(
+		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
-		const menu = await getMenuFromRequest(req, restaurant);
+
+		const menuData = GetData.Menu.FindOne(req);
+		const menu = await restaurant.getMenu(menuData);
 
 		if (!menu) {
 			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
 		}
 
 		const menuWithDishData = await getMenuWithDishDetails(menu);
-		const formattedMenu =
-			DataFormatterRestaurant.getMenuData(menuWithDishData); // 1
+		const formattedMenu = DataFormatter.Menu.get(menuWithDishData);
+
 		return Status.success(res, formattedMenu);
 	}
 
 	async createMenu(req: Request & { account?: TAccount }, res: Response) {
-		const menuDataForCreate = await getMenuDataForCreate(req);
-		const restaurant = getRestaurantFromAccount(
+		const menuDataForCreate = GetData.Menu.Create(req);
+		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
 
@@ -83,13 +88,11 @@ class MenuController {
 	}
 
 	async deleteMenu(req: Request, res: Response) {
-		const menuData = await getMenuDataForDelete(req);
+		const menuData = GetData.Menu.Delete(req);
 
-		const restaurant = getRestaurantFromAccount(
+		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
-
-		type NewType = Error;
 
 		try {
 			await restaurant.deleteMenu(menuData);
@@ -110,10 +113,10 @@ class MenuController {
 	}
 
 	async updateMenu(req: Request, res: Response) {
-		const restaurant = getRestaurantFromAccount(
+		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
-		const menuData = getMenuDataForAddDishToMenu(req);
+		const menuData = GetData.Menu.AddDishToMenu(req);
 		const menu = await restaurant.addDishToMenu(menuData);
 		return Status.success(res, menu);
 	}

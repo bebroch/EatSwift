@@ -1,6 +1,6 @@
 import { IDish } from "../../../../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../../../../interface/Restaurant/Menu/MenuModel";
-import Dish from "../../../../../models/Dish";
+import Dish from "../../../../../models/DishModel";
 
 async function getMenusWithDishDetails(menus: IMenu[]) {
 	const menusData = await Promise.all(

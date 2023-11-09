@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { getRestaurantFromAccount } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
-import Status from "../../Services/Internet/Status";
+import Status from "../../ServiceNew/Status";
 import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import GetData from "../../ServiceNew/GetData";
 
 class ProfileController {
 	async getProfile(req: Request, res: Response) {
-		const restaurant = getRestaurantFromAccount(
+		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
 		const restaurantData = await restaurant.getRestaurantData();

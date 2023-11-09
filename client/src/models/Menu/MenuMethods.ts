@@ -1,43 +1,41 @@
 import mongoose, { ObjectId } from "mongoose";
 import ERROR_MESSAGES from "../../Message/Errors";
-import {
-	IMenuDataForFindMany,
-	IMenuDataForFindOne,
-	IMenuDataForCreate,
-	IMenuDataForDelete,
-	IMenuDataForAddToMenu,
-} from "../../interface/Restaurant/Menu/MenuTypes";
-import Dish from "../Dish";
-import MenuSchema from "./MenuSchema";
-import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
-import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
-import { formatterDataMenu } from "../../Services/DatabaseServices/Data/Formatter/Restaurant/Menu";
+import Dish from "../DishModel";
+import { MenuTypes } from "../../Types/MenuTypes";
 
 export function MenuMethods(schema: mongoose.Schema) {
-	schema.statics.getMenus = async function (menuData: IMenuDataForFindMany) {
+	schema.statics.getMenus = async function (
+		menuData: MenuTypes.GetDataForFindMany
+	) {
 		const { restaurant_id } = menuData;
 		const menus = await this.find({ restaurant_id });
 		return menus;
 	};
 
-	schema.statics.getMenu = async function (menuData: IMenuDataForFindOne) {
+	schema.statics.getMenu = async function (
+		menuData: MenuTypes.GetDataForFindOne
+	) {
 		const { _id, restaurant_id } = menuData;
 		const menu = await this.findOne({ _id, restaurant_id });
 		return menu;
 	};
 
-	schema.statics.createMenu = async function (menuData: IMenuDataForCreate) {
+	schema.statics.createMenu = async function (
+		menuData: MenuTypes.GetDataForCreate
+	) {
 		const menu = new this(menuData);
 		return menu.save();
 	};
 
-	schema.statics.deleteMenu = async function (menuData: IMenuDataForDelete) {
+	schema.statics.deleteMenu = async function (
+		menuData: MenuTypes.GetDataForDelete
+	) {
 		const { _id, restaurant_id } = menuData;
 		this.find({ restaurant_id, _id }).remove();
 	};
 
 	schema.statics.addDishToMenu = async function (
-		menuData: IMenuDataForAddToMenu
+		menuData: MenuTypes.GetDataForAddToMenu
 	) {
 		const { dish_id, menu_id } = menuData;
 

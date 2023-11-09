@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import { decodeToken, generateToken } from "../../Services/Internet/Jwt";
-import { hashingPassword } from "../../Services/Password";
 import { EnumRole } from "../../interface/Account/Role";
 import { IUser } from "../../interface/User/User";
+import TokenService from "../../ServiceNew/TokenService";
 
 export function AccountMethods(schema: mongoose.Schema) {
 	schema.statics.findAccountByLogin = async function (login: string) {
@@ -12,13 +11,13 @@ export function AccountMethods(schema: mongoose.Schema) {
 		return this.findOne({ email });
 	};
 	schema.statics.findAccountByToken = async function (token: string) {
-		const { login } = (await decodeToken(token)) as { login: string };
+		const { login } = TokenService.decodeToken(token) as { login: string };
 		return this.findOne({ login });
 	};
 	schema.statics.createAccount = async function (userData: IUser) {
 		const { login, email, password } = userData;
 
-		const passwordHash = await hashingPassword(password);
+		const passwordHash = await TokenService.hashingPassword(password);
 
 		const user = new this({
 			login,
@@ -37,7 +36,7 @@ export function AccountMethods(schema: mongoose.Schema) {
 			role: EnumRole.User,
 		};
 
-		const token = await generateToken(restaurantData);
+		const token = TokenService.generateToken(restaurantData);
 
 		return token;
 	};

@@ -3,9 +3,9 @@ import {
 	TAccount,
 } from "../../../interface/Account/Account";
 import { EnumRole } from "../../../interface/Account/Role";
-import Courier from "../../../models/Courier";
-import Restaurant from "../../../models/Restaurant";
-import User from "../../../models/User";
+import Courier from "../../../models/CourierModel";
+import Restaurant from "../../../models/RestaurantModel";
+import User from "../../../models/UserModel";
 import executeFunctionBasedOnRole from "../../ExecuteFunctionBasedOnRole";
 import { decodeToken } from "../../Internet/Jwt";
 

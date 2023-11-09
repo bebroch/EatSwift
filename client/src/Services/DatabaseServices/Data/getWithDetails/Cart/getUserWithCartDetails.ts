@@ -1,6 +1,6 @@
 import { IDish } from "../../../../../interface/Restaurant/DIsh/DishModel";
 import { ICartItem, IUserFunctions } from "../../../../../interface/User/User";
-import Dish from "../../../../../models/Dish";
+import Dish from "../../../../../models/DishModel";
 
 async function getUserWithCartDetails(user: IUserFunctions) {
 	const userCartData = await Promise.all(

@@ -1,37 +1,51 @@
 import { Request, Response } from "express";
 import createAccount from "../Services/DatabaseServices/Accounts/CreateAccountService";
 import loginToAccount from "../Services/DatabaseServices/Accounts/LoginToAccount";
-import Status from "../Services/Internet/Status";
+import Status from "../ServiceNew/Status";
 import ERROR_MESSAGES from "../Message/Errors";
-import getRegisterData from "../Services/Internet/GetBody/Auth/getRegisterData";
-import getLoginData from "../Services/Internet/GetBody/Auth/getLoginData";
+import LoginService from "../ServiceNew/AuthService/LoginService";
+import GetData from "../ServiceNew/GetData";
+import RegisterService from "../ServiceNew/AuthService/RegistrationService";
+import RegistrationService from "../ServiceNew/AuthService/RegistrationService";
 
 class AuthController {
 	async login(req: Request, res: Response) {
-		const loginData = await getLoginData(req);
+		const loginData = GetData.Auth.Login.get(req);
 
-		const auth = await loginToAccount(loginData);
+		if (!loginData)
+			return Status.badRequest(res, ERROR_MESSAGES.INVALID_LOGIN_DATA);
 
-		if (!auth) {
-			return Status.badRequest(
-				res,
-				ERROR_MESSAGES.INVALID_LOGIN_OR_PASSWORD
-			);
+		try {
+			const auth = LoginService.Login(loginData);
+			return Status.success(res, auth);
+		} catch (err: any) {
+			if (err.message === ERROR_MESSAGES.INVALID_ROLE)
+				return Status.badRequest(res, ERROR_MESSAGES.INVALID_ROLE);
+			return Status.internalError(res, err.message);
 		}
-
-		return Status.success(res, { auth });
 	}
 
 	async register(req: Request, res: Response) {
-		const registerData = await getRegisterData(req);
+		const registerData = GetData.Auth.Registration.get(req);
 
-		const auth = await createAccount(registerData);
-
-		if (!auth) {
-			return Status.badRequest(res, ERROR_MESSAGES.ACCOUNT_NOT_CREATED);
+		if (!registerData) {
+			return Status.badRequest(
+				res,
+				ERROR_MESSAGES.INVALID_REGISTRATION_DATA
+			);
 		}
 
-		return Status.success(res, { auth });
+		try {
+			const auth = RegistrationService.Registration(registerData);
+			return Status.success(res, auth);
+		} catch (err: any) {
+			if (err.message === ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS)
+				return Status.badRequest(
+					res,
+					ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS
+				);
+			return Status.internalError(res, err.message);
+		}
 	}
 }
 
