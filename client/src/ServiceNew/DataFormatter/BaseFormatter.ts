@@ -1,7 +1,7 @@
 import { TAccount } from "../../interface/Account/Account";
 import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
-import { IRestaurant } from "../../interface/Restaurant/Restaurant";
+import { IRestaurant, IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import { ICartItem } from "../../interface/User/User";
 
 // TODO Если смогу, нужно заменить if (!data) return null;
@@ -15,7 +15,7 @@ class BaseFormatter {
 		return { _id, login, email, createdAt };
 	}
 
-	getRestaurantFields(data: IRestaurant | null) {
+	getRestaurantFields(data: IRestaurantFunctions | null) {
 		if (!data) {
 			return null;
 		}

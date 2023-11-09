@@ -18,9 +18,11 @@ namespace RestaurantTypes {
 	};
 
 	export type GetRegistrationData = {
-		restaurant: IRestaurantFunctions;
+		name: string;
 		login: string;
+		email: string;
 		password: string;
+		confirmPassword: string;
 		role: EnumRole;
 	};
 

@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
-import createAccount from "../Services/DatabaseServices/Accounts/CreateAccountService";
-import loginToAccount from "../Services/DatabaseServices/Accounts/LoginToAccount";
 import Status from "../ServiceNew/Status";
 import ERROR_MESSAGES from "../Message/Errors";
 import LoginService from "../ServiceNew/AuthService/LoginService";
 import GetData from "../ServiceNew/GetData";
-import RegisterService from "../ServiceNew/AuthService/RegistrationService";
 import RegistrationService from "../ServiceNew/AuthService/RegistrationService";
 
 class AuthController {

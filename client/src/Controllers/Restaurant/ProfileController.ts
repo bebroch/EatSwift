@@ -9,9 +9,12 @@ class ProfileController {
 		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
+
 		const restaurantData = await restaurant.getRestaurantData();
+
 		const restaurantFormattedData =
 			DataFormatterRestaurant.getRestaurantData(restaurantData);
+
 		return Status.success(res, { account: restaurantFormattedData });
 	}
 
@@ -22,4 +25,4 @@ class ProfileController {
 	async deleteProfile(req: Request, res: Response) {}
 }
 
-export default new ProfileController();
+export default new ProfileController(); // 1

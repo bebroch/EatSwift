@@ -67,4 +67,4 @@ class RegistrationService {
 	}
 }
 
-export default new RegistrationService();
+export default new RegistrationService(); // 1

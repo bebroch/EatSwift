@@ -18,9 +18,12 @@ namespace CourierTypes {
 	};
 
 	export type GetRegistrationData = {
-		courier: ICourierFunctions;
+		firstName: string;
+		lastName: string;
 		login: string;
+		email: string;
 		password: string;
+		confirmPassword: string;
 		role: EnumRole;
 	};
 

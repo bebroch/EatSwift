@@ -5,7 +5,7 @@ import { RestaurantTypes } from "../../../Types/RestaurantTypes";
 import { CourierTypes } from "../../../Types/CourierTypes";
 
 function getRegistrationData(
-	req: Request &
+	req: Request & // TODO: Сделать TYPE
 		(
 			| UserTypes.GetModel
 			| RestaurantTypes.GetPrivate
@@ -32,7 +32,7 @@ function CourierRegistrationData(req: Request & CourierTypes.GetPrivate) {
 
 export const RegistrationData = {
 	get(
-		req: Request &
+		req: Request & // TODO: Сделать TYPE
 			(
 				| UserTypes.GetModel
 				| RestaurantTypes.GetPrivate

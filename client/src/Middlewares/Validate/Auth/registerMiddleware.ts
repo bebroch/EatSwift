@@ -1,14 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import User from "../../../models/UserModel";
 import ERROR_MESSAGES from "../../../Message/Errors";
 import Status from "../../../ServiceNew/Status";
-import {
-	checkMissingFields,
-	checkConfirmPassword,
-	checkAccountExist,
-	checkRoleExist,
-} from "../../../Services/Validation/RegisterValidation";
-import getRegisterData from "../../../Services/Internet/GetBody/Auth/getRegisterData";
+import ValidateService from "../../../ServiceNew/ValidateService";
+import GetData from "../../../ServiceNew/GetData";
 
 async function error(res: Response, message: string) {
 	return Status.badRequest(res, message);
@@ -19,21 +13,21 @@ async function registerValidation(
 	res: Response,
 	next: NextFunction
 ) {
-	const registerData = await getRegisterData(req);
+	const registerData = GetData.Auth.Registration.get(req);
 
-	if (!(await checkRoleExist(registerData))) {
+	if (!ValidateService.Registration.checkRoleExist(registerData)) {
 		return error(res, ERROR_MESSAGES.INVALID_ROLE);
 	}
 
-	if (await checkMissingFields(registerData)) {
+	if (ValidateService.Registration.checkMissingFields(registerData)) {
 		return error(res, ERROR_MESSAGES.MISSING_REQUIRED_FIELDS);
 	}
 
-	if (await checkConfirmPassword(registerData)) {
+	if (ValidateService.Registration.checkConfirmPassword(registerData)) {
 		return error(res, ERROR_MESSAGES.PASSWORD_MISMATCH);
 	}
 
-	if (await checkAccountExist(registerData)) {
+	if (await ValidateService.Registration.checkAccountExist(registerData)) {
 		return error(res, ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS);
 	}
 

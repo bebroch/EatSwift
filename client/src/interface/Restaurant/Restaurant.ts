@@ -6,7 +6,6 @@ import { IMenu } from "./Menu/MenuModel";
 import { DishTypes } from "../../Types/DishTypes";
 import { MenuTypes } from "../../Types/MenuTypes";
 
-
 interface IRestaurant extends IAccount {
 	name: string;
 	description?: string;
@@ -18,7 +17,7 @@ interface IRestaurant extends IAccount {
 }
 
 interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
-	getRestaurantData(): Promise<IRestaurant>;
+	getRestaurantData(): Promise<IRestaurantFunctions>;
 
 	getMenus(): Promise<IMenu[]>;
 	getMenu(menuData: MenuTypes.GetDataForFindOne): Promise<IMenu>;

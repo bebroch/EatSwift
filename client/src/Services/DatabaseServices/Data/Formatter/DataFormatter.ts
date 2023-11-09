@@ -1,34 +1,29 @@
 import { TAccount } from "../../../../interface/Account/Account";
 import { IDish } from "../../../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../../../interface/Restaurant/Menu/MenuModel";
-import { IRestaurant } from "../../../../interface/Restaurant/Restaurant";
+import { IRestaurant, IRestaurantFunctions } from "../../../../interface/Restaurant/Restaurant";
 import { ICartItem } from "../../../../interface/User/User";
 
 class DataFormatter {
 	getAccountBaseFields(data: TAccount) {
-		if (!data) {
-			return null;
-		}
+		if (!data) return null;
 
 		const { _id, login, email, createdAt } = data;
 		return { _id, login, email, createdAt };
 	}
 
 	getMenuOrDishBaseFields(data: IMenu | IDish) {
-		if (!data) {
-			return null;
-		}
+		if (!data) return null;
 
 		const { name, description } = data;
 		return { name, description };
 	}
 
-	getBaseFieldsRestaurant(data: IRestaurant) {
-		if (!data) {
-			return null;
-		}
+	getBaseFieldsRestaurant(data: IRestaurantFunctions) {
+		if (!data) return null;
 
 		const { name, rating } = data;
+
 		return {
 			...this.getAccountBaseFields(data),
 			name,
@@ -41,9 +36,7 @@ class DataFormatter {
 	}
 
 	getBaseFieldsDish(data: IDish | null) {
-		if (!data) {
-			return null;
-		}
+		if (!data) return null;
 
 		const { ingredients, picture, price } = data;
 		return {

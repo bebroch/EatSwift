@@ -18,9 +18,10 @@ namespace UserTypes {
 	};
 
 	export type GetRegistrationData = {
-		user: IUserFunctions;
 		login: string;
+		email: string;
 		password: string;
+		confirmPassword: string;
 		role: EnumRole;
 	};
 

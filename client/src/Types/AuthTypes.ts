@@ -15,13 +15,17 @@ type GetLoginData = {
 type GetLoginDataOrNull = GetLoginData | null;
 
 type GetRegistrationData = {
-	user?: IUserFunctions;
-	restaurant?: IRestaurantFunctions;
-	courier?: ICourierFunctions;
 	login: string;
+	name?: string;
+	firstName?: string;
+	lastName?: string;
+	email: string;
 	password: string;
+	confirmPassword: string;
 	role: EnumRole;
 };
+
+type GetRegistrationDataOrNull = GetRegistrationData | null;
 
 type GetAccountData = {
 	account: IUserFunctions | IRestaurantFunctions | ICourierFunctions;
@@ -35,9 +39,11 @@ type outputLoginData = GetLoginData;
 type outputRegistrationData = GetRegistrationData;
 
 export {
-	GetLoginData,GetLoginDataOrNull,
+	GetLoginData,
+	GetLoginDataOrNull,
 	GetRegistrationData,
 	GetAccountData,
+	GetRegistrationDataOrNull,
 	outputLoginData,
 	outputRegistrationData,
 };

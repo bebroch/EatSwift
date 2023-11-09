@@ -1,8 +1,10 @@
-import { IRestaurant } from "../../../../../interface/Restaurant/Restaurant";
+import { IRestaurantFunctions } from "../../../../../interface/Restaurant/Restaurant";
 import { DataFormatterMenu } from "./Menu";
 
 class DataFormatterRestaurant extends DataFormatterMenu {
-	getRestaurantData(restaurant: IRestaurant | Array<IRestaurant>) {
+	getRestaurantData(
+		restaurant: IRestaurantFunctions | Array<IRestaurantFunctions>
+	) {
 		if (Array.isArray(restaurant)) {
 			return restaurant.map(restaurant => {
 				return this.getBaseFieldsRestaurant(restaurant);
