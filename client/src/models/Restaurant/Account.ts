@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { IAccountInformation } from "../../interface/Account/Account";
 import { EnumRole } from "../../interface/Account/Role";
 import { IRestaurant } from "../../interface/Restaurant/Restaurant";
-import TokenService from "../../ServiceNew/TokenService";
+import TokenService from "../../Service/TokenService";
 
 export function AccountMethods(schema: mongoose.Schema) {
 	schema.statics.findAccountByLogin = async function (login: string) {

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
-import Status from "../../ServiceNew/Status";
+import Status from "../../Service/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
-import GetData from "../../ServiceNew/GetData";
+import GetData from "../../Service/GetData";
 import { DishTypes } from "../../Types/DishTypes";
-import DataFormatter from "../../ServiceNew/DataFormatter";
+import DataFormatter from "../../Service/DataFormatter";
 
 class DishController {
 	async getDishes(req: Request, res: Response) {

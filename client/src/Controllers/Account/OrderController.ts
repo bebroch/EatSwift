@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import Status from "../../ServiceNew/Status";
+import Status from "../../Service/Status";
 import { IUserFunctions } from "../../interface/User/User";
-import GetData from "../../ServiceNew/GetData";
+import GetData from "../../Service/GetData";
 
 class OrderController {
 	// Показать историю заказов пользователя // TODO: Доделать Просмотр заказов

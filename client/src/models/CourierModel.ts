@@ -3,7 +3,7 @@ import { ICourier, ICourierModel } from "../interface/Courier/Courier";
 import Order from "./OrderModek";
 import { EnumRole } from "../interface/Account/Role";
 import { IAccountInformation } from "../interface/Account/Account";
-import TokenService from "../ServiceNew/TokenService";
+import TokenService from "../Service/TokenService";
 
 const CourierSchema = new mongoose.Schema(
 	{

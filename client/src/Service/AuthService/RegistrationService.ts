@@ -1,5 +1,5 @@
 import ERROR_MESSAGES from "../../Message/Errors";
-import { GetRegistrationData } from "../../Types/AuthTypes";
+import { GetRegistrationData } from "../../Types/Auth/RegistrationTypes";
 import { CourierTypes } from "../../Types/CourierTypes";
 import { RestaurantTypes } from "../../Types/RestaurantTypes";
 import { UserTypes } from "../../Types/UserTypes";
@@ -20,15 +20,15 @@ class RegistrationService {
 
 		switch ((registerData as GetRegistrationData).role) {
 			case EnumRole.User:
-				return this.UserRegistration(
+				return await this.UserRegistration(
 					registerData as UserTypes.GetRegistrationData
 				);
 			case EnumRole.Restaurant:
-				return this.RestaurantRegistration(
+				return await this.RestaurantRegistration(
 					registerData as RestaurantTypes.GetRegistrationData
 				);
 			case EnumRole.Courier:
-				return this.CourierRegistration(
+				return await this.CourierRegistration(
 					registerData as CourierTypes.GetRegistrationData
 				);
 			default:
@@ -37,17 +37,17 @@ class RegistrationService {
 	}
 
 	async UserRegistration(userData: UserTypes.GetRegistrationData) {
-		return this.RegistrationAccount(User, userData);
+		return await this.RegistrationAccount(User, userData);
 	}
 
 	async RestaurantRegistration(
 		restaurantData: RestaurantTypes.GetRegistrationData
 	) {
-		return this.RegistrationAccount(Restaurant, restaurantData);
+		return await this.RegistrationAccount(Restaurant, restaurantData);
 	}
 
 	async CourierRegistration(courierData: CourierTypes.GetRegistrationData) {
-		return this.RegistrationAccount(Courier, courierData);
+		return await this.RegistrationAccount(Courier, courierData);
 	}
 
 	// TODO Сделать тип TYPE
@@ -62,7 +62,6 @@ class RegistrationService {
 		}
 
 		const token = await account.generateToken();
-
 		return { token, account };
 	}
 }

@@ -2,17 +2,17 @@ import TokenService from "../TokenService";
 import { EnumRole } from "../../interface/Account/Role";
 import ERROR_MESSAGES from "../../Message/Errors";
 import ValidateService from "../ValidateService";
-import { GetAccountData, GetLoginData } from "../../Types/AuthTypes";
 import { UserTypes } from "../../Types/UserTypes";
 import { RestaurantTypes } from "../../Types/RestaurantTypes";
-import { LoginData } from "../GetData/Auth/LoginData";
 import { CourierTypes } from "../../Types/CourierTypes";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import { ICourierFunctions } from "../../interface/Courier/Courier";
 import { IUserFunctions } from "../../interface/User/User";
+import { GetLoginDataWithModel } from "../../Types/Auth/LoginTypes";
+import { GetAccountData } from "../../Types/Auth/AccountDataTypes";
 
 class LoginService {
-	async Login(loginData: GetLoginData): Promise<{
+	async Login(loginData: GetLoginDataWithModel): Promise<{
 		// TODO Сделать TYPE
 		token?: string;
 		user?: IUserFunctions;
@@ -23,7 +23,7 @@ class LoginService {
 			throw new Error(ERROR_MESSAGES.INVALID_LOGIN_DATA);
 		}
 
-		switch ((loginData as GetLoginData).role) {
+		switch ((loginData as GetLoginDataWithModel).role) {
 			case EnumRole.User:
 				return await this.UserLogin(
 					loginData as UserTypes.GetLoginData
@@ -100,4 +100,4 @@ class LoginService {
 	}
 }
 
-export default new LoginService();
+export default new LoginService(); // 1

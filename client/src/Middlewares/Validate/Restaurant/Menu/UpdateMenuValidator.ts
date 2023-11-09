@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import ERROR_MESSAGES from "../../../../Message/Errors";
-import Status from "../../../../ServiceNew/Status";
+import Status from "../../../../Service/Status";
 
 function UpdateMenuValidator(req: Request, res: Response, next: NextFunction) {
 	const { dish_id } = req.body;

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { IRestaurantFunctions } from "../interface/Restaurant/Restaurant";
 import Restaurant from "../models/RestaurantModel";
-import Status from "../ServiceNew/Status";
+import Status from "../Service/Status";
 import ERROR_MESSAGES from "../Message/Errors";
 
 async function restaurantParamHandler(

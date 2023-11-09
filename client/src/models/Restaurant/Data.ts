@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import GetData from "../../ServiceNew/GetData";
-import DataFormatter from "../../ServiceNew/DataFormatter";
-import DetailsService from "../../ServiceNew/DetailsService";
+import GetData from "../../Service/GetData";
+import DataFormatter from "../../Service/DataFormatter";
+import DetailsService from "../../Service/DetailsService";
 
 export function DataMethods(schema: mongoose.Schema) {
 	schema.methods.getRestaurantData = async function () {

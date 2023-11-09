@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import ERROR_MESSAGES from "../../../Message/Errors";
-import Status from "../../../ServiceNew/Status";
+import Status from "../../../Service/Status";
 import { TAccount } from "../../../interface/Account/Account";
-import GetData from "../../../ServiceNew/GetData";
-import ValidateService from "../../../ServiceNew/ValidateService";
+import GetData from "../../../Service/GetData";
+import ValidateService from "../../../Service/ValidateService";
 
 async function error(res: Response, message: string) {
 	return Status.badRequest(res, message);

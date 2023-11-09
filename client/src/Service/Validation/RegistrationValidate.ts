@@ -1,7 +1,5 @@
-import {
-	GetRegistrationData,
-	GetRegistrationDataOrNull,
-} from "../../Types/AuthTypes";
+
+import { GetRegistrationData, GetRegistrationDataOrNull } from "../../Types/Auth/RegistrationTypes";
 import { EnumRole } from "../../interface/Account/Role";
 import Courier from "../../models/CourierModel";
 import Restaurant from "../../models/RestaurantModel";

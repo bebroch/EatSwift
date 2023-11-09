@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
-import Status from "../../ServiceNew/Status";
+import Status from "../../Service/Status";
 import Restaurant from "../../models/RestaurantModel";
 import ERROR_MESSAGES from "../../Message/Errors";
-import GetData from "../../ServiceNew/GetData";
-import DataFormatter from "../../ServiceNew/DataFormatter";
+import GetData from "../../Service/GetData";
+import DataFormatter from "../../Service/DataFormatter";
 
 class RestaurantController {
 	async getAllRestaurant(req: Request, res: Response) {
 		const restaurants = await Restaurant.find().sort({ name: 1 });
 
-		const restaurantsData =
-			DataFormatter.Restaurant.get(restaurants);
+		const restaurantsData = DataFormatter.Restaurant.get(restaurants);
 
 		Status.success(res, { restaurant: restaurantsData });
 	}

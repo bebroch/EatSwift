@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import Status from "../../ServiceNew/Status";
+import Status from "../../Service/Status";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
-import GetData from "../../ServiceNew/GetData";
-import DataFormatter from "../../ServiceNew/DataFormatter";
+import GetData from "../../Service/GetData";
+import DataFormatter from "../../Service/DataFormatter";
 
 class ProfileController {
 	async getProfile(req: Request, res: Response) {

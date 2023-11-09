@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Status from "../ServiceNew/Status";
+import Status from "../Service/Status";
 
 class HomeController {
 	async index(req: Request, res: Response) {

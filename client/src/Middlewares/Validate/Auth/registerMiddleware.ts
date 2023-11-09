@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import ERROR_MESSAGES from "../../../Message/Errors";
-import Status from "../../../ServiceNew/Status";
-import ValidateService from "../../../ServiceNew/ValidateService";
-import GetData from "../../../ServiceNew/GetData";
+import Status from "../../../Service/Status";
+import ValidateService from "../../../Service/ValidateService";
+import GetData from "../../../Service/GetData";
 
 async function error(res: Response, message: string) {
 	return Status.badRequest(res, message);

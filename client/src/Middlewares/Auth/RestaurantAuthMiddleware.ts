@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
-import Status from "../../ServiceNew/Status";
+import Status from "../../Service/Status";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
-import GetData from "../../ServiceNew/GetData";
+import GetData from "../../Service/GetData";
 
 async function RestaurantAuthMiddleware(
 	req: Request & { restaurant?: IRestaurantFunctions },

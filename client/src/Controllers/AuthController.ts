@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import Status from "../ServiceNew/Status";
+import Status from "../Service/Status";
 import ERROR_MESSAGES from "../Message/Errors";
-import LoginService from "../ServiceNew/AuthService/LoginService";
-import GetData from "../ServiceNew/GetData";
-import RegistrationService from "../ServiceNew/AuthService/RegistrationService";
+import LoginService from "../Service/AuthService/LoginService";
+import GetData from "../Service/GetData";
+import RegistrationService from "../Service/AuthService/RegistrationService";
 
 class AuthController {
 	async login(req: Request, res: Response) {
@@ -13,12 +13,16 @@ class AuthController {
 			return Status.badRequest(res, ERROR_MESSAGES.INVALID_LOGIN_DATA);
 
 		try {
-			const auth = LoginService.Login(loginData);
+			const auth = await LoginService.Login(loginData);
 			return Status.success(res, auth);
 		} catch (err: any) {
 			if (err.message === ERROR_MESSAGES.INVALID_ROLE)
 				return Status.badRequest(res, ERROR_MESSAGES.INVALID_ROLE);
-			return Status.internalError(res, err.message);
+			console.log("Ошибка: ", err.message);
+			return Status.internalError(
+				res,
+				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
+			);
 		}
 	}
 
@@ -33,7 +37,7 @@ class AuthController {
 		}
 
 		try {
-			const auth = RegistrationService.Registration(registerData);
+			const auth = await RegistrationService.Registration(registerData);
 			return Status.success(res, auth);
 		} catch (err: any) {
 			if (err.message === ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS)
@@ -41,9 +45,13 @@ class AuthController {
 					res,
 					ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS
 				);
-			return Status.internalError(res, err.message);
+			console.log("Ошибка: ", err.message);
+			return Status.internalError(
+				res,
+				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
+			);
 		}
 	}
 }
 
-export default new AuthController();
+export default new AuthController(); // 1

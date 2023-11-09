@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
-import Status from "../../ServiceNew/Status";
+import Status from "../../Service/Status";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
-import GetData from "../../ServiceNew/GetData";
-import TokenService from "../../ServiceNew/TokenService";
+import GetData from "../../Service/GetData";
+import TokenService from "../../Service/TokenService";
 
 async function UserAuthMiddleware(
 	req: Request & { restaurant?: IRestaurantFunctions },

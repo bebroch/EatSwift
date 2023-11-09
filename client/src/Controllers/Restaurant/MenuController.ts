@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
-import Status from "../../ServiceNew/Status";
+import Status from "../../Service/Status";
 import { TAccount } from "../../interface/Account/Account";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 
-import GetData from "../../ServiceNew/GetData";
-import DataFormatter from "../../ServiceNew/DataFormatter";
-import DetailsService from "../../ServiceNew/DetailsService";
+import GetData from "../../Service/GetData";
+import DataFormatter from "../../Service/DataFormatter";
+import DetailsService from "../../Service/DetailsService";
 
 class MenuController {
 	async getMenusFromPublicRestaurantProfile(req: Request, res: Response) {
