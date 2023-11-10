@@ -1,17 +1,20 @@
 import { Request, Response } from "express";
-import { getRestaurantFromAccount } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
-import Status from "../../Services/Internet/Status";
-import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
+import Status from "../../Service/Status";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import GetData from "../../Service/GetData";
+import DataFormatter from "../../Service/DataFormatter";
 
 class ProfileController {
 	async getProfile(req: Request, res: Response) {
-		const restaurant = getRestaurantFromAccount(
+		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
+
 		const restaurantData = await restaurant.getRestaurantData();
+
 		const restaurantFormattedData =
-			DataFormatterRestaurant.getRestaurantData(restaurantData);
+			DataFormatter.Restaurant.get(restaurantData);
+
 		return Status.success(res, { account: restaurantFormattedData });
 	}
 
@@ -22,4 +25,4 @@ class ProfileController {
 	async deleteProfile(req: Request, res: Response) {}
 }
 
-export default new ProfileController();
+export default new ProfileController(); // 1

@@ -2,13 +2,9 @@ import { Model, ObjectId } from "mongoose";
 import { IOrder } from "./Order";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { IUserRegisterData } from "../RegisterInterface/RegisterData";
-import { IDish } from "../Restaurant/DIsh/DishModel";
+import { ICartItem } from "./Cart";
 
-interface ICartItem {
-	_id: ObjectId;
-	dish: IDish;
-	quantity: number;
-}
+
 
 interface IUser extends IAccount {
 	address?: string;
@@ -31,7 +27,7 @@ interface IUserModel extends Model<IUserFunctions, IAccountModel> {
 	createAccount(
 		accountData: IUserRegisterData
 	): Promise<IUserFunctions | null>;
-	findAccountByToken(token: string): Promise<IUser | null>;
+	findAccountByToken(token: string): Promise<IUserFunctions | null>;
 }
 
 export { ICartItem, IUser, IUserFunctions, IUserModel };

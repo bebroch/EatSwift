@@ -1,9 +1,9 @@
 import { Model, ObjectId } from "mongoose";
 import {
-	IDishDataForCreate,
-	IDishDataForDelete,
+	DishTypes.GetDataForCreate,
+	DishTypes.GetDataForDelete,
 	IDishDataForFindMany,
-	IDishDataForFindOne,
+	DishTypes.GetDataForFindOne,
 } from "./DishTypes";
 
 interface IDish {
@@ -17,10 +17,10 @@ interface IDish {
 
 interface IDishModel extends Model<IDish> {
 	getDishes(dishData: IDishDataForFindMany): Promise<IDish[]>;
-	getDish(dishData: IDishDataForFindOne): Promise<IDish>;
+	getDish(dishData: DishTypes.GetDataForFindOne): Promise<IDish>;
 
-	createDish(dishData: IDishDataForCreate): Promise<IDish>;
-	deleteDish(dishData: IDishDataForDelete): Promise<void>;
+	createDish(dishData: DishTypes.GetDataForCreate): Promise<IDish>;
+	deleteDish(dishData: DishTypes.GetDataForDelete): Promise<void>;
 }
 
 export { IDish, IDishModel };

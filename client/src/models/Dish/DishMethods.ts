@@ -1,33 +1,35 @@
 import mongoose from "mongoose";
 import ERROR_MESSAGES from "../../Message/Errors";
-import {
-	IDishDataForFindMany,
-	IDishDataForFindOne,
-	IDishDataForCreate,
-	IDishDataForDelete,
-} from "../../interface/Restaurant/DIsh/DishTypes";
-import DishSchema from "./DishSchema";
-import Menu from "../Menu";
+import Menu from "../MenuModel";
+import { DishTypes } from "../../Types/DishTypes";
 
 export function DishMethods(schema: mongoose.Schema) {
-	schema.statics.getDishes = async function (dishData: IDishDataForFindMany) {
+	schema.statics.getDishes = async function (
+		dishData: DishTypes.GetDataForFindMany
+	) {
 		const { restaurant_id } = dishData;
 		const dishes = this.find({ restaurant_id });
 		return dishes;
 	};
 
-	schema.statics.getDish = async function (dishData: IDishDataForFindOne) {
+	schema.statics.getDish = async function (
+		dishData: DishTypes.GetDataForFindOne
+	) {
 		const { _id, restaurant_id } = dishData;
 		const dish = this.findOne({ _id, restaurant_id });
 		return dish;
 	};
 
-	schema.statics.createDish = async function (dishData: IDishDataForCreate) {
+	schema.statics.createDish = async function (
+		dishData: DishTypes.GetDataForCreate
+	) {
 		const dish = new this(dishData);
 		return dish.save();
 	};
 
-	schema.statics.deleteDish = async function (dishData: IDishDataForDelete) {
+	schema.statics.deleteDish = async function (
+		dishData: DishTypes.GetDataForDelete
+	) {
 		const { _id, restaurant_id } = dishData;
 		const dish = await this.findOne({ _id, restaurant_id });
 

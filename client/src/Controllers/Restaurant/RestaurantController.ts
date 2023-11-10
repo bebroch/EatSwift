@@ -1,22 +1,21 @@
 import { Request, Response } from "express";
-import Status from "../../Services/Internet/Status";
-import Restaurant from "../../models/Restaurant";
+import Status from "../../Service/Status";
+import Restaurant from "../../models/RestaurantModel";
 import ERROR_MESSAGES from "../../Message/Errors";
-import { getRestaurantFromAccount } from "../../Services/Internet/GetBody/Restaurant/getRestaurant";
-import DataFormatterRestaurant from "../../Services/DatabaseServices/Data/Formatter/Restaurant/DataFormatterRestaurant";
+import GetData from "../../Service/GetData";
+import DataFormatter from "../../Service/DataFormatter";
 
 class RestaurantController {
 	async getAllRestaurant(req: Request, res: Response) {
-		const restaurants = await Restaurant.find().sort({ name: 1 });
+		const restaurants = await Restaurant.find().sort({ name: 1 }); // TODO Сделать метод в модели
 
-		const restaurantsData =
-			DataFormatterRestaurant.getRestaurantData(restaurants);
+		const restaurantsData = DataFormatter.Restaurant.get(restaurants);
 
-		Status.success(res, { restaurant: restaurantsData });
+		return Status.success(res, { restaurant: restaurantsData });
 	}
 
 	async getRestaurant(req: Request, res: Response) {
-		const restaurant = getRestaurantFromAccount(req);
+		const restaurant = GetData.Restaurant.getPublic(req);
 
 		if (!restaurant) {
 			return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
@@ -25,9 +24,9 @@ class RestaurantController {
 		const restaurantData = await restaurant.getRestaurantData();
 
 		const restaurantFormattedData =
-			DataFormatterRestaurant.getRestaurantData(restaurantData);
+			DataFormatter.Restaurant.get(restaurantData);
 
-		Status.success(res, { restaurant: restaurantFormattedData });
+		return Status.success(res, { restaurant: restaurantFormattedData });
 	}
 }
 

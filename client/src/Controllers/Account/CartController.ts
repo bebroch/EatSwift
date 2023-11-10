@@ -1,35 +1,32 @@
 import { Request, Response } from "express";
-import Status from "../../Services/Internet/Status";
+import Status from "../../Service/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
-import getUser from "../../Services/Internet/GetBody/getAccount";
 import { IUserFunctions } from "../../interface/User/User";
-import { formatterDataCart } from "../../Services/DatabaseServices/Data/Formatter/User/DataFormatterCart";
-import {
-	getDishDataForAddToCart,
-	getDishDataForDeleteFromCart,
-} from "../../Services/Internet/GetBody/Restaurant/getDishData";
-import {
-	IDishDataForAddToCart,
-	IDishDataForDeleteFromCart,
-} from "../../interface/Restaurant/DIsh/DishTypes";
+import User from "../../models/UserModel";
+import GetData from "../../Service/GetData";
+import { DishTypes } from "../../Types/DishTypes";
+import DataFormatter from "../../Service/DataFormatter";
+import DetailsService from "../../Service/DetailsService";
 
 class CartController {
 	// Показать корзину пользователя
 	async getCart(req: Request, res: Response) {
-		const user = getUser(req) as IUserFunctions;
+		const user = GetData.User.get(req) as IUserFunctions;
 		const cart = await user.getCart();
-		// const cartDataFormatted = formatterDataCart.getCartData(cart);
-		// const cart = await CartService.getCartDetails(user);
 
-		// return Status.success(res, cartDataFormatted);
+		const cartWithDishDetails = await DetailsService.Cart.get(cart);
+
+		const cartDataFormatted = DataFormatter.Cart.get(cartWithDishDetails);
+
+		return Status.success(res, cartDataFormatted);
 	}
 
 	// Добавить в корзину пользователя
 	async addToCart(req: Request, res: Response) {
-		const user = getUser(req) as IUserFunctions;
-		const dishData = getDishDataForAddToCart(
-			req as Request & IDishDataForAddToCart
+		const user = GetData.User.get(req) as IUserFunctions;
+		const dishData = GetData.Dish.AddToCart(
+			req as Request & DishTypes.GetDataForAddToCart
 		);
 
 		try {
@@ -51,9 +48,9 @@ class CartController {
 
 	// Удалить блюдо из корзины пользователя
 	async deleteItemFromCart(req: Request, res: Response) {
-		const user = getUser(req) as IUserFunctions;
-		const dishData = getDishDataForDeleteFromCart(
-			req as Request & IDishDataForDeleteFromCart
+		const user = GetData.User.get(req) as IUserFunctions;
+		const dishData = GetData.Dish.DeleteFromCart(
+			req as Request & DishTypes.GetDataForDeleteFromCart
 		);
 
 		try {
@@ -71,4 +68,4 @@ class CartController {
 	}
 }
 
-export default new CartController();
+export default new CartController(); // 1

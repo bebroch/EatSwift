@@ -22,6 +22,8 @@ const ERROR_MESSAGES = {
 	MENU_NOT_CREATED: "Menu not created",
 	MENU_NOT_FOUND: "Menu not found",
 	MENU_ID_AND_DISH_ID_REQUIRED: "menu_id and dish_id are required",
+	INVALID_LOGIN_DATA: "Invalid login data",
+	INVALID_REGISTRATION_DATA: "Invalid registration data",
 };
 
 export default ERROR_MESSAGES;

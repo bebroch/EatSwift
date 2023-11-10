@@ -1,21 +1,19 @@
 import { Request, Response } from "express";
-import Status from "../../Services/Internet/Status";
-import getUser from "../../Services/Internet/GetBody/getAccount";
-import { IUserFunctions } from "../../interface/User/User";
+import Status from "../../Service/Status";
 import { IAccount } from "../../interface/Account/Account";
-import DataFormatterUser from "../../Services/DatabaseServices/Data/Formatter/User/DataFormatterUser";
+import { IUserFunctions } from "../../interface/User/User";
+import GetData from "../../Service/GetData";
+import DataFormatter from "../../Service/DataFormatter";
 
 class UserAccountController {
 	async index(
 		req: Request & { account?: IAccount; login?: string },
 		res: Response
 	) {
-		const user = getUser(req) as IUserFunctions;
+		const user = GetData.User.get(req) as IUserFunctions;
 		const userWithCart = await user.getUserDataWithCart();
 
-		
-
-		const userData = DataFormatterUser.getUserData(userWithCart);
+		const userData = DataFormatter.User.get(userWithCart);
 
 		return Status.success(res, {
 			user: userData,

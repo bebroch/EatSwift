@@ -1,13 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import ERROR_MESSAGES from "../../../Message/Errors";
-import Status from "../../../Services/Internet/Status";
-import {
-	checkAccountExist,
-	checkMissingFields,
-} from "../../../Services/Validation/LoginValidation";
-import { checkRoleExist } from "../../../Services/Validation/RegisterValidation";
+import Status from "../../../Service/Status";
 import { TAccount } from "../../../interface/Account/Account";
-import getLoginData from "../../../Services/Internet/GetBody/Auth/getLoginData";
+import GetData from "../../../Service/GetData";
+import ValidateService from "../../../Service/ValidateService";
 
 async function error(res: Response, message: string) {
 	return Status.badRequest(res, message);
@@ -15,22 +11,22 @@ async function error(res: Response, message: string) {
 
 async function loginValidation(
 	req: Request & {
-		account?: TAccount;
+		account?: TAccount | null; // TODO Сделать TYPE
 	},
 	res: Response,
 	next: NextFunction
 ) {
-	const loginData = await getLoginData(req);
+	const loginData = GetData.Auth.Login.get(req);
 
-	if (!(await checkRoleExist(loginData))) {
+	if (!ValidateService.Login.isRoleExist(loginData)) {
 		return error(res, ERROR_MESSAGES.INVALID_ROLE);
 	}
 
-	if (await checkMissingFields(loginData)) {
+	if (ValidateService.Login.checkMissingFields(loginData)) {
 		return error(res, ERROR_MESSAGES.LOGIN_OR_PASSWORD_REQUIRED);
 	}
 
-	const account = await checkAccountExist(loginData);
+	const account = await ValidateService.Login.checkAccountExist(loginData);
 
 	if (!account) {
 		return Status.notFound(res, ERROR_MESSAGES.ACCOUNT_NOT_FOUND);
