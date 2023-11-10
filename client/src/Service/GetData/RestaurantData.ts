@@ -15,19 +15,4 @@ export const RestaurantData = {
 	): RestaurantTypes.outputModelOrUndefined {
 		return req.publicRestaurant;
 	},
-	async getByToken(
-		token: string
-	): Promise<RestaurantTypes.outputModelOrUndefined> {
-		const accountData = TokenService.decodeToken(token);
-
-		if (!accountData) {
-			return undefined;
-		}
-
-		const account = (await Restaurant.findOne(
-			accountData
-		)) as IRestaurantFunctions;
-
-		return account;
-	},
 };

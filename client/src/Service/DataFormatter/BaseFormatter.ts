@@ -1,7 +1,10 @@
 import { TAccount } from "../../interface/Account/Account";
 import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
-import { IRestaurant, IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import {
+	IRestaurant,
+	IRestaurantFunctions,
+} from "../../interface/Restaurant/Restaurant";
 import { ICartItem } from "../../interface/User/User";
 
 // TODO Если смогу, нужно заменить if (!data) return null;
@@ -34,8 +37,8 @@ class BaseFormatter {
 			return null;
 		}
 
-		const { name, description } = data;
-		return { name, description };
+		const { _id, name, description } = data;
+		return { _id, name, description };
 	}
 
 	getDishFields(data: IDish | null) {
@@ -43,15 +46,9 @@ class BaseFormatter {
 			return null;
 		}
 
-		const { name, description, ingredients, picture, price } = data;
+		const { _id, name, description, ingredients, picture, price } = data;
 
-		return {
-			name,
-			description,
-			ingredients,
-			picture,
-			price,
-		};
+		return { _id, name, description, ingredients, picture, price };
 	}
 
 	getCartFields(data: ICartItem | null) {

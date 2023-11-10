@@ -1,34 +1,37 @@
 import { Request, Response, NextFunction } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
-import Status from "../../Service/Status";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import GetData from "../../Service/GetData";
-import TokenService from "../../Service/TokenService";
+import Status from "../../Service/Status";
+import { IUserFunctions } from "../../interface/User/User";
+import User from "../../models/UserModel";
+import { AuthMiddleware } from "./AuthMiddleware";
 
 async function UserAuthMiddleware(
-	req: Request & { restaurant?: IRestaurantFunctions },
+	req: Request & { user?: IUserFunctions },
 	res: Response,
 	next: NextFunction
 ) {
-	const token = GetData.Token.get(req);
-
-	if (!token) {
-		return Status.unauthorized(res, ERROR_MESSAGES.UN_AUTHORIZED);
-	}
-
 	try {
-		const restaurantAccount = await GetData.Restaurant.getByToken(token);
+		const userAccount = (await AuthMiddleware(req, User)) as IUserFunctions;
 
-		if (!restaurantAccount) {
-			return Status.unauthorized(res, ERROR_MESSAGES.UN_AUTHORIZED);
+		req.user = userAccount;
+
+		return next();
+	} catch (err: any) {
+		// TODO Сделать отдельный метод под catch
+		if (err.message === ERROR_MESSAGES.UN_AUTHORIZED) {
+			return Status.unauthorized(
+				res,
+				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
+			);
 		}
 
-		req.restaurant = restaurantAccount;
-	} catch (err) {
-		return Status.unauthorized(res, ERROR_MESSAGES.INVALID_TOKEN);
-	}
+		if (err.message === ERROR_MESSAGES.INVALID_TOKEN) {
+			return Status.unauthorized(res, ERROR_MESSAGES.INVALID_TOKEN);
+		}
 
-	return next();
+		return Status.internalError(res, ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
+	}
 }
 
-export { UserAuthMiddleware }; // 1
+export { UserAuthMiddleware };
