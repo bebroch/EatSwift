@@ -2,13 +2,9 @@ import { Model, ObjectId } from "mongoose";
 import { IOrder } from "./Order";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { IUserRegisterData } from "../RegisterInterface/RegisterData";
-import { IDish } from "../Restaurant/DIsh/DishModel";
+import { ICartItem } from "./Cart";
 
-interface ICartItem {
-	_id: ObjectId;
-	dish: IDish;
-	quantity: number;
-}
+
 
 interface IUser extends IAccount {
 	address?: string;

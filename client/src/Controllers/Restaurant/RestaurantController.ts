@@ -7,15 +7,15 @@ import DataFormatter from "../../Service/DataFormatter";
 
 class RestaurantController {
 	async getAllRestaurant(req: Request, res: Response) {
-		const restaurants = await Restaurant.find().sort({ name: 1 });
+		const restaurants = await Restaurant.find().sort({ name: 1 }); // TODO Сделать метод в модели
 
 		const restaurantsData = DataFormatter.Restaurant.get(restaurants);
 
-		Status.success(res, { restaurant: restaurantsData });
+		return Status.success(res, { restaurant: restaurantsData });
 	}
 
 	async getRestaurant(req: Request, res: Response) {
-		const restaurant = GetData.Restaurant.getPrivate(req);
+		const restaurant = GetData.Restaurant.getPublic(req);
 
 		if (!restaurant) {
 			return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
@@ -26,7 +26,7 @@ class RestaurantController {
 		const restaurantFormattedData =
 			DataFormatter.Restaurant.get(restaurantData);
 
-		Status.success(res, { restaurant: restaurantFormattedData });
+		return Status.success(res, { restaurant: restaurantFormattedData });
 	}
 }
 

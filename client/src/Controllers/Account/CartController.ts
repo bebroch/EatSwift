@@ -6,16 +6,20 @@ import { IUserFunctions } from "../../interface/User/User";
 import User from "../../models/UserModel";
 import GetData from "../../Service/GetData";
 import { DishTypes } from "../../Types/DishTypes";
+import DataFormatter from "../../Service/DataFormatter";
+import DetailsService from "../../Service/DetailsService";
 
 class CartController {
 	// Показать корзину пользователя
 	async getCart(req: Request, res: Response) {
 		const user = GetData.User.get(req) as IUserFunctions;
 		const cart = await user.getCart();
-		// const cartDataFormatted = formatterDataCart.getCartData(cart);
-		// const cart = await CartService.getCartDetails(user);
 
-		// return Status.success(res, cartDataFormatted);
+		const cartWithDishDetails = await DetailsService.Cart.get(cart);
+
+		const cartDataFormatted = DataFormatter.Cart.get(cartWithDishDetails);
+
+		return Status.success(res, cartDataFormatted);
 	}
 
 	// Добавить в корзину пользователя
