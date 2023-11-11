@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import bodyParser from "body-parser";
 import { connectDB, disconnectDB } from "./database/connect";
 import { PORT } from "./envInfo";
