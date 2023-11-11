@@ -11,6 +11,6 @@ router.param("login", restaurantParamHandler);
 router.get("/", RestaurantController.getAllRestaurant);
 
 // Публичный кабинет ресторана
-router.use("/:login", profile);
+router.use("/:login", profile); // TODO Сделать мидлеваре что бы писал если нету ресторана
 
 export default router;

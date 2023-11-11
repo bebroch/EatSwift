@@ -3,9 +3,8 @@ import { DishTypes } from "../../Types/DishTypes";
 
 export const DishData = {
 	FindOne(req: Request) {
-		const { restaurant_id } = req.body;
 		const { _id } = req.params;
-		return { _id, restaurant_id };
+		return { _id };
 	},
 
 	Create(req: Request) {

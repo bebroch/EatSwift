@@ -13,7 +13,7 @@ router.delete("/order");
 
 router.use("/history", () => {
 	router.get("/orders");
-	router.get("/orders/:id");
+	router.get("/orders/:_id");
 });
 
 export default router;

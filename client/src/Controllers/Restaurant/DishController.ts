@@ -8,6 +8,34 @@ import { DishTypes } from "../../Types/DishTypes";
 import DataFormatter from "../../Service/DataFormatter";
 
 class DishController {
+	async getDishesFromPublicRestaurant(req: Request, res: Response) {
+		const restaurant = GetData.Restaurant.getPublic(
+			req
+		) as IRestaurantFunctions;
+
+		const dishes = await restaurant.getDishes();
+		const dishesDataFormatted = DataFormatter.Dish.get(dishes);
+
+		return Status.success(res, dishesDataFormatted);
+	}
+
+	async getDishFromPublicRestaurant(req: Request, res: Response) {
+		const dishData = GetData.Dish.FindOne(req);
+		const restaurant = GetData.Restaurant.getPublic(
+			req
+		) as IRestaurantFunctions;
+
+		const dish = await restaurant.getDish(dishData);
+
+		if (!dish) {
+			return Status.notFound(res, ERROR_MESSAGES.DISH_NOT_FOUND);
+		}
+
+		const dishDataFormatted = DataFormatter.Dish.get(dish);
+
+		return Status.success(res, dishDataFormatted);
+	}
+
 	async getDishes(req: Request, res: Response) {
 		const restaurant = GetData.Restaurant.getPrivate(
 			req
@@ -76,4 +104,3 @@ class DishController {
 }
 
 export default new DishController();
-// 1

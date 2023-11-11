@@ -15,7 +15,11 @@ class MenuController {
 			req
 		) as IRestaurantFunctions;
 
-		return Status.success(res, restaurant.menu);
+		const menu = await restaurant.getMenus();
+		const menuWithDetails = await DetailsService.Menu.getManyWithDish(menu);
+		const menuDataFormatted = DataFormatter.Menu.get(menuWithDetails);
+
+		return Status.success(res, menuDataFormatted);
 	}
 
 	async getMenuFromPublicRestaurantProfile(req: Request, res: Response) {
@@ -30,7 +34,10 @@ class MenuController {
 			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
 		}
 
-		return Status.success(res, menu);
+		const menuWithDetails = await DetailsService.Menu.getOneWithDish(menu);
+		const menuDataFormatted = DataFormatter.Menu.getOne(menuWithDetails);
+
+		return Status.success(res, menuDataFormatted);
 	}
 
 	async getMenusFromPrivateRestaurantProfile(req: Request, res: Response) {
