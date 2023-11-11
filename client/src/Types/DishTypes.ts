@@ -25,11 +25,13 @@ namespace DishTypes {
 	};
 
 	export type GetDataForAddToCart = {
-		_id: string | ObjectId;
+		dish_id: string | ObjectId;
+		restaurant_id: string | ObjectId;
 	};
 
 	export type GetDataForDeleteFromCart = {
-		_id: string | ObjectId;
+		dish_id: string | ObjectId;
+		restaurant_id: string | ObjectId;
 	};
 }
 

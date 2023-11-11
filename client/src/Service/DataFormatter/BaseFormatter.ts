@@ -1,3 +1,4 @@
+import CartTypes from "../../Types/CartTypes";
 import { TAccount } from "../../interface/Account/Account";
 import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
@@ -5,6 +6,7 @@ import {
 	IRestaurant,
 	IRestaurantFunctions,
 } from "../../interface/Restaurant/Restaurant";
+import { ICart } from "../../interface/User/Cart";
 import { ICartItem } from "../../interface/User/User";
 
 // TODO Если смогу, нужно заменить if (!data) return null;
@@ -51,13 +53,13 @@ class BaseFormatter {
 		return { _id, name, description, ingredients, picture, price };
 	}
 
-	getCartFields(data: ICartItem | null) {
+	getCartItemFields(data: CartTypes.GetDataItemDetails | null) {
 		if (!data) {
 			return null;
 		}
 
-		const { _id, quantity } = data;
-		return { _id, quantity };
+		const { _id, dish, quantity } = data;
+		return { _id, dish, quantity };
 	}
 }
 

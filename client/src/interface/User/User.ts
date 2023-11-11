@@ -2,9 +2,8 @@ import { Model, ObjectId } from "mongoose";
 import { IOrder } from "./Order";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { IUserRegisterData } from "../RegisterInterface/RegisterData";
-import { ICartItem } from "./Cart";
-
-
+import { ICart, ICartItem } from "./Cart";
+import { UserTypes } from "../../Types/UserTypes";
 
 interface IUser extends IAccount {
 	address?: string;
@@ -14,11 +13,11 @@ interface IUser extends IAccount {
 }
 
 interface IUserFunctions extends IUser, IAccountFunction {
-	getCart(): Promise<ICartItem[]>;
+	getCart(): Promise<ICart>;
 	getOrders(): Promise<IOrder[]>;
 	addToCart(itemData: any): Promise<void>;
 	deleteItemFromCart(itemData: any): Promise<void>;
-	getUserDataWithCart(): Promise<IUserFunctions>;
+	getUserDataWithCart(): Promise<UserTypes.GetDataDetails>;
 }
 
 interface IUserModel extends Model<IUserFunctions, IAccountModel> {

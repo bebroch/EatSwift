@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { IUser, IUserModel } from "../../interface/User/User";
 import { UserMethods } from "./UserMethods";
 
 const UserSchema = new mongoose.Schema(
@@ -10,12 +9,6 @@ const UserSchema = new mongoose.Schema(
 		phoneNumber: { type: String, required: false },
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
-		cart: [
-			{
-				dish: { type: mongoose.Schema.Types.ObjectId, ref: "Dish" },
-				quantity: { type: Number, default: 1 },
-			},
-		],
 	},
 	{ timestamps: true }
 );

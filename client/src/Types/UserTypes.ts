@@ -1,5 +1,7 @@
+import { ObjectId } from "mongoose";
 import { EnumRole } from "../interface/Account/Role";
 import { IUser, IUserFunctions } from "../interface/User/User";
+import CartTypes from "./CartTypes";
 
 namespace UserTypes {
 	export type GetModel = {
@@ -23,6 +25,20 @@ namespace UserTypes {
 		password: string;
 		confirmPassword: string;
 		role: EnumRole;
+	};
+
+	export type GetDataForAddToCart = baseData;
+
+	export type GetDataForDelete = baseData;
+
+	type baseData = {
+		restaurant_id: ObjectId;
+		dish_id: ObjectId;
+	};
+
+	export type GetDataDetails = {
+		data: IUserFunctions;
+		cart: CartTypes.GetDataItemDetails[];
 	};
 
 	export type outputModel = IUserFunctions;

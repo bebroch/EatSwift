@@ -8,6 +8,13 @@ const OrderSchema = new mongoose.Schema(
 			required: true,
 			ref: "User",
 		},
+		restaurants_id: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				required: true,
+				ref: "Restaurant",
+			},
+		],
 		status: {
 			type: String,
 			enum: [

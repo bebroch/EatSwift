@@ -6,14 +6,17 @@ export const UserDataDetails = {
 	async getWithCart(user: IUserFunctions) {
 		const userCartData = await Promise.all(
 			user.cart.map(async cart => {
-				const dishData = await Dish.findOne({ _id: cart.dish });
-				cart.dish = dishData as IDish;
-				return cart;
+				const dishData = await Dish.findOne({ _id: cart.dish_id });
+
+				return dishData;
 			})
 		);
 
-		user.cart = userCartData as ICartItem[];
+		const userWithCart = {
+			...user,
+			userCartData,
+		};
 
-		return user;
+		return userWithCart;
 	},
 };

@@ -8,6 +8,7 @@ import GetData from "../../Service/GetData";
 import { DishTypes } from "../../Types/DishTypes";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";
+import CartTypes from "../../Types/CartTypes";
 
 class CartController {
 	// Показать корзину пользователя
@@ -15,9 +16,12 @@ class CartController {
 		const user = GetData.User.get(req) as IUserFunctions;
 		const cart = await user.getCart();
 
-		const cartWithDishDetails = await DetailsService.Cart.get(cart);
+		const cartWithDishDetails = (await DetailsService.Cart.get(
+			cart
+		)) as CartTypes.GetDataItemDetails[];
 
-		const cartDataFormatted = DataFormatter.Cart.get(cartWithDishDetails);
+		const cartDataFormatted =
+			DataFormatter.Cart.getOnlyCart(cartWithDishDetails);
 
 		return Status.success(res, { cart: cartDataFormatted });
 	}

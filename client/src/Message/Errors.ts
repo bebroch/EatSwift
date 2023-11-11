@@ -24,6 +24,9 @@ const ERROR_MESSAGES = {
 	MENU_ID_AND_DISH_ID_REQUIRED: "menu_id and dish_id are required",
 	INVALID_LOGIN_DATA: "Invalid login data",
 	INVALID_REGISTRATION_DATA: "Invalid registration data",
+	DISH_NOT_FOUND_IN_RESTAURANT: "Dish not found in restaurant",
+	INCORRECT_DATA: "Incorrect data",
+	CART_NOT_FOUND: "Cart not found",
 };
 
 export default ERROR_MESSAGES;
