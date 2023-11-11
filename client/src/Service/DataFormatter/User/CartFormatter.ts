@@ -6,12 +6,19 @@ export const CartFormatter = {
 	// Обновить types
 	get(cart: ICartItem | ICartItem[]) {
 		if (Array.isArray(cart)) {
-			return cart.map(item => {
+			let total = 0;
+			const cartData = cart.map(item => {
+				total += item.dish.price * item.quantity;
 				return {
 					...BaseFormatter.getCartFields(item),
 					dish: DataFormatter.Dish.get(item.dish),
 				};
 			});
+
+			return {
+				total,
+				items: cartData,
+			};
 		}
 
 		return {

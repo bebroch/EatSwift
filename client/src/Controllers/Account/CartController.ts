@@ -19,7 +19,7 @@ class CartController {
 
 		const cartDataFormatted = DataFormatter.Cart.get(cartWithDishDetails);
 
-		return Status.success(res, cartDataFormatted);
+		return Status.success(res, { cart: cartDataFormatted });
 	}
 
 	// Добавить в корзину пользователя

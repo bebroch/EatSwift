@@ -45,18 +45,16 @@ class DishController {
 		return Status.success(res, dishesDataFormatted);
 	}
 
-	async getDish(
-		req: Request | (Request & DishTypes.GetDataForFindOne),
-		res: Response
-	) {
+	async getDish(req: Request, res: Response) {
 		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
-		const dishData = GetData.Dish.FindOne(
-			req as Request & DishTypes.GetDataForFindOne
-		);
-		const dishes = await restaurant.getDish(dishData);
-		return Status.success(res, dishes);
+		const dishData = GetData.Dish.FindOne(req);
+
+		const dish = await restaurant.getDish(dishData);
+		const dishDataFormatted = DataFormatter.Dish.get(dish);
+
+		return Status.success(res, dishDataFormatted);
 	}
 
 	async createDish(
@@ -69,21 +67,19 @@ class DishController {
 		const dishDataForCreate = GetData.Dish.Create(
 			req as Request & DishTypes.GetDataForCreate
 		);
+
 		const dish = await restaurant.createDish(dishDataForCreate);
-		return Status.success(res, dish);
+		const dishDataFormatted = DataFormatter.Dish.get(dish);
+
+		return Status.success(res, dishDataFormatted);
 	}
 
-	async deleteDish(
-		req: Request | (Request & DishTypes.GetDataForDelete),
-		res: Response
-	) {
+	async deleteDish(req: Request, res: Response) {
 		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
 
-		const dishData = GetData.Dish.Delete(
-			req as Request & DishTypes.GetDataForDelete
-		);
+		const dishData = GetData.Dish.Delete(req);
 
 		try {
 			await restaurant.deleteDish(dishData);
