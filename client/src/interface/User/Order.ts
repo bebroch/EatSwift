@@ -1,5 +1,5 @@
 import { Model, ObjectId } from "mongoose";
-import { ICart } from "./Cart";
+import { ICart, ICartItem } from "./Cart";
 
 enum OrderStatus {
 	active = "active",
@@ -9,10 +9,12 @@ enum OrderStatus {
 	canceled = "canceled",
 }
 
-interface IOrder extends Document, ICart {
+interface IOrder {
 	_id: ObjectId;
 	user_id: ObjectId;
+	restaurant_id: ObjectId;
 	status: OrderStatus;
+	item: ICartItem;
 }
 
 interface IOrderModel extends Model<IOrder> {

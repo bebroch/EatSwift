@@ -8,6 +8,13 @@ export function CartMethods(schema: mongoose.Schema) {
 		return await Cart.find({ user_id: this._id }).lean();
 	};
 
+	schema.methods.getCartByRestaurant = async function (
+		data: UserTypes.GetDataForMakeOrder
+	) {
+		const { restaurant_id } = data;
+		return await Cart.findOne({ user_id: this._id, restaurant_id }).lean();
+	};
+
 	schema.methods.getOrders = async function () {
 		const orders = await Order.find({ user_id: this._id });
 		return orders;

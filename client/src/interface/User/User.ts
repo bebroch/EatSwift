@@ -4,6 +4,7 @@ import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { IUserRegisterData } from "../RegisterInterface/RegisterData";
 import { ICart, ICartItem } from "./Cart";
 import { UserTypes } from "../../Types/UserTypes";
+import OrderTypes from "../../Types/OrderTypes";
 
 interface IUser extends IAccount {
 	address?: string;
@@ -17,6 +18,10 @@ interface IUserFunctions extends IUser, IAccountFunction {
 	addToCart(itemData: any): Promise<void>;
 	deleteItemFromCart(itemData: any): Promise<void>;
 	getUserDataWithCart(): Promise<UserTypes.outputDataForDetails>;
+	makeOrder(
+		dataForMakeOrder: UserTypes.GetDataForMakeOrder
+	): Promise<OrderTypes.outputDataForDetails>;
+	getCartByRestaurant(data: UserTypes.GetDataForMakeOrder): Promise<ICart>;
 }
 
 interface IUserModel extends Model<IUserFunctions, IAccountModel> {

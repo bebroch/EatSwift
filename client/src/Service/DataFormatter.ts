@@ -4,10 +4,12 @@ import { RestaurantFormatter } from "./DataFormatter/Restaurant/RestaurantFormat
 import { MenuFormatter } from "./DataFormatter/Restaurant/MenuFormatter";
 import { DishFormatter } from "./DataFormatter/Restaurant/DishFormatter";
 import { CourierFormatter } from "./DataFormatter/Courier/CourierFormatter";
+import { OrderFormatter } from "./DataFormatter/User/OrderFormatter";
 
 class DataFormatter {
 	static User = UserFormatter;
 	static Cart = CartFormatter;
+	static Order = OrderFormatter;
 
 	static Restaurant = RestaurantFormatter;
 	static Menu = MenuFormatter;

@@ -44,6 +44,10 @@ namespace UserTypes {
 		cart: CartTypes.GetDataDetails[] | null;
 	};
 
+	export type GetDataForMakeOrder = {
+		restaurant_id: ObjectId;
+	};
+
 	export type outputDataForDetails = GetDataForDetails;
 	export type outputDataDetails = GetDataDetails;
 

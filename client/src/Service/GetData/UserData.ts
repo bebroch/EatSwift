@@ -7,4 +7,9 @@ export const UserData = {
 	): UserTypes.outputModelOrUndefined {
 		return req.user;
 	},
+
+	getDataForMakeOrder(req: Request) {
+		const { restaurant_id } = req.body;
+		return { restaurant_id };
+	},
 };

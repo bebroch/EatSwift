@@ -27,6 +27,7 @@ const ERROR_MESSAGES = {
 	DISH_NOT_FOUND_IN_RESTAURANT: "Dish not found in restaurant",
 	INCORRECT_DATA: "Incorrect data",
 	CART_NOT_FOUND: "Cart not found",
+	ORDER_ALREADY_EXIST: "Order already exists",
 };
 
 export default ERROR_MESSAGES;

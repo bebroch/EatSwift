@@ -1,16 +1,19 @@
 import mongoose from "mongoose";
 import Order from "../OrderModel";
-import { ICartItem } from "../../interface/User/User";
+import { UserTypes } from "../../Types/UserTypes";
 
 export function OrderMethods(schema: mongoose.Schema) {
-	schema.methods.makeOrder = async function () {
-		const dishesId = this.cart.map((itemCart: ICartItem) => {
-			return itemCart.dish_id;
-		});
+	schema.methods.makeOrder = async function (
+		data: UserTypes.GetDataForMakeOrder
+	) {
+		const cart = await this.getCartByRestaurant(data);
 
-		await Order.create({
-			user_id: this._id,
-			items: dishesId,
-		});
+		if (!cart) {
+			return null;
+		}
+
+		const order = await Order.create(cart);
+
+		return order;
 	};
 }
