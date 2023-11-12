@@ -1,28 +1,41 @@
 import CartTypes from "../../../Types/CartTypes";
-import { IRestaurantFunctions } from "../../../interface/Restaurant/Restaurant";
-import { IUserFunctions } from "../../../interface/User/User";
 import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 
 export const CartFormatter = {
-	// Обновить types
+	//TODO Обновить types
 	getOnlyCart(
-		cartItem: CartTypes.GetDataItemDetails | CartTypes.GetDataItemDetails[]
-	):
-		| CartTypes.outputItemDataDetails
-		| CartTypes.outputItemDataDetails[]
-		| null {
-		if (!cartItem) {
+		cartItems: CartTypes.GetDataDetails[] | null
+	): CartTypes.outputDataDetails[] | null {
+		if (!cartItems) {
 			return null;
 		}
 
-		if (Array.isArray(cartItem)) {
-			return cartItem.map(item => {
-				return this.getCartItem(item);
-			});
-		}
+		const cartItemsData = cartItems.map(
+			(cartItem: CartTypes.GetDataDetails) => {
+				const cartItemData = cartItem.item.map(
+					(item: CartTypes.GetDataItemDetails) => {
+						return { ...DataFormatter.Dish.get(item.dish) };
+					}
+				);
+				return {
+					...cartItem,
+					item: cartItemData,
+				};
+			}
+		);
 
-		return this.getCartItem(cartItem);
+		return cartItemsData as CartTypes.outputDataDetails[];
+
+		// if (Array.isArray(cartItems)) {
+		// 	return cartItems.map(item => CartFormatter.getOnlyCart(item));
+		// }
+
+		// if (Array.isArray(cartItem)) {
+		// 	return cartItem.map(item => this.getCartItem(item));
+		// }
+
+		// return this.getCartItem(cartItem.item);
 	},
 
 	getCartItem(cartItem: CartTypes.GetDataItemDetails) {
@@ -36,12 +49,6 @@ export const CartFormatter = {
 	getWithRestaurantAndUser(
 		data: CartTypes.GetDataDetails
 	): CartTypes.outputDataDetails | null {
-		const user = DataFormatter.User.getOnlyUser(
-			data.user
-		) as IUserFunctions | null;
-		const restaurant = DataFormatter.Restaurant.get(
-			data.restaurant
-		) as IRestaurantFunctions | null;
 		const dishes = data.item.map(item => {
 			return {
 				...BaseFormatter.getCartItemFields(item),
@@ -49,13 +56,9 @@ export const CartFormatter = {
 			};
 		}) as CartTypes.GetDataItemDetails[];
 
-		if (!user || !restaurant || !dishes) {
-			return null;
-		}
-
 		return {
-			user,
-			restaurant,
+			user_id: data.user_id,
+			restaurant_id: data.restaurant_id,
 			item: dishes,
 		};
 	},

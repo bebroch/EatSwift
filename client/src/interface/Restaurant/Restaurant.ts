@@ -5,6 +5,7 @@ import { IDish } from "./DIsh/DishModel";
 import { IMenu } from "./Menu/MenuModel";
 import { DishTypes } from "../../Types/DishTypes";
 import { MenuTypes } from "../../Types/MenuTypes";
+import { RestaurantTypes } from "../../Types/RestaurantTypes";
 
 interface IRestaurant extends IAccount {
 	name: string;
@@ -13,11 +14,10 @@ interface IRestaurant extends IAccount {
 	contactInfo?: string;
 	rating: number;
 	password: string;
-	menu: IMenu[];
 }
 
 interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
-	getRestaurantData(): Promise<IRestaurantFunctions>;
+	getRestaurantData(): Promise<RestaurantTypes.GetDataDetails>;
 
 	getMenus(): Promise<IMenu[]>;
 	getMenu(menuData: MenuTypes.GetDataForFindOne): Promise<IMenu>;

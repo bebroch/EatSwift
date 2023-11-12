@@ -18,7 +18,7 @@ class CartController {
 
 		const cartWithDishDetails = (await DetailsService.Cart.get(
 			cart
-		)) as CartTypes.GetDataItemDetails[];
+		)) as CartTypes.GetDataDetails[];
 
 		const cartDataFormatted =
 			DataFormatter.Cart.getOnlyCart(cartWithDishDetails);
@@ -72,4 +72,4 @@ class CartController {
 	}
 }
 
-export default new CartController(); // 1
+export default new CartController(); // 2

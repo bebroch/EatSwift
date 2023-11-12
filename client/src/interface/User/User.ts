@@ -9,15 +9,14 @@ interface IUser extends IAccount {
 	address?: string;
 	phoneNumber?: string;
 	password: string;
-	cart: ICartItem[];
 }
 
 interface IUserFunctions extends IUser, IAccountFunction {
-	getCart(): Promise<ICart>;
+	getCart(): Promise<ICart[]>;
 	getOrders(): Promise<IOrder[]>;
 	addToCart(itemData: any): Promise<void>;
 	deleteItemFromCart(itemData: any): Promise<void>;
-	getUserDataWithCart(): Promise<UserTypes.GetDataDetails>;
+	getUserDataWithCart(): Promise<UserTypes.outputDataForDetails>;
 }
 
 interface IUserModel extends Model<IUserFunctions, IAccountModel> {

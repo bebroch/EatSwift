@@ -8,9 +8,13 @@ export function DataMethods(schema: mongoose.Schema) {
 		const menu = await DetailsService.Menu.getManyWithDish(
 			await this.getMenus()
 		);
+
+		const dish = await DetailsService.Dish.getMany(await this.getDishes());
+
 		return {
 			...this._doc,
 			menu,
+			dish,
 		};
 	};
 }

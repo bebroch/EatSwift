@@ -5,7 +5,7 @@ import { UserTypes } from "../../Types/UserTypes";
 
 export function CartMethods(schema: mongoose.Schema) {
 	schema.methods.getCart = async function () {
-		return await Cart.findOne({ user_id: this._id }).lean();
+		return await Cart.find({ user_id: this._id }).lean();
 	};
 
 	schema.methods.getOrders = async function () {

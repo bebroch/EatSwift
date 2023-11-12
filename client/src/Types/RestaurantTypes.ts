@@ -1,4 +1,6 @@
 import { EnumRole } from "../interface/Account/Role";
+import { IDish } from "../interface/Restaurant/DIsh/DishModel";
+import { IMenu } from "../interface/Restaurant/Menu/MenuModel";
 import { IRestaurantFunctions } from "../interface/Restaurant/Restaurant";
 
 namespace RestaurantTypes {
@@ -26,6 +28,11 @@ namespace RestaurantTypes {
 		role: EnumRole;
 	};
 
+	export type GetDataDetails = IRestaurantFunctions & {
+		menu: IMenu[];
+		dish: IDish[];
+	};
+	
 	export type outputModel = IRestaurantFunctions;
 
 	export type outputModelOrUndefined = outputModel | undefined;

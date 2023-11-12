@@ -10,7 +10,7 @@ const router = Router();
 
 // Аутентификация пользователя, ресторана и курьера
 
-router.use("/user/profile",  UserAuthMiddleware, UserProfile);
+router.use("/user/profile", UserAuthMiddleware, UserProfile);
 router.use("/restaurant/profile", RestaurantAuthMiddleware, RestaurantProfile);
 router.use("/courier/profile", CourierAuthMiddleware, CourierProfile);
 

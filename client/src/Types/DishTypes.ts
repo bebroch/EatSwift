@@ -14,7 +14,6 @@ namespace DishTypes {
 		name: string;
 		description: string;
 		ingredients: string[];
-		picture: string;
 		price: number;
 		restaurant_id?: ObjectId;
 	};
@@ -32,6 +31,14 @@ namespace DishTypes {
 	export type GetDataForDeleteFromCart = {
 		dish_id: string | ObjectId;
 		restaurant_id: string | ObjectId;
+	};
+
+	export type outputDataDetails = {
+		_id: ObjectId;
+		name: string;
+		description: string;
+		ingredients: string[];
+		price: number;
 	};
 }
 

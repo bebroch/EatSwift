@@ -4,11 +4,16 @@ import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 
 export const UserFormatter = {
-	get(user: UserTypes.GetDataDetails) {
-		const { address, phoneNumber } = user.data;
+	get(user: UserTypes.GetDataDetails | null) {
+		if (!user) {
+			return null;
+		}
+
+		const { address, phoneNumber } = user;
+
 
 		return {
-			...BaseFormatter.getAccountFields(user.data),
+			...BaseFormatter.getAccountFields(user),
 			address,
 			phoneNumber,
 			cart: DataFormatter.Cart.getOnlyCart(user.cart),

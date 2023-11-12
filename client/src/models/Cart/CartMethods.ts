@@ -7,7 +7,7 @@ import { ObjectId } from "mongoose";
 
 export const CartMethods = function (schema: mongoose.Schema) {
 	schema.statics.getCart = async function (userId: string) {
-		return await this.findOne({ user_id: userId });
+		return await this.find({ user_id: userId });
 	};
 
 	schema.statics.addToCart = async function (

@@ -31,7 +31,7 @@ export function MenuMethods(schema: mongoose.Schema) {
 		menuData: MenuTypes.GetDataForDelete
 	) {
 		const { _id, restaurant_id } = menuData;
-		this.find({ restaurant_id, _id }).remove();
+		await this.findOneAndDelete({ restaurant_id, _id });
 	};
 
 	schema.statics.addDishToMenu = async function (

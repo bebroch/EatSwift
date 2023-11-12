@@ -36,13 +36,20 @@ namespace UserTypes {
 		dish_id: ObjectId;
 	};
 
-	export type GetDataDetails = {
-		data: IUserFunctions;
-		cart: CartTypes.GetDataItemDetails[];
+	export type GetDataForDetails = IUserFunctions & {
+		cart: CartTypes.GetDataForDetails[] | null;
 	};
 
-	export type outputModel = IUserFunctions;
+	export type GetDataDetails = IUserFunctions & {
+		cart: CartTypes.GetDataDetails[] | null;
+	};
 
+	export type outputDataForDetails = GetDataForDetails;
+	export type outputDataDetails = GetDataDetails;
+
+	export type outputDataDetailsWithoutUserId = GetDataDetails;
+
+	export type outputModel = IUserFunctions;
 	export type outputModelOrUndefined = outputModel | undefined;
 }
 

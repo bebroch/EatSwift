@@ -1,12 +1,7 @@
 import { Model, ObjectId } from "mongoose";
 import { IDish } from "../DIsh/DishModel";
-import {
-	MenuTypes.GetDataForAddToMenu,
-	MenuTypes.GetDataForCreate,
-	MenuTypes.GetDataForDelete,
-	IMenuDataForFindMany,
-	MenuTypes.GetDataForFindOne,
-} from "./MenuTypes";
+import { MenuTypes } from "../../../Types/MenuTypes";
+
 
 interface IMenu {
 	_id: ObjectId;
@@ -19,7 +14,7 @@ interface IMenu {
 }
 
 interface IMenuModel extends Model<IMenu> {
-	getMenus(menuData: IMenuDataForFindMany): Promise<IMenu[]>;
+	getMenus(menuData: MenuTypes.GetDataForFindMany): Promise<IMenu[]>;
 	getMenu(menuData: MenuTypes.GetDataForFindOne): Promise<IMenu | null>;
 
 	createMenu(menuData: MenuTypes.GetDataForCreate): Promise<IMenu>;

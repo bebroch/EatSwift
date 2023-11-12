@@ -3,6 +3,7 @@ import { ICart, ICartItemDetails } from "../interface/User/Cart";
 import { IRestaurantFunctions } from "../interface/Restaurant/Restaurant";
 import { IDish } from "../interface/Restaurant/DIsh/DishModel";
 import { IUserFunctions } from "../interface/User/User";
+import { RestaurantTypes } from "./RestaurantTypes";
 
 namespace CartTypes {
 	export type GetCart = ICart;
@@ -28,9 +29,21 @@ namespace CartTypes {
 		restaurant_id: string | ObjectId;
 	};
 
+	export type GetDataForDetails = {
+		user_id: ObjectId;
+		restaurant_id: ObjectId;
+		item: GetDataItemForDetails[];
+	};
+
+	export type GetDataItemForDetails = {
+		_id: ObjectId;
+		dish_id: ObjectId;
+		quantity: number;
+	};
+
 	export type GetDataDetails = {
-		user: IUserFunctions;
-		restaurant: IRestaurantFunctions;
+		user_id: ObjectId;
+		restaurant_id: ObjectId;
 		item: GetDataItemDetails[];
 	};
 

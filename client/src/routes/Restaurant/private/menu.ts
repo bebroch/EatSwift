@@ -9,7 +9,7 @@ const router = Router();
 router.get("/", MenuController.getMenusFromPrivateRestaurantProfile);
 router.get("/:_id", MenuController.getMenuFromPrivateRestaurantProfile);
 router.post("/", CreateMenuValidator, MenuController.createMenu);
-router.delete("/", DeleteMenuValidator, MenuController.deleteMenu);
+router.delete("/:_id", DeleteMenuValidator, MenuController.deleteMenu);
 
 router.post("/:menu_id", UpdateMenuValidator, MenuController.updateMenu);
 // TODO: Добавить удаление блюда из меню

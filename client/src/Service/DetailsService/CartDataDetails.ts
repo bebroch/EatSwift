@@ -10,45 +10,42 @@ import User from "../../models/UserModel";
 import ValidateService from "../ValidateService";
 
 export const CartDataDetails = {
-	async get(cart: ICart): Promise<CartTypes.outputItemDataDetails[] | null> {
+	async get(cart: ICart[]): Promise<CartTypes.outputDataDetails[] | null> {
 		const CartItems = await Promise.all(
-			cart.item.map(async item => {
-				const dish = await Dish.findById(item.dish_id);
+			cart.map(async cartItem => {
+				const cartItemData = cartItem.item.map(async dishes => {
+					const dish = await Dish.findById(dishes.dish_id);
+					return {
+						_id: dishes._id,
+						dish,
+						quantity: dishes.quantity,
+					};
+				});
 				return {
-					_id: item.dish_id,
-					dish,
-					quantity: item.quantity,
+					user_id: cartItem.user_id,
+					restaurant_id: cartItem.restaurant_id,
+					item: await Promise.all(cartItemData),
 				};
 			})
 		);
 
-		return CartItems as CartTypes.outputItemDataDetails[];
+		return CartItems as CartTypes.outputDataDetails[];
 	},
 
-	async getWithRestaurantAndUser(
-		cart: ICart
-	): Promise<CartTypes.outputDataDetails | null> {
-		if (!cart || !cart.item || !cart.user_id || !cart.restaurant_id) {
-			throw new Error(ERROR_MESSAGES.INCORRECT_DATA);
-		}
-
-		const user = (await User.findById(cart.user_id)) as IUserFunctions;
-		const restaurant = (await Restaurant.findById(
-			cart.restaurant_id
-		)) as IRestaurantFunctions;
-
-		ValidateService.Cart.checkRestaurantAndUserExist(user, restaurant);
-
+	async getWithRestaurantAndUser(cart: ICart[]) {
+		// : Promise<CartTypes.outputDataDetails | null> {
 		const cartItem = await this.get(cart);
 
 		if (!cartItem) {
 			throw new Error(ERROR_MESSAGES.INCORRECT_DATA);
 		}
 
-		return {
-			user,
-			restaurant,
-			item: cartItem,
-		};
+		// cartItem.map(async)
+
+		// return {
+		// 	user_id: cart.user_id,
+		// 	restaurant_id: cart.restaurant_id,
+		// 	item: cartItem,
+		// };
 	},
 };

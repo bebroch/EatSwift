@@ -1,4 +1,5 @@
 import CartTypes from "../../Types/CartTypes";
+import { DishTypes } from "../../Types/DishTypes";
 import { TAccount } from "../../interface/Account/Account";
 import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
@@ -43,14 +44,14 @@ class BaseFormatter {
 		return { _id, name, description };
 	}
 
-	getDishFields(data: IDish | null) {
+	getDishFields(data: DishTypes.outputDataDetails | null) {
 		if (!data) {
 			return null;
 		}
 
-		const { _id, name, description, ingredients, picture, price } = data;
+		const { _id, name, description, ingredients, price } = data;
 
-		return { _id, name, description, ingredients, picture, price };
+		return { _id, name, description, ingredients, price };
 	}
 
 	getCartItemFields(data: CartTypes.GetDataItemDetails | null) {

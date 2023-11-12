@@ -4,6 +4,7 @@ import { IAccount } from "../../interface/Account/Account";
 import { IUserFunctions } from "../../interface/User/User";
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
+import DetailsService from "../../Service/DetailsService";
 
 class UserAccountController {
 	async index(
@@ -12,8 +13,8 @@ class UserAccountController {
 	) {
 		const user = GetData.User.get(req) as IUserFunctions;
 		const userWithCart = await user.getUserDataWithCart();
-
-		const userData = DataFormatter.User.get(userWithCart);
+		const userDataDetails = await DetailsService.User.get(userWithCart);
+		const userData = DataFormatter.User.get(userDataDetails);
 
 		return Status.success(res, {
 			user: userData,
@@ -21,4 +22,4 @@ class UserAccountController {
 	}
 }
 
-export default new UserAccountController(); // 1
+export default new UserAccountController(); // 2
