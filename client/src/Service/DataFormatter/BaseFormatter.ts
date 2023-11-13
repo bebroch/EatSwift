@@ -1,14 +1,9 @@
 import CartTypes from "../../Types/CartTypes";
 import { DishTypes } from "../../Types/DishTypes";
+import OrderTypes from "../../Types/OrderTypes";
 import { TAccount } from "../../interface/Account/Account";
-import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
 import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
-import {
-	IRestaurant,
-	IRestaurantFunctions,
-} from "../../interface/Restaurant/Restaurant";
-import { ICart } from "../../interface/User/Cart";
-import { ICartItem } from "../../interface/User/User";
+import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 
 // TODO Если смогу, нужно заменить if (!data) return null;
 class BaseFormatter {
@@ -61,6 +56,20 @@ class BaseFormatter {
 
 		const { _id, dish, quantity } = data;
 		return { _id, dish, quantity };
+	}
+
+	getOrderFields(data: OrderTypes.GetDataDetails | null) {
+		if (!data) return null;
+
+		const { _id, user_id, restaurant_id, item, status } = data;
+		return { _id, user_id, restaurant_id, item, status };
+	}
+
+	getOrderItemFields(data: CartTypes.GetDataItemDetails | null) {
+		if (!data) return null;
+
+		const { _id, quantity } = data;
+		return { _id, quantity };
 	}
 }
 

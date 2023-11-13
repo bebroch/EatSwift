@@ -6,6 +6,8 @@ import { IMenu } from "./Menu/MenuModel";
 import { DishTypes } from "../../Types/DishTypes";
 import { MenuTypes } from "../../Types/MenuTypes";
 import { RestaurantTypes } from "../../Types/RestaurantTypes";
+import OrderTypes from "../../Types/OrderTypes";
+import { IOrder } from "../User/Order";
 
 interface IRestaurant extends IAccount {
 	name: string;
@@ -30,6 +32,11 @@ interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
 	deleteDish(dishData: DishTypes.GetDataForDelete): Promise<void>;
 
 	addDishToMenu(data: MenuTypes.GetDataForAddToMenu): Promise<IMenu>;
+
+	getHistoryOfOrders(): Promise<IOrder[]>;
+	getActiveOrders(): Promise<IOrder[]>;
+	updateOrder(data: OrderTypes.GetDataForUpdate): Promise<IOrder>;
+	cancelOrder(data: OrderTypes.GetDataForCancel): Promise<void>;
 }
 
 interface IRestaurantModel extends Model<IRestaurantFunctions, IAccountModel> {

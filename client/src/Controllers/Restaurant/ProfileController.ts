@@ -25,4 +25,4 @@ class ProfileController {
 	async deleteProfile(req: Request, res: Response) {}
 }
 
-export default new ProfileController(); // 1
+export default new ProfileController();

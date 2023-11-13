@@ -28,6 +28,9 @@ const ERROR_MESSAGES = {
 	INCORRECT_DATA: "Incorrect data",
 	CART_NOT_FOUND: "Cart not found",
 	ORDER_ALREADY_EXIST: "Order already exists",
+	ORDER_NOT_EXIST: "Order not exist",
+	ORDER_NOT_FOUND: "Order not found",
+	ORDER_ALREADY_CANCELLED: "Order already cancelled",
 };
 
 export default ERROR_MESSAGES;

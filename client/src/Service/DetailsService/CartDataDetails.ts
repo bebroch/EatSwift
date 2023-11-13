@@ -1,13 +1,7 @@
 import ERROR_MESSAGES from "../../Message/Errors";
 import CartTypes from "../../Types/CartTypes";
-
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import { ICart } from "../../interface/User/Cart";
-import { IUserFunctions } from "../../interface/User/User";
 import Dish from "../../models/DishModel";
-import Restaurant from "../../models/RestaurantModel";
-import User from "../../models/UserModel";
-import ValidateService from "../ValidateService";
 
 export const CartDataDetails = {
 	async get(cart: ICart[]): Promise<CartTypes.outputDataDetails[] | null> {

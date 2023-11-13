@@ -7,6 +7,7 @@ namespace OrderTypes {
 	export type GetDataForCreate = IOrder;
 
 	export type GetDataForDetails = {
+		_id: ObjectId;
 		user_id: ObjectId;
 		restaurant_id: ObjectId;
 		item: ICartItem[];
@@ -14,15 +15,26 @@ namespace OrderTypes {
 	};
 
 	export type GetDataDetails = {
+		_id: ObjectId;
 		user_id: ObjectId;
 		restaurant_id: ObjectId;
 		item: CartTypes.GetDataItemDetails[];
 		status: OrderStatus;
-    };
+	};
+
+	export type GetDataForFindOne = {
+		order_id: string | ObjectId;
+	};
+
+	export type GetDataForUpdate = GetDataForFindOne & {
+		status: OrderStatus;
+	};
+
+	export type GetDataForCancel = GetDataForFindOne;
 
 	export type outputDataForDetails = GetDataForDetails;
 
-    export type outputDataDetails = GetDataDetails;
+	export type outputDataDetails = GetDataDetails;
 }
 
 export default OrderTypes;

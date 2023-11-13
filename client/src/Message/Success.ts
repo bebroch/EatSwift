@@ -5,6 +5,7 @@ const SUCCESS_MESSAGE = {
 		"Menu successfully deleted from restaurant",
 	DISH_SUCCESSFULLY_DELETED_FROM_RESTAURANT:
 		"Dish successfully deleted from restaurant",
+	ORDER_CANCELLED: "Order successfully cancelled",
 };
 
 export default SUCCESS_MESSAGE;

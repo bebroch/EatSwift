@@ -10,4 +10,4 @@ const router = Router();
 router.post("/login", loginMiddleware, AuthController.login);
 router.post("/register", registerMiddleware, AuthController.register);
 
-export default router; // 1
+export default router; 

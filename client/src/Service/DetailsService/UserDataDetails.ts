@@ -46,30 +46,4 @@ export const UserDataDetails = {
 			cart: carts,
 		};
 	},
-
-	// async getWithCart(user: IUserFunctions) {
-	// 	const cart = await user.getCart();
-
-	// 	if (!cart) {
-	// 		return {
-	// 			...user,
-	// 			cart: [],
-	// 		};
-	// 	}
-
-	// 	const userCartData = await Promise.all(
-	// 		cart.item.map(async cart => {
-	// 			const dishData = await Dish.findOne({ _id: cart.dish_id });
-
-	// 			return dishData;
-	// 		})
-	// 	);
-
-	// 	const userWithCart = {
-	// 		...user,
-	// 		userCartData,
-	// 	};
-
-	// 	return userWithCart;
-	// },
 };

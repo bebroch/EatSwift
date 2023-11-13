@@ -22,4 +22,4 @@ class UserAccountController {
 	}
 }
 
-export default new UserAccountController(); // 2
+export default new UserAccountController();

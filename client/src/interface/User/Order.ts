@@ -14,7 +14,7 @@ interface IOrder {
 	user_id: ObjectId;
 	restaurant_id: ObjectId;
 	status: OrderStatus;
-	item: ICartItem;
+	item: ICartItem[];
 }
 
 interface IOrderModel extends Model<IOrder> {

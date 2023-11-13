@@ -2,29 +2,35 @@ import ERROR_MESSAGES from "../../Message/Errors";
 import OrderTypes from "../../Types/OrderTypes";
 import Dish from "../../models/DishModel";
 
+async function getDetails(cart: OrderTypes.GetDataForDetails) {
+	const dishesData = cart.item.map(async dishData => {
+		const dish = await Dish.findOne({ _id: dishData.dish_id });
+
+		if (!dish) throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
+
+		return { ...dishData, dish };
+	});
+
+	return { ...cart, item: await Promise.all(dishesData) };
+}
+
 export const OrderDataDetails = {
 	async get(
-		data: OrderTypes.GetDataForDetails
-	): Promise<OrderTypes.outputDataDetails> {
-		const itemData = data.item.map(async item => {
-			const dish = await Dish.findById(item.dish_id);
+		data:
+			| OrderTypes.GetDataForDetails
+			| OrderTypes.GetDataForDetails[]
+			| null
+	): Promise<
+		OrderTypes.outputDataDetails | OrderTypes.outputDataDetails[] | null
+	> {
+		if (!data) return null;
 
-			if (!dish) {
-				throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
-			}
+		if (Array.isArray(data)) {
+			const itemsData = data.map(cart => getDetails(cart));
 
-			return {
-				_id: item._id,
-				dish,
-				quantity: item.quantity,
-			};
-		});
+			return await Promise.all(itemsData);
+		}
 
-		return {
-			user_id: data.user_id,
-			restaurant_id: data.restaurant_id,
-			item: await Promise.all(itemData),
-			status: data.status,
-		};
+		return await getDetails(data);
 	},
 };

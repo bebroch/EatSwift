@@ -72,4 +72,4 @@ class CartController {
 	}
 }
 
-export default new CartController(); // 2
+export default new CartController();

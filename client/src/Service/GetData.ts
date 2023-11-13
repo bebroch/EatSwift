@@ -6,12 +6,14 @@ import { RestaurantData } from "./GetData/RestaurantData";
 import { UserData } from "./GetData/UserData";
 import { RegistrationData } from "./GetData/Auth/RegistrationData";
 import { LoginData } from "./GetData/Auth/LoginData";
+import { OrderData } from "./GetData/OrderData";
 
 class GetData {
 	static Restaurant = RestaurantData;
 	static Menu = MenuData;
 	static Dish = DishData;
 	static User = UserData;
+	static Order = OrderData;
 	static Courier = CourierData;
 
 	static Token = TokenData;

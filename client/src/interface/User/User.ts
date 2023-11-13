@@ -22,6 +22,10 @@ interface IUserFunctions extends IUser, IAccountFunction {
 		dataForMakeOrder: UserTypes.GetDataForMakeOrder
 	): Promise<OrderTypes.outputDataForDetails>;
 	getCartByRestaurant(data: UserTypes.GetDataForMakeOrder): Promise<ICart>;
+
+	getHistoryOfOrders(): Promise<IOrder[]>;
+	getActiveOrders(): Promise<IOrder[]>;
+	cancelOrder(data: OrderTypes.GetDataForCancel): Promise<void>;
 }
 
 interface IUserModel extends Model<IUserFunctions, IAccountModel> {

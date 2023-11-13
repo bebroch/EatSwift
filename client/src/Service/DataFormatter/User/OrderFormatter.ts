@@ -1,22 +1,32 @@
 import OrderTypes from "../../../Types/OrderTypes";
 import { IDish } from "../../../interface/Restaurant/DIsh/DishModel";
 import DataFormatter from "../../DataFormatter";
+import BaseFormatter from "../BaseFormatter";
+
+function getFormattedData(cart: OrderTypes.GetDataDetails) {
+	const itemData = cart.item.map(item => {
+		return {
+			...BaseFormatter.getOrderItemFields(item),
+			dish: DataFormatter.Dish.get(item.dish) as IDish,
+		};
+	});
+
+	return { ...BaseFormatter.getOrderFields(cart), item: itemData };
+}
 
 export const OrderFormatter = {
-	get(data: OrderTypes.GetDataDetails): OrderTypes.outputDataDetails {
-		const itemData = data.item.map(item => {
-			return {
-				_id: item._id,
-				dish: DataFormatter.Dish.get(item.dish) as IDish,
-				quantity: item.quantity,
-			};
-		});
+	get(
+		data: OrderTypes.GetDataDetails | OrderTypes.GetDataDetails[] | null
+	): OrderTypes.outputDataDetails | OrderTypes.outputDataDetails[] | null {
+		if (!data) {
+			return null;
+		}
 
-		return {
-			user_id: data.user_id,
-			restaurant_id: data.restaurant_id,
-			item: itemData,
-			status: data.status,
-		};
+		if (Array.isArray(data)) {
+			const itemsData = data.map(cart => getFormattedData(cart));
+			return itemsData as OrderTypes.outputDataDetails[];
+		}
+
+		return getFormattedData(data) as OrderTypes.outputDataDetails;
 	},
 };

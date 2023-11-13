@@ -100,4 +100,4 @@ class LoginService {
 	}
 }
 
-export default new LoginService(); // 1
+export default new LoginService();
