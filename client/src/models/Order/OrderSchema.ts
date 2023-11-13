@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import { OrderStatus } from "../../interface/User/Order";
 import { OrderMethods } from "./OrderMethods";
- 
+
+// TODO Сделать также курьера courier_id с атрибутом required: false
 const OrderSchema = new mongoose.Schema(
 	{
 		user_id: {

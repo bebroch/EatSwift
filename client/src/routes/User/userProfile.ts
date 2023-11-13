@@ -1,7 +1,7 @@
 import { Router } from "express";
-import CartController from "../../Controllers/Account/CartController";
+import CartController from "../../Controllers/User/CartController";
 import OrderController from "../../Controllers/Order/OrderController";
-import UserAccountController from "../../Controllers/Account/UserAccountController";
+import UserAccountController from "../../Controllers/User/UserAccountController";
 
 const router = Router();
 
