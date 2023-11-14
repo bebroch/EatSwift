@@ -31,6 +31,14 @@ const ERROR_MESSAGES = {
 	ORDER_NOT_EXIST: "Order not exist",
 	ORDER_NOT_FOUND: "Order not found",
 	ORDER_ALREADY_CANCELLED: "Order already cancelled",
+	COURIER_NOT_FOUND: "Courier not found",
+	CANNOT_SET_STATUS_TO_ACTIVE: "Cannot set status to active in order",
+	CANNOT_SET_STATUS_TO_IS_PROCESSED:
+		"Cannot set status to isProcessed in order",
+	CANNOT_SET_STATUS_TO_DELIVERED: "Cannot set status to delivered in order",
+	CANNOT_SET_STATUS_TO_COMPLETED: "Cannot set status to completed in order",
+	CANNOT_SET_STATUS_TO_CANCELED: "Cannot set status to canceled in order",
+	INVALID_ORDER_STATUS: "Invalid order status",
 };
 
 export default ERROR_MESSAGES;

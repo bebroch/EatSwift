@@ -21,8 +21,6 @@ async function getHistoryOfOrders(req: Request, res: Response) {
 
 	const orders = await restaurant.getHistoryOfOrders();
 
-	console.log(orders);
-
 	const ordersDataFormatted = await formatterOrders(orders);
 	console.log(ordersDataFormatted);
 	return Status.success(res, ordersDataFormatted);
@@ -38,7 +36,27 @@ async function getActiveOrders(req: Request, res: Response) {
 	return Status.success(res, ordersDataFormatted);
 }
 
-async function updateOrder(req: Request, res: Response) {}
+async function updateOrder(req: Request, res: Response) {
+	const restaurant = GetData.Restaurant.getPrivate(
+		req
+	) as IRestaurantFunctions;
+
+	const orderData = GetData.Order.getStatus(req);
+
+	try {
+		const order = await restaurant.updateOrder(orderData);
+		console.log(order);
+		const orderWithDetails = await DetailsService.Order.get(order);
+		const orderDataFormatted = DataFormatter.Order.get(orderWithDetails);
+
+		return Status.success(res, { order: orderDataFormatted });
+	} catch (err: any) {
+		if (err.message) {
+			return Status.badRequest(res, err.message);
+		}
+		return Status.internalError(res, err);
+	}
+}
 
 export const RestaurantOrderController = {
 	getHistoryOfOrders,

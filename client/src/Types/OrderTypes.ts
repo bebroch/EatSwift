@@ -14,6 +14,8 @@ namespace OrderTypes {
 		status: OrderStatus;
 	};
 
+	export type outputDataForDetails = GetDataForDetails;
+
 	export type GetDataDetails = {
 		_id: ObjectId;
 		user_id: ObjectId;
@@ -22,19 +24,17 @@ namespace OrderTypes {
 		status: OrderStatus;
 	};
 
+	export type outputDataDetails = GetDataDetails;
+
 	export type GetDataForFindOne = {
 		order_id: string | ObjectId;
 	};
 
-	export type GetDataForUpdate = GetDataForFindOne & {
-		status: OrderStatus;
-	};
-
 	export type GetDataForCancel = GetDataForFindOne;
 
-	export type outputDataForDetails = GetDataForDetails;
-
-	export type outputDataDetails = GetDataDetails;
+	export type GetDataForUpdate = GetDataForFindOne & {
+		status: string | OrderStatus;
+	};
 }
 
 export default OrderTypes;

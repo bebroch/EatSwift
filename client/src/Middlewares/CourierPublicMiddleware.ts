@@ -15,7 +15,7 @@ export async function CourierPublicMiddleware(
 	const courier = await Courier.findOne({ login });
 
 	if (!courier) {
-		return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
+		return Status.notFound(res, ERROR_MESSAGES.COURIER_NOT_FOUND);
 	}
 
 	req.publicCourier = courier;

@@ -1,5 +1,6 @@
 import { Model, ObjectId } from "mongoose";
 import { ICart, ICartItem } from "./Cart";
+import OrderTypes from "../../Types/OrderTypes";
 
 enum OrderStatus {
 	active = "active",
@@ -17,8 +18,23 @@ interface IOrder {
 	item: ICartItem[];
 }
 
-interface IOrderModel extends Model<IOrder> {
-	createCart(user_id: ObjectId): Promise<IOrder>;
+interface IOrderFunctions extends IOrder {
+	setOrderStatus(
+		currentStatus: OrderStatus,
+		futureStatus: OrderStatus
+	): Promise<IOrder>;
+
+	updateStatusIsProcessed(): Promise<IOrder>;
+	updateStatusDelivered(): Promise<IOrder>;
+	updateStatusCompleted(): Promise<IOrder>;
+	updateStatusCanceled(): Promise<IOrder>;
+}
+
+interface IOrderModel extends Model<IOrderFunctions> {
+	createOrder(data: OrderTypes.GetDataForCreate): Promise<IOrder>;
+
+	findActiveOrders(_id: ObjectId): Promise<IOrder[]>;
+	findHistoryOfOrders(_id: ObjectId): Promise<IOrder[]>;
 }
 
 export { IOrder, IOrderModel, OrderStatus };

@@ -2,19 +2,18 @@ import { connectDB, disconnectDB } from "../src/database/connect";
 import CourierTesting from "./RestaurantTests";
 import RestaurantTesting from "./CourierTests";
 import UserTesting from "./UserTests";
+import OrderStatusTest from "./Order/OrderStatusTest";
 
 async function index() {
-	await connectDB();
+	OrderStatusTest();
 
-	await UserTesting();
-	await RestaurantTesting();
-	await CourierTesting();
+	// await connectDB();
 
-	await disconnectDB();
+	// await UserTesting();
+	// await RestaurantTesting();
+	// await CourierTesting();
 
-	// connectDB();
-	// await RegistrationTest();
-	// disconnectDB();
+	// await disconnectDB();
 }
 
 index();

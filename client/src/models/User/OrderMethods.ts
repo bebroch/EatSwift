@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import Order from "../OrderModel";
 import { UserTypes } from "../../Types/UserTypes";
 import { OrderStatus } from "../../interface/User/Order";
@@ -7,21 +7,11 @@ import ERROR_MESSAGES from "../../Message/Errors";
 
 export function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getHistoryOfOrders = async function () {
-		const orders = await Order.find({
-			user_id: this._id,
-			status: { $in: [OrderStatus.completed, OrderStatus.canceled] },
-		}).lean();
-
-		return orders;
+		return await Order.findHistoryOfOrders(this._id);
 	};
 
 	schema.methods.getActiveOrders = async function () {
-		const orders = await Order.find({
-			user_id: this._id,
-			status: { $nin: [OrderStatus.completed, OrderStatus.canceled] },
-		}).lean();
-
-		return orders;
+		return await Order.findActiveOrders(this._id);
 	};
 
 	schema.methods.makeOrder = async function (
@@ -29,27 +19,18 @@ export function OrderMethods(schema: mongoose.Schema) {
 	) {
 		const cart = await this.getCartByRestaurant(data);
 
-		if (!cart) {
-			return null;
-		}
+		if (!cart) return null;
 
-		const order = await Order.create(cart);
-
-		return order;
+		return await Order.createOrder(cart);
 	};
 
 	schema.methods.cancelOrder = async function (
 		data: OrderTypes.GetDataForCancel
 	) {
-		const order = await Order.findById(data.order_id);
+		const order = await Order.findOne({ _id: data.order_id as ObjectId });
 
 		if (!order) throw new Error(ERROR_MESSAGES.ORDER_NOT_FOUND);
 
-		if (order.status === OrderStatus.canceled)
-			throw new Error(ERROR_MESSAGES.ORDER_ALREADY_CANCELLED);
-
-		order.status = OrderStatus.canceled;
-
-		return order.save();
+		return await order.updateStatusCanceled();
 	};
 }

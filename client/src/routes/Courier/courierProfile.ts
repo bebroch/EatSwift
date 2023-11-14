@@ -5,7 +5,7 @@ const router = Router();
 // Личный кабинет курьера
 // TODO: Сделать аккаунт курьеру
 
-router.get("/");
+router.get("/"); // , CourierController);
 
 router.get("/order");
 router.post("/order");
