@@ -39,6 +39,7 @@ const ERROR_MESSAGES = {
 	CANNOT_SET_STATUS_TO_COMPLETED: "Cannot set status to completed in order",
 	CANNOT_SET_STATUS_TO_CANCELED: "Cannot set status to canceled in order",
 	INVALID_ORDER_STATUS: "Invalid order status",
+	ORDER_ALREADY_TAKEN: "Order already taken",
 };
 
 export default ERROR_MESSAGES;

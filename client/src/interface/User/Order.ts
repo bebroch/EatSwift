@@ -1,18 +1,13 @@
 import { Model, ObjectId } from "mongoose";
-import { ICart, ICartItem } from "./Cart";
+import { ICartItem } from "./Cart";
 import OrderTypes from "../../Types/OrderTypes";
-
-enum OrderStatus {
-	active = "active",
-	isProcessed = "isProcessed",
-	delivered = "delivered",
-	completed = "completed",
-	canceled = "canceled",
-}
+import { OrderModel } from "../../Enums/Order/OrderModels";
+import { OrderStatus } from "../../Enums/Order/OrderStatus";
 
 interface IOrder {
 	_id: ObjectId;
 	user_id: ObjectId;
+	courier_id: ObjectId;
 	restaurant_id: ObjectId;
 	status: OrderStatus;
 	item: ICartItem[];
@@ -28,13 +23,27 @@ interface IOrderFunctions extends IOrder {
 	updateStatusDelivered(): Promise<IOrder>;
 	updateStatusCompleted(): Promise<IOrder>;
 	updateStatusCanceled(): Promise<IOrder>;
+
+	
 }
 
 interface IOrderModel extends Model<IOrderFunctions> {
 	createOrder(data: OrderTypes.GetDataForCreate): Promise<IOrder>;
 
-	findActiveOrders(_id: ObjectId): Promise<IOrder[]>;
-	findHistoryOfOrders(_id: ObjectId): Promise<IOrder[]>;
+	findActiveOrdersForCourier(): Promise<IOrder[]>;
+
+	findHistoryByModel(
+		model_id: ObjectId,
+		model: OrderModel
+	): Promise<IOrder[]>;
+	findActiveByModel(model_id: ObjectId, model: OrderModel): Promise<IOrder[]>;
+
+	findUserActiveOrders(user_id: ObjectId): Promise<IOrder[]>;
+	findUserHistoryOfOrders(user_id: ObjectId): Promise<IOrder[]>;
+	findRestaurantActiveOrders(restaurant_id: ObjectId): Promise<IOrder[]>;
+	findRestaurantHistoryOfOrders(restaurant_id: ObjectId): Promise<IOrder[]>;
+	findCourierActiveOrders(courier_id: ObjectId): Promise<IOrder[]>;
+	findCourierHistoryOfOrders(courier_id: ObjectId): Promise<IOrder[]>;
 }
 
-export { IOrder, IOrderModel, OrderStatus };
+export { IOrder, IOrderFunctions, IOrderModel };

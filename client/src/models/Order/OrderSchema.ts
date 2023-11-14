@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { OrderStatus } from "../../interface/User/Order";
 import { OrderMethods } from "./OrderMethods";
+import { OrderStatus } from "../../Enums/Order/OrderStatus";
 
 // TODO Сделать также курьера courier_id с атрибутом required: false
 const OrderSchema = new mongoose.Schema(
@@ -9,6 +9,12 @@ const OrderSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 			ref: "User",
+		},
+
+		courier_id: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: false,
+            ref: "Courier",
 		},
 		restaurant_id: {
 			type: mongoose.Schema.Types.ObjectId,

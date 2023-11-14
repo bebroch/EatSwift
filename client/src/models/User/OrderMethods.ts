@@ -1,17 +1,17 @@
 import mongoose, { ObjectId } from "mongoose";
 import Order from "../OrderModel";
 import { UserTypes } from "../../Types/UserTypes";
-import { OrderStatus } from "../../interface/User/Order";
 import OrderTypes from "../../Types/OrderTypes";
 import ERROR_MESSAGES from "../../Message/Errors";
+import Cart from "../CartModel";
 
 export function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getHistoryOfOrders = async function () {
-		return await Order.findHistoryOfOrders(this._id);
+		return await Order.findUserHistoryOfOrders(this._id);
 	};
 
 	schema.methods.getActiveOrders = async function () {
-		return await Order.findActiveOrders(this._id);
+		return await Order.findUserActiveOrders(this._id);
 	};
 
 	schema.methods.makeOrder = async function (
@@ -21,7 +21,13 @@ export function OrderMethods(schema: mongoose.Schema) {
 
 		if (!cart) return null;
 
-		return await Order.createOrder(cart);
+		const order = await Order.createOrder(cart);
+
+		await Cart.deleteOne({
+			_id: cart._id,
+		});
+
+		return order;
 	};
 
 	schema.methods.cancelOrder = async function (

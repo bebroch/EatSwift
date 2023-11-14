@@ -22,7 +22,6 @@ async function getHistoryOfOrders(req: Request, res: Response) {
 	const orders = await restaurant.getHistoryOfOrders();
 
 	const ordersDataFormatted = await formatterOrders(orders);
-	console.log(ordersDataFormatted);
 	return Status.success(res, ordersDataFormatted);
 }
 
@@ -45,7 +44,6 @@ async function updateOrder(req: Request, res: Response) {
 
 	try {
 		const order = await restaurant.updateOrder(orderData);
-		console.log(order);
 		const orderWithDetails = await DetailsService.Order.get(order);
 		const orderDataFormatted = DataFormatter.Order.get(orderWithDetails);
 

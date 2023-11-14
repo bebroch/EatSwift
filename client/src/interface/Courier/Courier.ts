@@ -2,16 +2,22 @@ import { Model, ObjectId } from "mongoose";
 import { IOrder } from "../User/Order";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { ICourierRegisterData } from "../RegisterInterface/RegisterData";
+import OrderTypes from "../../Types/OrderTypes";
 
 interface ICourier extends IAccount {
 	firstName: string;
 	lastName: string;
+	order_id: ObjectId;
 	phoneNumber?: string;
 	password: string;
 }
 
 interface ICourierFunctions extends ICourier, IAccountFunction {
-	getOrder(): Promise<IOrder>;
+	getActiveOrder(): Promise<IOrder>;
+	takeOrder(orderData: OrderTypes.GetDataForMakeOrder): Promise<IOrder>;
+	updateStatus(
+		statusData: OrderTypes.GetDataForUpdateStatus
+	): Promise<IOrder>;
 }
 
 interface ICourierModel extends Model<ICourierFunctions, IAccountModel> {

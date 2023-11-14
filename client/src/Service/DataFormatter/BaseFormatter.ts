@@ -61,8 +61,8 @@ class BaseFormatter {
 	getOrderFields(data: OrderTypes.GetDataDetails | null) {
 		if (!data) return null;
 
-		const { _id, user_id, restaurant_id, item, status } = data;
-		return { _id, user_id, restaurant_id, item, status };
+		const { _id, user_id, courier_id, restaurant_id, item, status } = data;
+		return { _id, user_id, courier_id, restaurant_id, item, status };
 	}
 
 	getOrderItemFields(data: CartTypes.GetDataItemDetails | null) {
@@ -73,4 +73,4 @@ class BaseFormatter {
 	}
 }
 
-export default new BaseFormatter();
+export default new BaseFormatter(); // 1

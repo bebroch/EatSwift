@@ -15,7 +15,10 @@ export const CartFormatter = {
 			(cartItem: CartTypes.GetDataDetails) => {
 				const cartItemData = cartItem.item.map(
 					(item: CartTypes.GetDataItemDetails) => {
-						return { ...DataFormatter.Dish.get(item.dish) };
+						return {
+							...DataFormatter.Dish.get(item.dish),
+							quantity: item.quantity,
+						};
 					}
 				);
 				return {
@@ -26,23 +29,11 @@ export const CartFormatter = {
 		);
 
 		return cartItemsData as CartTypes.outputDataDetails[];
-
-		// if (Array.isArray(cartItems)) {
-		// 	return cartItems.map(item => CartFormatter.getOnlyCart(item));
-		// }
-
-		// if (Array.isArray(cartItem)) {
-		// 	return cartItem.map(item => this.getCartItem(item));
-		// }
-
-		// return this.getCartItem(cartItem.item);
 	},
 
 	getCartItem(cartItem: CartTypes.GetDataItemDetails) {
 		return {
-			...(BaseFormatter.getCartItemFields(
-				cartItem
-			) as CartTypes.outputItemDataDetails),
+			...BaseFormatter.getCartItemFields(cartItem),
 		};
 	},
 

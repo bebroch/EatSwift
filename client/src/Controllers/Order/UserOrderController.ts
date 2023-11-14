@@ -20,10 +20,7 @@ async function getHistoryOfOrder(req: Request, res: Response) {
 	const user = GetData.User.get(req) as IUserFunctions;
 	const orders = await user.getHistoryOfOrders();
 
-	console.log(orders);
-
 	const ordersDataFormatted = await formatterOrders(orders);
-	console.log(ordersDataFormatted);
 
 	return Status.success(res, ordersDataFormatted);
 }

@@ -36,8 +36,10 @@ export const CartMethods = function (schema: mongoose.Schema) {
 				});
 			}
 		} else {
-			this.create({ restaurant_id, user_id, item: [{ dish_id }] });
+			return this.create({ restaurant_id, user_id, item: [{ dish_id }] });
 		}
+
+		return await cart.save();
 	};
 
 	schema.statics.deleteItemFromCart = async function (

@@ -1,5 +1,5 @@
+import { OrderStatus } from "../../src/Enums/Order/OrderStatus";
 import ERROR_MESSAGES from "../../src/Message/Errors";
-import { OrderStatus } from "../../src/interface/User/Order";
 import Logger from "../Service/Logger";
 
 function comparison(status: string, orderStatus: string) {
