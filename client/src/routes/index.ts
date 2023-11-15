@@ -14,7 +14,7 @@ router.use("/account", account);
 
 router.use("/auth", auth);
 
-router.use("/restaurants", publicRestaurantProfile);
-router.use("/couriers", publicCourierProfile);
+router.use("/restaurant", publicRestaurantProfile);
+router.use("/courier", publicCourierProfile);
 
 export default router;

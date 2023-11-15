@@ -13,7 +13,7 @@ router.get("/order/active", CourierController.getActiveOrder);
 router.post("/order", CourierController.takeActiveOrder);
 router.post("/order/active", CourierController.updateStatusOrder);
 
-router.get("/history/order", CourierController.getHistoryOfOrders);
-router.get("/history/order/:_id", CourierController.getOrderFromHistory);
+router.get("/order/history/", CourierController.getHistoryOfOrders);
+router.get("/order/history/:_id", CourierController.getOrderFromHistory);
 
 export default router;
