@@ -3,6 +3,7 @@ import OrderTypes from "../../Types/OrderTypes";
 import Order from "../OrderModel";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { OrderStatus } from "../../Enums/Order/OrderStatus";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
 
 export function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getHistoryOfOrders = async function () {
@@ -25,8 +26,8 @@ export function OrderMethods(schema: mongoose.Schema) {
 		const { order_id, status } = data;
 		const order = await Order.findById(order_id);
 
-		if (!order) throw new Error(ERROR_MESSAGES.ORDER_NOT_FOUND);
-
+		if (!order)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
 
 		switch (status) {
 			case OrderStatus.isProcessed:
@@ -38,7 +39,7 @@ export function OrderMethods(schema: mongoose.Schema) {
 				return await order.updateStatusCanceled();
 		}
 
-		throw new Error(ERROR_MESSAGES.INVALID_ORDER_STATUS);
+		ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ORDER_STATUS);
 	};
 
 	schema.methods.cancelOrder = async function (
@@ -47,7 +48,8 @@ export function OrderMethods(schema: mongoose.Schema) {
 		const { order_id } = data;
 		const order = await Order.findById(order_id);
 
-		if (!order) throw new Error(ERROR_MESSAGES.ORDER_NOT_FOUND);
+		if (!order)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
 
 		return await order.updateStatusCanceled();
 	};

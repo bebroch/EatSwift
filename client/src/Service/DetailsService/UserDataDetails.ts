@@ -2,6 +2,7 @@ import ERROR_MESSAGES from "../../Message/Errors";
 import CartTypes from "../../Types/CartTypes";
 import { UserTypes } from "../../Types/UserTypes";
 import Dish from "../../models/DishModel";
+import ExceptionErrorService from "../ExceptionErrorService";
 
 export const UserDataDetails = {
 	async get(
@@ -20,9 +21,10 @@ export const UserDataDetails = {
 						async (cartItem: CartTypes.GetDataItemForDetails) => {
 							const dish = await Dish.findById(cartItem.dish_id);
 
-							if (!dish) {
-								throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
-							}
+							if (!dish)
+								ExceptionErrorService.handler(
+									ERROR_MESSAGES.DISH_NOT_FOUND
+								);
 
 							return {
 								_id: cartItem._id,

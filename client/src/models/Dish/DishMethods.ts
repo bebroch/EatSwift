@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import ERROR_MESSAGES from "../../Message/Errors";
 import Menu from "../MenuModel";
 import { DishTypes } from "../../Types/DishTypes";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
 
 export function DishMethods(schema: mongoose.Schema) {
 	schema.statics.getDishes = async function (
@@ -33,7 +34,7 @@ export function DishMethods(schema: mongoose.Schema) {
 		const { _id, restaurant_id } = dishData;
 		const dish = await this.findOne({ _id, restaurant_id });
 
-		if (!dish) throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
+		if (!dish) ExceptionErrorService.handler(ERROR_MESSAGES.DISH_NOT_FOUND);
 
 		const menus = await Menu.find({ dish: dish._id });
 

@@ -10,12 +10,13 @@ import { IUserModel } from "../../interface/User/User";
 import Courier from "../../models/CourierModel";
 import Restaurant from "../../models/RestaurantModel";
 import User from "../../models/UserModel";
+import ExceptionErrorService from "../ExceptionErrorService";
 import ValidateService from "../ValidateService";
 
 class RegistrationService {
 	async Registration(registerData: GetRegistrationData) {
 		if (ValidateService.Registration.isEmpty(registerData)) {
-			throw new Error(ERROR_MESSAGES.INVALID_LOGIN_DATA);
+			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_LOGIN_DATA);
 		}
 
 		switch ((registerData as GetRegistrationData).role) {
@@ -32,7 +33,7 @@ class RegistrationService {
 					registerData as CourierTypes.GetRegistrationData
 				);
 			default:
-				throw new Error(ERROR_MESSAGES.INVALID_ROLE);
+				ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ROLE);
 		}
 	}
 

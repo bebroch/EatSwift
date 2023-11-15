@@ -4,6 +4,7 @@ import ERROR_MESSAGES from "../Message/Errors";
 import LoginService from "../Service/AuthService/LoginService";
 import GetData from "../Service/GetData";
 import RegistrationService from "../Service/AuthService/RegistrationService";
+import ExceptionService from "../Service/ExceptionService";
 
 class AuthController {
 	async login(req: Request, res: Response) {
@@ -16,13 +17,7 @@ class AuthController {
 			const auth = await LoginService.Login(loginData);
 			return Status.success(res, auth);
 		} catch (err: any) {
-			if (err.message === ERROR_MESSAGES.INVALID_ROLE)
-				return Status.badRequest(res, ERROR_MESSAGES.INVALID_ROLE);
-			console.log("Ошибка: ", err.message);
-			return Status.internalError(
-				res,
-				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
-			);
+			return ExceptionService.handle(res, err.message);
 		}
 	}
 
@@ -40,16 +35,7 @@ class AuthController {
 			const auth = await RegistrationService.Registration(registerData);
 			return Status.success(res, auth);
 		} catch (err: any) {
-			if (err.message === ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS)
-				return Status.badRequest(
-					res,
-					ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS
-				);
-			console.log("Ошибка: ", err.message);
-			return Status.internalError(
-				res,
-				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
-			);
+			return ExceptionService.handle(res, err.message);
 		}
 	}
 }

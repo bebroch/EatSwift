@@ -1,7 +1,7 @@
 import { Response } from "express";
 
 class Status {
-	private async response(res: Response, statusCode: number, message: any) {
+	private response(res: Response, statusCode: number, message: any) {
 		if (typeof message === "string") {
 			return res.status(statusCode).json({ message });
 		}
@@ -9,28 +9,28 @@ class Status {
 		return res.status(statusCode).json(message);
 	}
 
-	async success(res: Response, message: any) {
+	success(res: Response, message: any) {
 		return this.response(res, 200, message);
 	}
 
-	async badRequest(res: Response, message: any) {
-		return this.response(res, 400, message);
+	badRequest(res: Response, error: any) {
+		return this.response(res, 400, error.message);
 	}
 
-	async unauthorized(res: Response, message: any) {
-		return this.response(res, 401, message);
+	unauthorized(res: Response, error: any) {
+		return this.response(res, 401, error.message);
 	}
 
-	async forbidden(res: Response, message: any) {
-		return this.response(res, 403, message);
+	forbidden(res: Response, error: any) {
+		return this.response(res, 403, error.message);
 	}
 
-	async notFound(res: Response, message: any) {
-		return this.response(res, 404, message);
+	notFound(res: Response, error: any) {
+		return this.response(res, 404, error.message);
 	}
 
-	async internalError(res: Response, message: any) {
-		return this.response(res, 500, message);
+	internalError(res: Response, error: any) {
+		return this.response(res, 500, error.message);
 	}
 }
 

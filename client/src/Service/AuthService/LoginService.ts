@@ -10,6 +10,7 @@ import { ICourierFunctions } from "../../interface/Courier/Courier";
 import { IUserFunctions } from "../../interface/User/User";
 import { GetLoginDataWithModel } from "../../Types/Auth/LoginTypes";
 import { GetAccountData } from "../../Types/Auth/AccountDataTypes";
+import ExceptionErrorService from "../ExceptionErrorService";
 
 class LoginService {
 	async Login(loginData: GetLoginDataWithModel): Promise<{
@@ -19,9 +20,8 @@ class LoginService {
 		restaurant?: IRestaurantFunctions;
 		courier?: ICourierFunctions;
 	}> {
-		if (ValidateService.Login.isEmpty(loginData)) {
-			throw new Error(ERROR_MESSAGES.INVALID_LOGIN_DATA);
-		}
+		if (ValidateService.Login.isEmpty(loginData))
+			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_LOGIN_DATA);
 
 		switch ((loginData as GetLoginDataWithModel).role) {
 			case EnumRole.User:
@@ -37,7 +37,7 @@ class LoginService {
 					loginData as CourierTypes.GetLoginData
 				);
 			default:
-				throw new Error(ERROR_MESSAGES.INVALID_ROLE);
+				ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ROLE);
 		}
 	}
 
@@ -85,12 +85,18 @@ class LoginService {
 	private async generateLoginData(data: GetAccountData) {
 		const { account, login, password, role } = data;
 
+		if (!account)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ACCOUNT_NOT_FOUND);
+
 		const isPasswordValid = await TokenService.verifyPassword(
 			password,
 			account.password
 		);
 
-		if (!isPasswordValid) return undefined;
+		if (!isPasswordValid)
+			ExceptionErrorService.handler(
+				ERROR_MESSAGES.INVALID_LOGIN_OR_PASSWORD
+			);
 
 		const accountDataForToken = { login, role };
 

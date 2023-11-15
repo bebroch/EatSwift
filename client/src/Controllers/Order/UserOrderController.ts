@@ -2,6 +2,7 @@ import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";
+import ExceptionService from "../../Service/ExceptionService";
 import GetData from "../../Service/GetData";
 import Status from "../../Service/Status";
 import OrderTypes from "../../Types/OrderTypes";
@@ -45,11 +46,7 @@ async function makeOrder(req: Request, res: Response) {
 
 		return Status.success(res, { order: orderDataFormatted });
 	} catch (err: any) {
-		if (err === ERROR_MESSAGES.ORDER_ALREADY_EXIST) {
-			return Status.badRequest(res, ERROR_MESSAGES.ORDER_ALREADY_EXIST);
-		}
-
-		return Status.internalError(res, ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
+		return ExceptionService.handle(res, err.message);
 	}
 }
 
@@ -61,16 +58,7 @@ async function cancelOrder(req: Request, res: Response) {
 		await user.cancelOrder(orderData);
 		return Status.success(res, SUCCESS_MESSAGE.ORDER_CANCELLED);
 	} catch (err: any) {
-		// TODO Сделать отдельный класс для ошибок
-		if (err.message === ERROR_MESSAGES.ORDER_NOT_FOUND)
-			return Status.badRequest(res, ERROR_MESSAGES.ORDER_NOT_FOUND);
-		if (err.message === ERROR_MESSAGES.ORDER_ALREADY_CANCELLED)
-			return Status.badRequest(
-				res,
-				ERROR_MESSAGES.ORDER_ALREADY_CANCELLED
-			);
-
-		return Status.internalError(res, ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
+		return ExceptionService.handle(res, err.message);
 	}
 }
 

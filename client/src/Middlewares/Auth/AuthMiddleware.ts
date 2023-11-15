@@ -1,4 +1,5 @@
 import ERROR_MESSAGES from "../../Message/Errors";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
 import GetData from "../../Service/GetData";
 import { ICourierModel } from "../../interface/Courier/Courier";
 import { IRestaurantModel } from "../../interface/Restaurant/Restaurant";
@@ -11,19 +12,16 @@ export async function AuthMiddleware(
 ) {
 	const token = GetData.Token.get(req);
 
-	if (!token) {
-		throw new Error(ERROR_MESSAGES.UN_AUTHORIZED);
-	}
+	if (!token) ExceptionErrorService.handler(ERROR_MESSAGES.UN_AUTHORIZED);
 
 	try {
-		const account = await model.findAccountByToken(token);
+		const account = await model.findAccountByToken(token as string);
 
-		if (!account) {
-			throw new Error(ERROR_MESSAGES.UN_AUTHORIZED);
-		}
+		if (!account)
+			ExceptionErrorService.handler(ERROR_MESSAGES.UN_AUTHORIZED);
 
 		return account;
 	} catch (err) {
-		throw new Error(ERROR_MESSAGES.INVALID_TOKEN);
+		ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_TOKEN);
 	}
 }

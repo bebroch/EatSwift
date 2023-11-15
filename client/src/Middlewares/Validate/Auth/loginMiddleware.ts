@@ -5,8 +5,8 @@ import { TAccount } from "../../../interface/Account/Account";
 import GetData from "../../../Service/GetData";
 import ValidateService from "../../../Service/ValidateService";
 
-async function error(res: Response, message: string) {
-	return Status.badRequest(res, message);
+async function error(res: Response, error: any) {
+	return Status.badRequest(res, error);
 }
 
 async function loginValidation(
@@ -18,19 +18,15 @@ async function loginValidation(
 ) {
 	const loginData = GetData.Auth.Login.get(req);
 
-	if (!ValidateService.Login.isRoleExist(loginData)) {
+	if (!ValidateService.Login.isRoleExist(loginData))
 		return error(res, ERROR_MESSAGES.INVALID_ROLE);
-	}
 
-	if (ValidateService.Login.checkMissingFields(loginData)) {
+	if (ValidateService.Login.checkMissingFields(loginData))
 		return error(res, ERROR_MESSAGES.LOGIN_OR_PASSWORD_REQUIRED);
-	}
 
 	const account = await ValidateService.Login.checkAccountExist(loginData);
 
-	if (!account) {
-		return Status.notFound(res, ERROR_MESSAGES.ACCOUNT_NOT_FOUND);
-	}
+	if (!account) return Status.notFound(res, ERROR_MESSAGES.ACCOUNT_NOT_FOUND);
 
 	req.account = account;
 

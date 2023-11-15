@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ERROR_MESSAGES from "../Message/Errors";
 import { TokenData, outputTokenDataOrNull } from "../Types/Token/GenerateTypes";
+import ExceptionErrorService from "./ExceptionErrorService";
 
 class TokenService {
 	generateToken(data: TokenData): string {
@@ -15,7 +16,7 @@ class TokenService {
 		const decoded = jwt.verify(token, SECRET_KEY) as TokenData | null;
 
 		if (typeof decoded === "string") {
-			throw new Error(ERROR_MESSAGES.INVALID_TOKEN);
+			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_TOKEN);
 		}
 
 		return decoded;

@@ -8,6 +8,7 @@ import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";
+import ExceptionService from "../../Service/ExceptionService";
 
 class MenuController {
 	async getMenusFromPublicRestaurantProfile(req: Request, res: Response) {
@@ -99,13 +100,7 @@ class MenuController {
 		try {
 			await restaurant.deleteMenu(menuData);
 		} catch (err: any) {
-			if (err.message === ERROR_MESSAGES.MENU_NOT_FOUND) {
-				return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
-			}
-			return Status.internalError(
-				res,
-				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
-			);
+			return ExceptionService.handle(res, err.message);
 		}
 
 		return Status.success(

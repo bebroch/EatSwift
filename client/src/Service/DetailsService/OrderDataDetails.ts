@@ -1,12 +1,13 @@
 import ERROR_MESSAGES from "../../Message/Errors";
 import OrderTypes from "../../Types/OrderTypes";
 import Dish from "../../models/DishModel";
+import ExceptionErrorService from "../ExceptionErrorService";
 
 async function getDetails(cart: OrderTypes.GetDataForDetails) {
 	const dishesData = cart.item.map(async dishData => {
 		const dish = await Dish.findOne({ _id: dishData.dish_id });
 
-		if (!dish) throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
+		if (!dish) ExceptionErrorService.handler(ERROR_MESSAGES.DISH_NOT_FOUND);
 
 		return { ...dishData, dish };
 	});

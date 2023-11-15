@@ -4,6 +4,7 @@ import CartTypes from "../../Types/CartTypes";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { ICart, ICartItem } from "../../interface/User/Cart";
 import { ObjectId } from "mongoose";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
 
 export const CartMethods = function (schema: mongoose.Schema) {
 	schema.statics.getCart = async function (userId: string) {
@@ -55,19 +56,17 @@ export const CartMethods = function (schema: mongoose.Schema) {
 
 		const cart = await this.findOne({ user_id, restaurant_id });
 
-		if (cart) {
-			const existDishIndex = cart.item.findIndex((item: ICartItem) => {
-				return item.dish_id.toString() === dish_id.toString();
-			});
+		if (!cart) ExceptionErrorService.handler(ERROR_MESSAGES.CART_NOT_FOUND);
 
-			if (existDishIndex !== -1) {
-				cart.item.splice(existDishIndex, 1);
-				return;
-			}
+		const existDishIndex = cart.item.findIndex((item: ICartItem) => {
+			return item.dish_id.toString() === dish_id.toString();
+		});
 
-			throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND_IN_CART);
-		}
+		if (existDishIndex === -1)
+			ExceptionErrorService.handler(
+				ERROR_MESSAGES.DISH_NOT_FOUND_IN_CART
+			);
 
-		throw new Error(ERROR_MESSAGES.CART_NOT_FOUND);
+		cart.item.splice(existDishIndex, 1);
 	};
 };

@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { OrderStatus } from "../../Enums/Order/OrderStatus";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
 
-export function UpdateStatus(schema: mongoose.Schema) { 
-
+export function UpdateStatus(schema: mongoose.Schema) {
 	schema.methods.updateStatusIsProcessed = async function () {
 		return await this.setOrderStatus(
 			OrderStatus.active,
@@ -30,7 +30,7 @@ export function UpdateStatus(schema: mongoose.Schema) {
 			this.status === OrderStatus.completed ||
 			this.status === OrderStatus.canceled
 		)
-			throw new Error(ERROR_MESSAGES.INVALID_ORDER_STATUS);
+			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ORDER_STATUS);
 
 		return await this.setOrderStatus(this.status, OrderStatus.canceled);
 	};
@@ -40,7 +40,7 @@ export function UpdateStatus(schema: mongoose.Schema) {
 		futureStatus: OrderStatus
 	) {
 		if (this.status !== currentStatus)
-			throw new Error(ERROR_MESSAGES.INVALID_ORDER_STATUS);
+			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ORDER_STATUS);
 
 		this.status = futureStatus;
 

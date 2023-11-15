@@ -2,6 +2,7 @@ import ERROR_MESSAGES from "../../Message/Errors";
 import CartTypes from "../../Types/CartTypes";
 import { ICart } from "../../interface/User/Cart";
 import Dish from "../../models/DishModel";
+import ExceptionErrorService from "../ExceptionErrorService";
 
 export const CartDataDetails = {
 	async get(cart: ICart[]): Promise<CartTypes.outputDataDetails[] | null> {
@@ -24,22 +25,5 @@ export const CartDataDetails = {
 		);
 
 		return CartItems as CartTypes.outputDataDetails[];
-	},
-
-	async getWithRestaurantAndUser(cart: ICart[]) {
-		// : Promise<CartTypes.outputDataDetails | null> {
-		const cartItem = await this.get(cart);
-
-		if (!cartItem) {
-			throw new Error(ERROR_MESSAGES.INCORRECT_DATA);
-		}
-
-		// cartItem.map(async)
-
-		// return {
-		// 	user_id: cart.user_id,
-		// 	restaurant_id: cart.restaurant_id,
-		// 	item: cartItem,
-		// };
 	},
 };

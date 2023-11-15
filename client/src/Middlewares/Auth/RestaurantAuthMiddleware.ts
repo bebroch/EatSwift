@@ -5,6 +5,7 @@ import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import GetData from "../../Service/GetData";
 import Restaurant from "../../models/RestaurantModel";
 import { AuthMiddleware } from "./AuthMiddleware";
+import ExceptionService from "../../Service/ExceptionService";
 
 async function RestaurantAuthMiddleware(
 	req: Request & { restaurant?: IRestaurantFunctions },
@@ -21,19 +22,7 @@ async function RestaurantAuthMiddleware(
 
 		return next();
 	} catch (err: any) {
-		// TODO Сделать отдельный метод под catch
-		if (err.message === ERROR_MESSAGES.UN_AUTHORIZED) {
-			return Status.unauthorized(
-				res,
-				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
-			);
-		}
-
-		if (err.message === ERROR_MESSAGES.INVALID_TOKEN) {
-			return Status.unauthorized(res, ERROR_MESSAGES.INVALID_TOKEN);
-		}
-
-		return Status.internalError(res, ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
+		return ExceptionService.handle(res, err.message);
 	}
 }
 

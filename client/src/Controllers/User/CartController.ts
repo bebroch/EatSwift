@@ -9,6 +9,7 @@ import { DishTypes } from "../../Types/DishTypes";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";
 import CartTypes from "../../Types/CartTypes";
+import ExceptionService from "../../Service/ExceptionService";
 
 class CartController {
 	// Показать корзину пользователя
@@ -40,13 +41,7 @@ class CartController {
 				SUCCESS_MESSAGE.ITEM_SUCCESSFULLY_ADDED_TO_CART
 			);
 		} catch (err: any) {
-			console.log(err);
-			if (err.message === ERROR_MESSAGES.DISH_NOT_FOUND)
-				return Status.badRequest(res, ERROR_MESSAGES.DISH_NOT_FOUND);
-			return Status.internalError(
-				res,
-				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
-			);
+			return ExceptionService.handle(res, err.message);
 		}
 	}
 
@@ -63,11 +58,8 @@ class CartController {
 				res,
 				SUCCESS_MESSAGE.ITEM_SUCCESSFULLY_DELETED_FROM_CART
 			);
-		} catch (err) {
-			return Status.badRequest(
-				res,
-				ERROR_MESSAGES.DISH_NOT_FOUND_IN_CART
-			);
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
 		}
 	}
 }

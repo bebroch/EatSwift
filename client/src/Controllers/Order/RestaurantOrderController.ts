@@ -6,6 +6,7 @@ import DetailsService from "../../Service/DetailsService";
 import { RestaurantLoginData } from "../../Service/Validation/Login/RestaurantLoginData";
 import Status from "../../Service/Status";
 import OrderTypes from "../../Types/OrderTypes";
+import ExceptionService from "../../Service/ExceptionService";
 
 // TODO Может быть сделать отдельный класс для этого, такой же есть в UserOrderController
 async function formatterOrders(orders: OrderTypes.GetDataForDetails[] | null) {
@@ -49,10 +50,7 @@ async function updateOrder(req: Request, res: Response) {
 
 		return Status.success(res, { order: orderDataFormatted });
 	} catch (err: any) {
-		if (err.message) {
-			return Status.badRequest(res, err.message);
-		}
-		return Status.internalError(res, err);
+		return ExceptionService.handle(res, err.message);
 	}
 }
 

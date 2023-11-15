@@ -7,17 +7,18 @@ import User from "../../models/UserModel";
 import { ICart, ICartItem } from "../../interface/User/Cart";
 import { IUserFunctions } from "../../interface/User/User";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import ExceptionErrorService from "../ExceptionErrorService";
 
 export const CartValidate = {
 	async checkDishExistInRestaurant(dishData: CartTypes.GetCartValidate) {
 		const { dish, restaurant } = dishData;
 
 		if (!dish) {
-			throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
+			ExceptionErrorService.handler(ERROR_MESSAGES.DISH_NOT_FOUND);
 		}
 
 		if (!restaurant) {
-			throw new Error(ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
+			ExceptionErrorService.handler(ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
 		}
 
 		const isDishFound = (await restaurant.getDishes()).some(
@@ -26,7 +27,9 @@ export const CartValidate = {
 		);
 
 		if (!isDishFound) {
-			throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND_IN_RESTAURANT);
+			ExceptionErrorService.handler(
+				ERROR_MESSAGES.DISH_NOT_FOUND_IN_RESTAURANT
+			);
 		}
 	},
 
@@ -52,7 +55,7 @@ export const CartValidate = {
 			!(await Restaurant.findById(restaurant_id)) ||
 			!(await User.findById(user_id))
 		) {
-			throw new Error(ERROR_MESSAGES.INCORRECT_DATA);
+			ExceptionErrorService.handler(ERROR_MESSAGES.INCORRECT_DATA);
 		}
 	},
 
@@ -61,10 +64,10 @@ export const CartValidate = {
 		restaurant: IRestaurantFunctions
 	) {
 		if (!user) {
-			throw new Error(ERROR_MESSAGES.USER_NOT_FOUND);
+			ExceptionErrorService.handler(ERROR_MESSAGES.USER_NOT_FOUND);
 		}
 		if (!restaurant) {
-			throw new Error(ERROR_MESSAGES.USER_NOT_FOUND);
+			ExceptionErrorService.handler(ERROR_MESSAGES.USER_NOT_FOUND);
 		}
 	},
 };

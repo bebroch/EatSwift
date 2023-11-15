@@ -6,6 +6,7 @@ import { ICourierFunctions } from "../../interface/Courier/Courier";
 import Order from "../../models/OrderModel";
 import { IOrder, IOrderFunctions } from "../../interface/User/Order";
 import DetailsService from "../../Service/DetailsService";
+import ExceptionService from "../../Service/ExceptionService";
 
 class CourierController {
 	async getPublicCourierProfile(req: Request, res: Response) {
@@ -48,8 +49,7 @@ class CourierController {
 				DataFormatter.Order.get(orderWithDetails);
 			return Status.success(res, orderFormattedData);
 		} catch (err: any) {
-			// TODO Сделать сервис
-			return Status.internalError(res, err.message);
+			return ExceptionService.handle(res, err.message);
 		}
 	}
 
@@ -65,8 +65,7 @@ class CourierController {
 
 			return Status.success(res, orderDataFormatted);
 		} catch (err: any) {
-			// TODO Сделать сервис
-			return Status.internalError(res, err.message);
+			return ExceptionService.handle(res, err.message);
 		}
 	}
 

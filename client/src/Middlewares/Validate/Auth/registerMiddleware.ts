@@ -4,8 +4,8 @@ import Status from "../../../Service/Status";
 import ValidateService from "../../../Service/ValidateService";
 import GetData from "../../../Service/GetData";
 
-async function error(res: Response, message: string) {
-	return Status.badRequest(res, message);
+async function error(res: Response, error: any) {
+	return Status.badRequest(res, error);
 }
 
 async function registerValidation(
@@ -15,21 +15,17 @@ async function registerValidation(
 ) {
 	const registerData = GetData.Auth.Registration.get(req);
 
-	if (!ValidateService.Registration.checkRoleExist(registerData)) {
+	if (!ValidateService.Registration.checkRoleExist(registerData))
 		return error(res, ERROR_MESSAGES.INVALID_ROLE);
-	}
 
-	if (ValidateService.Registration.checkMissingFields(registerData)) {
+	if (ValidateService.Registration.checkMissingFields(registerData))
 		return error(res, ERROR_MESSAGES.MISSING_REQUIRED_FIELDS);
-	}
 
-	if (ValidateService.Registration.checkConfirmPassword(registerData)) {
+	if (ValidateService.Registration.checkConfirmPassword(registerData))
 		return error(res, ERROR_MESSAGES.PASSWORD_MISMATCH);
-	}
 
-	if (await ValidateService.Registration.checkAccountExist(registerData)) {
+	if (await ValidateService.Registration.checkAccountExist(registerData))
 		return error(res, ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS);
-	}
 
 	return next();
 }

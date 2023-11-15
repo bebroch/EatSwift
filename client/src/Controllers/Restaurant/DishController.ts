@@ -6,6 +6,7 @@ import SUCCESS_MESSAGE from "../../Message/Success";
 import GetData from "../../Service/GetData";
 import { DishTypes } from "../../Types/DishTypes";
 import DataFormatter from "../../Service/DataFormatter";
+import ExceptionService from "../../Service/ExceptionService";
 
 class DishController {
 	async getDishesFromPublicRestaurant(req: Request, res: Response) {
@@ -88,13 +89,7 @@ class DishController {
 				SUCCESS_MESSAGE.DISH_SUCCESSFULLY_DELETED_FROM_RESTAURANT
 			);
 		} catch (err: any) {
-			if (err.message === ERROR_MESSAGES.DISH_NOT_FOUND) {
-				return Status.notFound(res, ERROR_MESSAGES.DISH_NOT_FOUND);
-			}
-			return Status.internalError(
-				res,
-				ERROR_MESSAGES.INTERNAL_SERVER_ERROR
-			);
+			return ExceptionService.handle(res, err.message);
 		}
 	}
 }

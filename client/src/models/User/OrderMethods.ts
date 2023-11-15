@@ -4,6 +4,7 @@ import { UserTypes } from "../../Types/UserTypes";
 import OrderTypes from "../../Types/OrderTypes";
 import ERROR_MESSAGES from "../../Message/Errors";
 import Cart from "../CartModel";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
 
 export function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getHistoryOfOrders = async function () {
@@ -35,7 +36,8 @@ export function OrderMethods(schema: mongoose.Schema) {
 	) {
 		const order = await Order.findOne({ _id: data.order_id as ObjectId });
 
-		if (!order) throw new Error(ERROR_MESSAGES.ORDER_NOT_FOUND);
+		if (!order)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
 
 		return await order.updateStatusCanceled();
 	};
