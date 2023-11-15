@@ -32,10 +32,16 @@ class CourierController {
 
 	async getActiveOrder(req: Request, res: Response) {
 		const courier = GetData.Courier.getPrivate(req) as ICourierFunctions;
-		const order = await courier.getActiveOrder();
-		const orderWithDetails = await DetailsService.Order.get(order);
-		const orderDataFormatted = DataFormatter.Order.get(orderWithDetails);
-		return Status.success(res, orderDataFormatted);
+
+		try {
+			const order = await courier.getActiveOrder();
+			const orderWithDetails = await DetailsService.Order.get(order);
+			const orderDataFormatted =
+				DataFormatter.Order.get(orderWithDetails);
+			return Status.success(res, orderDataFormatted);
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
 	}
 
 	async takeActiveOrder(req: Request, res: Response) {

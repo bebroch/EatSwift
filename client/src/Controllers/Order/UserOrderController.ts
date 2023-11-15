@@ -19,20 +19,26 @@ async function formatterOrders(orders: OrderTypes.GetDataForDetails[] | null) {
 // Показать историю заказов пользователя
 async function getHistoryOfOrder(req: Request, res: Response) {
 	const user = GetData.User.get(req) as IUserFunctions;
-	const orders = await user.getHistoryOfOrders();
 
-	const ordersDataFormatted = await formatterOrders(orders);
-
-	return Status.success(res, ordersDataFormatted);
+	try {
+		const orders = await user.getHistoryOfOrders();
+		const ordersDataFormatted = await formatterOrders(orders);
+		return Status.success(res, ordersDataFormatted);
+	} catch (err: any) {
+		return ExceptionService.handle(res, err.message);
+	}
 }
 
 async function getActiveOrders(req: Request, res: Response) {
 	const user = GetData.User.get(req) as IUserFunctions;
-	const orders = await user.getActiveOrders();
 
-	const ordersDataFormatted = await formatterOrders(orders);
-
-	return Status.success(res, ordersDataFormatted);
+	try {
+		const orders = await user.getActiveOrders();
+		const ordersDataFormatted = await formatterOrders(orders);
+		return Status.success(res, ordersDataFormatted);
+	} catch (err: any) {
+		return ExceptionService.handle(res, err.message);
+	}
 }
 
 async function makeOrder(req: Request, res: Response) {
@@ -43,7 +49,6 @@ async function makeOrder(req: Request, res: Response) {
 		const orderData = await user.makeOrder(dataForMakeOrder);
 		const orderWithDetails = await DetailsService.Order.get(orderData);
 		const orderDataFormatted = DataFormatter.Order.get(orderWithDetails);
-
 		return Status.success(res, { order: orderDataFormatted });
 	} catch (err: any) {
 		return ExceptionService.handle(res, err.message);

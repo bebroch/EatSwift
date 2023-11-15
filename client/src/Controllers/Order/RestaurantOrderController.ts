@@ -3,10 +3,10 @@ import GetData from "../../Service/GetData";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";
-import { RestaurantLoginData } from "../../Service/Validation/Login/RestaurantLoginData";
 import Status from "../../Service/Status";
 import OrderTypes from "../../Types/OrderTypes";
 import ExceptionService from "../../Service/ExceptionService";
+import ERROR_MESSAGES from "../../Message/Errors";
 
 // TODO Может быть сделать отдельный класс для этого, такой же есть в UserOrderController
 async function formatterOrders(orders: OrderTypes.GetDataForDetails[] | null) {
@@ -20,10 +20,13 @@ async function getHistoryOfOrders(req: Request, res: Response) {
 		req
 	) as IRestaurantFunctions;
 
-	const orders = await restaurant.getHistoryOfOrders();
-
-	const ordersDataFormatted = await formatterOrders(orders);
-	return Status.success(res, ordersDataFormatted);
+	try {
+		const orders = await restaurant.getHistoryOfOrders();
+		const ordersDataFormatted = await formatterOrders(orders);
+		return Status.success(res, ordersDataFormatted);
+	} catch (err: any) {
+		return ExceptionService.handle(res, err.message);
+	}
 }
 
 async function getActiveOrders(req: Request, res: Response) {
@@ -31,9 +34,13 @@ async function getActiveOrders(req: Request, res: Response) {
 		req
 	) as IRestaurantFunctions;
 
-	const orders = await restaurant.getActiveOrders();
-	const ordersDataFormatted = await formatterOrders(orders);
-	return Status.success(res, ordersDataFormatted);
+	try {
+		const orders = await restaurant.getActiveOrders();
+		const ordersDataFormatted = await formatterOrders(orders);
+		return Status.success(res, ordersDataFormatted);
+	} catch (err: any) {
+		return ExceptionService.handle(res, err.message);
+	}
 }
 
 async function updateOrder(req: Request, res: Response) {
@@ -47,7 +54,6 @@ async function updateOrder(req: Request, res: Response) {
 		const order = await restaurant.updateOrder(orderData);
 		const orderWithDetails = await DetailsService.Order.get(order);
 		const orderDataFormatted = DataFormatter.Order.get(orderWithDetails);
-
 		return Status.success(res, { order: orderDataFormatted });
 	} catch (err: any) {
 		return ExceptionService.handle(res, err.message);

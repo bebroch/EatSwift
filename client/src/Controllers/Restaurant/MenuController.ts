@@ -17,6 +17,10 @@ class MenuController {
 		) as IRestaurantFunctions;
 
 		const menu = await restaurant.getMenus();
+
+		if (menu.length === 0)
+			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
+
 		const menuWithDetails = await DetailsService.Menu.getManyWithDish(menu);
 		const menuDataFormatted = DataFormatter.Menu.get(menuWithDetails);
 
@@ -31,9 +35,7 @@ class MenuController {
 		const menuData = GetData.Menu.FindOne(req);
 		const menu = await restaurant.getMenu(menuData);
 
-		if (!menu) {
-			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
-		}
+		if (!menu) return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
 
 		const menuWithDetails = await DetailsService.Menu.getOneWithDish(menu);
 		const menuDataFormatted = DataFormatter.Menu.getOne(menuWithDetails);
@@ -47,6 +49,10 @@ class MenuController {
 		) as IRestaurantFunctions;
 
 		const menu = await restaurant.getMenus();
+
+		if (menu.length === 0)
+			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
+
 		const menusWithDishData =
 			await DetailsService.Menu.getManyWithDish(menu);
 
@@ -63,9 +69,7 @@ class MenuController {
 		const menuData = GetData.Menu.FindOne(req);
 		const menu = await restaurant.getMenu(menuData);
 
-		if (!menu) {
-			return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
-		}
+		if (!menu) return Status.notFound(res, ERROR_MESSAGES.MENU_NOT_FOUND);
 
 		const menuWithDishData = await DetailsService.Menu.getOneWithDish(menu);
 		const formattedMenu = DataFormatter.Menu.get(menuWithDishData);

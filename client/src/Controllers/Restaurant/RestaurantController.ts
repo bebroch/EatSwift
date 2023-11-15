@@ -17,9 +17,9 @@ class RestaurantController {
 	async getRestaurant(req: Request, res: Response) {
 		const restaurant = GetData.Restaurant.getPublic(req);
 
-		if (!restaurant) {
+		if (!restaurant) 
 			return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
-		}
+		
 
 		const restaurantData = await restaurant.getRestaurantData();
 

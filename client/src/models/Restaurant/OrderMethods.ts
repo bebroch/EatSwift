@@ -7,17 +7,19 @@ import ExceptionErrorService from "../../Service/ExceptionErrorService";
 
 export function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getHistoryOfOrders = async function () {
-		return await Order.find({
-			restaurant_id: this._id,
-			status: { $ne: OrderStatus.active },
-		}).lean();
+		return await Order.findRestaurantHistoryOfOrders(this._id);
+		// return await Order.find({
+		// 	restaurant_id: this._id,
+		// 	status: { $ne: OrderStatus.active },
+		// }).lean();
 	};
 
 	schema.methods.getActiveOrders = async function () {
-		return await Order.find({
-			restaurant_id: this._id,
-			status: OrderStatus.active,
-		}).lean();
+		return await Order.findRestaurantActiveOrders(this._id);
+		// return await Order.find({
+		// 	restaurant_id: this._id,
+		// 	status: OrderStatus.active,
+		// }).lean();
 	};
 
 	schema.methods.updateOrder = async function (

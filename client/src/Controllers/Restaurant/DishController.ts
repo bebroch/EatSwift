@@ -15,6 +15,10 @@ class DishController {
 		) as IRestaurantFunctions;
 
 		const dishes = await restaurant.getDishes();
+
+		if (dishes.length === 0)
+			return Status.notFound(res, ERROR_MESSAGES.DISH_NOT_FOUND);
+
 		const dishesDataFormatted = DataFormatter.Dish.get(dishes);
 
 		return Status.success(res, dishesDataFormatted);
@@ -28,9 +32,7 @@ class DishController {
 
 		const dish = await restaurant.getDish(dishData);
 
-		if (!dish) {
-			return Status.notFound(res, ERROR_MESSAGES.DISH_NOT_FOUND);
-		}
+		if (!dish) return Status.notFound(res, ERROR_MESSAGES.DISH_NOT_FOUND);
 
 		const dishDataFormatted = DataFormatter.Dish.get(dish);
 
@@ -42,6 +44,10 @@ class DishController {
 			req
 		) as IRestaurantFunctions;
 		const dishes = await restaurant.getDishes();
+
+		if (dishes.length === 0)
+			return Status.notFound(res, ERROR_MESSAGES.DISH_NOT_FOUND);
+
 		const dishesDataFormatted = DataFormatter.Dish.get(dishes);
 		return Status.success(res, dishesDataFormatted);
 	}
@@ -53,6 +59,9 @@ class DishController {
 		const dishData = GetData.Dish.FindOne(req);
 
 		const dish = await restaurant.getDish(dishData);
+
+		if (!dish) return Status.notFound(res, ERROR_MESSAGES.DISH_NOT_FOUND);
+
 		const dishDataFormatted = DataFormatter.Dish.get(dish);
 
 		return Status.success(res, dishDataFormatted);

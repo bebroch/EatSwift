@@ -15,16 +15,16 @@ class CartController {
 	// Показать корзину пользователя
 	async getCart(req: Request, res: Response) {
 		const user = GetData.User.get(req) as IUserFunctions;
-		const cart = await user.getCart();
 
-		const cartWithDishDetails = (await DetailsService.Cart.get(
-			cart
-		)) as CartTypes.GetDataDetails[];
-
-		const cartDataFormatted =
-			DataFormatter.Cart.getOnlyCart(cartWithDishDetails);
-
-		return Status.success(res, { cart: cartDataFormatted });
+		try {
+			const cart = await user.getCart();
+			const cartWithDishDetails = await DetailsService.Cart.get(cart);
+			const cartDataFormatted =
+				DataFormatter.Cart.getOnlyCart(cartWithDishDetails);
+			return Status.success(res, { cart: cartDataFormatted });
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
 	}
 
 	// Добавить в корзину пользователя

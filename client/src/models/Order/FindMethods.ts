@@ -2,6 +2,8 @@ import mongoose, { ObjectId } from "mongoose";
 import { OrderModel } from "../../Enums/Order/OrderModels";
 import Order from "../OrderModel";
 import { OrderStatus } from "../../Enums/Order/OrderStatus";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
+import ERROR_MESSAGES from "../../Message/Errors";
 
 export function FindOrderMethods(schema: mongoose.Schema) {
 	// User
@@ -68,19 +70,29 @@ export function FindOrderMethods(schema: mongoose.Schema) {
 		model_id: ObjectId,
 		model: OrderModel
 	) {
-		return await this.find({
+		const orders = await this.find({
 			[model]: model_id,
 			status: { $in: [OrderStatus.completed, OrderStatus.canceled] },
 		}).lean();
+
+		if (orders.length === 0)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
+
+		return orders;
 	};
 
 	schema.statics.findActiveByModel = async function (
 		model_id: ObjectId,
 		model: OrderModel
 	) {
-		return await this.find({
+		const orders = await this.find({
 			[model]: model_id,
 			status: { $nin: [OrderStatus.completed, OrderStatus.canceled] },
 		}).lean();
+
+		if (orders.length === 0)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
+
+		return orders;
 	};
 }
