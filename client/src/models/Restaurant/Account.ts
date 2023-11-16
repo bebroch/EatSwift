@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { IAccountInformation } from "../../interface/Account/Account";
+import { IAccountInformation } from "../../interface/Account";
 import { EnumRole } from "../../interface/Account/Role";
-import { IRestaurant } from "../../interface/Restaurant/Restaurant";
+import { IRestaurant } from "../../interface/Restaurant";
 import TokenService from "../../Service/TokenService";
 
 export function AccountMethods(schema: mongoose.Schema) {

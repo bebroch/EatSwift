@@ -1,7 +1,7 @@
-import { TAccount } from "../Account/Account";
-import { ICourier } from "../Courier/Courier";
-import { IRestaurant } from "../Restaurant/Restaurant";
-import { IUser } from "../User/User";
+import { TAccount } from "../../Account";
+import { ICourier } from "../../Courier";
+import { IRestaurant } from "../../Restaurant";
+import { IUser } from "../../User";
 
 interface IAccountData {
 	token: string;

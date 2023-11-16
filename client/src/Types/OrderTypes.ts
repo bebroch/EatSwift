@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
-import { IOrder } from "../interface/User/Order";
-import { ICartItem } from "../interface/User/User";
+import { IOrder } from "../interface/Order";
+import { ICartItem } from "../interface/User";
 import CartTypes from "./CartTypes";
 import { OrderStatus } from "../Enums/Order/OrderStatus";
 

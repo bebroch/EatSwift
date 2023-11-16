@@ -1,5 +1,5 @@
-import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
-import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
+import { IDish } from "../../interface/DishModel";
+import { IMenu } from "../../interface/MenuModel";
 import Dish from "../../models/DishModel";
 
 export const MenuDataDetails = {

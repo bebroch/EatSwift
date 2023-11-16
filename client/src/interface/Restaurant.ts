@@ -1,13 +1,13 @@
 import { Model } from "mongoose";
-import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
-import { IRestaurantRegisterData } from "../RegisterInterface/RegisterData";
-import { IDish } from "./DIsh/DishModel";
-import { IMenu } from "./Menu/MenuModel";
-import { DishTypes } from "../../Types/DishTypes";
-import { MenuTypes } from "../../Types/MenuTypes";
-import { RestaurantTypes } from "../../Types/RestaurantTypes";
-import OrderTypes from "../../Types/OrderTypes";
-import { IOrder } from "../User/Order";
+import { IAccount, IAccountFunction, IAccountModel } from "./Account";
+import { IRestaurantRegisterData } from "./Auth/Register/RegisterData";
+import { IDish } from "./DishModel";
+import { IMenu } from "./MenuModel";
+import { DishTypes } from "../Types/DishTypes";
+import { MenuTypes } from "../Types/MenuTypes";
+import { RestaurantTypes } from "../Types/RestaurantTypes";
+import OrderTypes from "../Types/OrderTypes";
+import { IOrder } from "./Order";
 
 interface IRestaurant extends IAccount {
 	name: string;

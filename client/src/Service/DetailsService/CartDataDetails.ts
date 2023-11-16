@@ -1,6 +1,6 @@
 import ERROR_MESSAGES from "../../Message/Errors";
 import CartTypes from "../../Types/CartTypes";
-import { ICart } from "../../interface/User/Cart";
+import { ICart } from "../../interface/Cart";
 import Dish from "../../models/DishModel";
 import ExceptionErrorService from "../ExceptionErrorService";
 

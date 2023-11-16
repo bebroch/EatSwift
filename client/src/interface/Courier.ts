@@ -1,8 +1,8 @@
 import { Model, ObjectId } from "mongoose";
-import { IOrder } from "../User/Order";
-import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
-import { ICourierRegisterData } from "../RegisterInterface/RegisterData";
-import OrderTypes from "../../Types/OrderTypes";
+import { IOrder } from "./Order";
+import { IAccount, IAccountFunction, IAccountModel } from "./Account";
+import { ICourierRegisterData } from "./Auth/Register/RegisterData";
+import OrderTypes from "../Types/OrderTypes";
 
 interface ICourier extends IAccount {
 	firstName: string;

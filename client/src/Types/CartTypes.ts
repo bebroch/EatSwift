@@ -1,13 +1,9 @@
 import { ObjectId } from "mongoose";
-import { ICart, ICartItemDetails } from "../interface/User/Cart";
-import { IRestaurantFunctions } from "../interface/Restaurant/Restaurant";
-import { IDish } from "../interface/Restaurant/DIsh/DishModel";
-import { IUserFunctions } from "../interface/User/User";
-import { RestaurantTypes } from "./RestaurantTypes";
+import { IRestaurantFunctions } from "../interface/Restaurant";
+import { IDish } from "../interface/DishModel";
+import ICart from "../interface/Cart";
 
 namespace CartTypes {
-	export type GetCart = ICart;
-
 	export type GetAddToCart = {
 		dish_id: ObjectId;
 		restaurant_id: ObjectId;
@@ -57,7 +53,7 @@ namespace CartTypes {
 
 	export type outputItemDataDetails = GetDataItemDetails;
 
-	export type outputModel = ICartItemDetails;
+	export type outputModel = ICart.ItemDetails;
 }
 
 export default CartTypes;

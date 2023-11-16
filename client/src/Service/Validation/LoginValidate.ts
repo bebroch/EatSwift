@@ -6,7 +6,7 @@ import User from "../../models/UserModel";
 import Restaurant from "../../models/RestaurantModel";
 import Courier from "../../models/CourierModel";
 import ERROR_MESSAGES from "../../Message/Errors";
-import { TAccount } from "../../interface/Account/Account";
+import { TAccount } from "../../interface/Account";
 import { GetLoginData, GetLoginDataOrNull } from "../../Types/Auth/LoginTypes";
 import Log from "../Log";
 

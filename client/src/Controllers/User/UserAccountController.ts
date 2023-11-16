@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Status from "../../Service/Status";
-import { IAccount } from "../../interface/Account/Account";
-import { IUserFunctions } from "../../interface/User/User";
+import { IAccount } from "../../interface/Account";
+import { IUserFunctions } from "../../interface/User";
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";

@@ -1,5 +1,5 @@
 import { ObjectId } from "mongoose";
-import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
+import { IDish } from "../../interface/DishModel";
 import Dish from "../../models/DishModel";
 
 export const DishDataDetails = {

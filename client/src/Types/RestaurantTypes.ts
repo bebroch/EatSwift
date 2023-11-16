@@ -1,7 +1,7 @@
-import { EnumRole } from "../interface/Account/Role";
-import { IDish } from "../interface/Restaurant/DIsh/DishModel";
-import { IMenu } from "../interface/Restaurant/Menu/MenuModel";
-import { IRestaurantFunctions } from "../interface/Restaurant/Restaurant";
+import { EnumRole } from "../Enums/Role";
+import { IDish } from "../interface/DishModel";
+import { IMenu } from "../interface/MenuModel";
+import { IRestaurantFunctions } from "../interface/Restaurant";
 
 namespace RestaurantTypes {
 	export type GetPrivate = {
@@ -32,7 +32,7 @@ namespace RestaurantTypes {
 		menu: IMenu[];
 		dish: IDish[];
 	};
-	
+
 	export type outputModel = IRestaurantFunctions;
 
 	export type outputModelOrUndefined = outputModel | undefined;

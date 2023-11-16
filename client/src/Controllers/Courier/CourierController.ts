@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import Status from "../../Service/Status";
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
-import { ICourierFunctions } from "../../interface/Courier/Courier";
+import { ICourierFunctions } from "../../interface/Courier";
 import Order from "../../models/OrderModel";
-import { IOrder, IOrderFunctions } from "../../interface/User/Order";
+import { IOrder, IOrderFunctions } from "../../interface/Order";
 import DetailsService from "../../Service/DetailsService";
 import ExceptionService from "../../Service/ExceptionService";
 

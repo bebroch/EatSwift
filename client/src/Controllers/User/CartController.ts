@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Status from "../../Service/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
-import { IUserFunctions } from "../../interface/User/User";
+import { IUserFunctions } from "../../interface/User";
 import User from "../../models/UserModel";
 import GetData from "../../Service/GetData";
 import { DishTypes } from "../../Types/DishTypes";

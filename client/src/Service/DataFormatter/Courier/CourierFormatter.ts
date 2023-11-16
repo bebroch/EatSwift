@@ -1,4 +1,4 @@
-import { ICourierFunctions } from "../../../interface/Courier/Courier";
+import { ICourierFunctions } from "../../../interface/Courier";
 import BaseFormatter from "../BaseFormatter";
 
 export const CourierFormatter = {

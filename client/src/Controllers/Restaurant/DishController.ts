@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
 import Status from "../../Service/Status";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";

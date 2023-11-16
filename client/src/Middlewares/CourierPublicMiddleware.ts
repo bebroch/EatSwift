@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Courier from "../models/CourierModel";
 import ERROR_MESSAGES from "../Message/Errors";
 import Status from "../Service/Status";
-import { ICourierFunctions } from "../interface/Courier/Courier";
+import { ICourierFunctions } from "../interface/Courier";
 
 export async function CourierPublicMiddleware(
 	//TODO Сделать тип для publicCourier

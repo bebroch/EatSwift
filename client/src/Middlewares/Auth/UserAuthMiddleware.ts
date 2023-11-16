@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { IUserFunctions } from "../../interface/User/User";
+import { IUserFunctions } from "../../interface/User";
 import User from "../../models/UserModel";
 import { AuthMiddleware } from "./AuthMiddleware";
 import ExceptionService from "../../Service/ExceptionService";

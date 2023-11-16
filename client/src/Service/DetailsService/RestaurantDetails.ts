@@ -1,6 +1,6 @@
-import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
-import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { IDish } from "../../interface/DishModel";
+import { IMenu } from "../../interface/MenuModel";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
 import Dish from "../../models/DishModel";
 
 export const RestaurantDetails = {

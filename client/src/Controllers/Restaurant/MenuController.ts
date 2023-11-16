@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
 import SUCCESS_MESSAGE from "../../Message/Success";
 import Status from "../../Service/Status";
-import { TAccount } from "../../interface/Account/Account";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { TAccount } from "../../interface/Account";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
 
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";

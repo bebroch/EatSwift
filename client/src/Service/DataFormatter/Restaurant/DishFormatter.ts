@@ -1,5 +1,5 @@
 import { DishTypes } from "../../../Types/DishTypes";
-import { IDish } from "../../../interface/Restaurant/DIsh/DishModel";
+import { IDish } from "../../../interface/DishModel";
 import BaseFormatter from "../BaseFormatter";
 
 export const DishFormatter = {

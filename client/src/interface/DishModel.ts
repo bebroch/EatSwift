@@ -1,5 +1,5 @@
 import { Model, ObjectId } from "mongoose";
-import { DishTypes } from "../../../Types/DishTypes";
+import { DishTypes } from "../Types/DishTypes";
 
 interface IDish {
 	_id: ObjectId;

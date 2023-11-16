@@ -3,10 +3,7 @@ import ERROR_MESSAGES from "../../Message/Errors";
 import Status from "../../Service/Status";
 import GetData from "../../Service/GetData";
 import Courier from "../../models/CourierModel";
-import {
-	ICourierFunctions,
-	ICourierModel,
-} from "../../interface/Courier/Courier";
+import { ICourierFunctions, ICourierModel } from "../../interface/Courier";
 import { AuthMiddleware } from "./AuthMiddleware";
 import ExceptionService from "../../Service/ExceptionService";
 

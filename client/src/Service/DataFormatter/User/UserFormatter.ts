@@ -1,5 +1,5 @@
 import { UserTypes } from "../../../Types/UserTypes";
-import { IUserFunctions } from "../../../interface/User/User";
+import { IUserFunctions } from "../../../interface/User";
 import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 
@@ -10,7 +10,6 @@ export const UserFormatter = {
 		}
 
 		const { address, phoneNumber } = user;
-
 
 		return {
 			...BaseFormatter.getAccountFields(user),

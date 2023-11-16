@@ -1,5 +1,5 @@
-import { EnumRole } from "../interface/Account/Role";
-import { ICourierFunctions } from "../interface/Courier/Courier";
+import { EnumRole } from "../Enums/Role";
+import { ICourierFunctions } from "../interface/Courier";
 
 namespace CourierTypes {
 	export type GetPrivate = {

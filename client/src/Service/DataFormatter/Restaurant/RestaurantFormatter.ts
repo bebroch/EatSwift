@@ -1,5 +1,5 @@
 import { RestaurantTypes } from "../../../Types/RestaurantTypes";
-import { IRestaurantFunctions } from "../../../interface/Restaurant/Restaurant";
+import { IRestaurantFunctions } from "../../../interface/Restaurant";
 import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 

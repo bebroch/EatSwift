@@ -4,9 +4,9 @@ import CartTypes from "../../Types/CartTypes";
 import Dish from "../../models/DishModel";
 import Restaurant from "../../models/RestaurantModel";
 import User from "../../models/UserModel";
-import { ICart, ICartItem } from "../../interface/User/Cart";
-import { IUserFunctions } from "../../interface/User/User";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { ICart, ICartItem } from "../../interface/Cart";
+import { IUserFunctions } from "../../interface/User";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
 import ExceptionErrorService from "../ExceptionErrorService";
 
 export const CartValidate = {

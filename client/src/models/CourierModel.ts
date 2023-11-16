@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ICourier, ICourierModel } from "../interface/Courier/Courier";
+import { ICourier, ICourierModel } from "../interface/Courier";
 import CourierSchema from "./Courier/CourierSchema";
 
 const Courier = mongoose.model<ICourier, ICourierModel>(

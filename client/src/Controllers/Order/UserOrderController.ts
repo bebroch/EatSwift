@@ -6,7 +6,7 @@ import ExceptionService from "../../Service/ExceptionService";
 import GetData from "../../Service/GetData";
 import Status from "../../Service/Status";
 import OrderTypes from "../../Types/OrderTypes";
-import { IUserFunctions } from "../../interface/User/User";
+import { IUserFunctions } from "../../interface/User";
 import { Request, Response } from "express";
 
 // TODO Может быть сделать отдельный класс для этого, такой же есть в RestaurantOrderController

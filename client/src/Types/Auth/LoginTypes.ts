@@ -1,33 +1,29 @@
-import { EnumRole } from "../../interface/Account/Role";
-import { ICourierFunctions } from "../../interface/Courier/Courier";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
-import { IUserFunctions } from "../../interface/User/User";
+import { EnumRole } from "../../Enums/Role";
+import { ICourierFunctions } from "../../interface/Courier";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
+import { IUserFunctions } from "../../interface/User";
 
-type GetLoginData = {
-	login: string;
-	password: string;
-	role: EnumRole;
-};
+namespace LoginTypes {
+	export type GetLoginData = {
+		login: string;
+		password: string;
+		role: EnumRole;
+	};
 
-type GetLoginDataWithModel = {
-	user?: IUserFunctions;
-	restaurant?: IRestaurantFunctions;
-	courier?: ICourierFunctions;
-	login: string;
-	password: string;
-	role: EnumRole;
-};
+	export type GetLoginDataWithModel = {
+		user?: IUserFunctions;
+		restaurant?: IRestaurantFunctions;
+		courier?: ICourierFunctions;
+		login: string;
+		password: string;
+		role: EnumRole;
+	};
 
-type GetLoginDataOrNull = GetLoginData | null | undefined;
+	export type GetLoginDataOrNull = GetLoginData | null | undefined;
 
-type GetLoginDataWithModelOrNull = GetLoginData | null | undefined;
+	export type GetLoginDataWithModelOrNull = GetLoginData | null | undefined;
 
-type outputLoginData = GetLoginData;
+	export type outputLoginData = GetLoginData;
+}
 
-export {
-	GetLoginData,
-	GetLoginDataWithModel,
-	GetLoginDataOrNull,
-	GetLoginDataWithModelOrNull,
-	outputLoginData,
-};
+export default LoginTypes;

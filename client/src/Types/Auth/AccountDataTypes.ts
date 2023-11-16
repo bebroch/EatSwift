@@ -1,13 +1,20 @@
-import { EnumRole } from "../../interface/Account/Role";
-import { ICourierFunctions } from "../../interface/Courier/Courier";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
-import { IUserFunctions } from "../../interface/User/User";
+import { EnumRole } from "../../Enums/Role";
+import { ICourierFunctions } from "../../interface/Courier";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
+import { IUserFunctions } from "../../interface/User";
 
-type GetAccountData = {
-	account: IUserFunctions | IRestaurantFunctions | ICourierFunctions;
-	login: string;
-	password: string;
-	role: EnumRole;
-};
+namespace AccountDataTypes {
+	export type GetModels =
+		| IUserFunctions
+		| IRestaurantFunctions
+		| ICourierFunctions;
 
-export { GetAccountData };
+	export type GetDataModels = {
+		account: IUserFunctions | IRestaurantFunctions | ICourierFunctions;
+		login: string;
+		password: string;
+		role: EnumRole;
+	};
+}
+
+export default AccountDataTypes;

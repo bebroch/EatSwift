@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IDish, IDishModel } from "../interface/Restaurant/DIsh/DishModel";
+import { IDish, IDishModel } from "../interface/DishModel";
 import DishSchema from "./Dish/DishSchema";
 
 const Dish = mongoose.model<IDish, IDishModel>("Dish", DishSchema);

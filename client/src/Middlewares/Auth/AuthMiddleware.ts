@@ -1,9 +1,9 @@
 import ERROR_MESSAGES from "../../Message/Errors";
 import ExceptionErrorService from "../../Service/ExceptionErrorService";
 import GetData from "../../Service/GetData";
-import { ICourierModel } from "../../interface/Courier/Courier";
-import { IRestaurantModel } from "../../interface/Restaurant/Restaurant";
-import { IUserModel } from "../../interface/User/User";
+import { ICourierModel } from "../../interface/Courier";
+import { IRestaurantModel } from "../../interface/Restaurant";
+import { IUserModel } from "../../interface/User";
 import { Request } from "express";
 
 export async function AuthMiddleware(

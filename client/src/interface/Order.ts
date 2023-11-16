@@ -1,8 +1,8 @@
 import { Model, ObjectId } from "mongoose";
 import { ICartItem } from "./Cart";
-import OrderTypes from "../../Types/OrderTypes";
-import { OrderModel } from "../../Enums/Order/OrderModels";
-import { OrderStatus } from "../../Enums/Order/OrderStatus";
+import OrderTypes from "../Types/OrderTypes";
+import { OrderModel } from "../Enums/Order/OrderModels";
+import { OrderStatus } from "../Enums/Order/OrderStatus";
 
 interface IOrder {
 	_id: ObjectId;
@@ -23,8 +23,6 @@ interface IOrderFunctions extends IOrder {
 	updateStatusDelivered(): Promise<IOrder>;
 	updateStatusCompleted(): Promise<IOrder>;
 	updateStatusCanceled(): Promise<IOrder>;
-
-	
 }
 
 interface IOrderModel extends Model<IOrderFunctions> {

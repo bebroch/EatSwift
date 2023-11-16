@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Status from "../../Service/Status";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
 

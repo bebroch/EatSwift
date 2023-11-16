@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose";
-import { EnumRole } from "../interface/Account/Role";
-import { IUser, IUserFunctions } from "../interface/User/User";
+import { IUser, IUserFunctions } from "../interface/User";
 import CartTypes from "./CartTypes";
+import { EnumRole } from "../Enums/Role";
 
 namespace UserTypes {
 	export type GetModel = {

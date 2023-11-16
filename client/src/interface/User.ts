@@ -1,10 +1,10 @@
 import { Model, ObjectId } from "mongoose";
 import { IOrder } from "./Order";
-import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
-import { IUserRegisterData } from "../RegisterInterface/RegisterData";
+import { IAccount, IAccountFunction, IAccountModel } from "./Account";
+import { IUserRegisterData } from "./Auth/Register/RegisterData";
 import { ICart, ICartItem } from "./Cart";
-import { UserTypes } from "../../Types/UserTypes";
-import OrderTypes from "../../Types/OrderTypes";
+import { UserTypes } from "../Types/UserTypes";
+import OrderTypes from "../Types/OrderTypes";
 
 interface IUser extends IAccount {
 	address?: string;

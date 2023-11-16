@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import ERROR_MESSAGES from "../../../Message/Errors";
 import Status from "../../../Service/Status";
-import { TAccount } from "../../../interface/Account/Account";
+import { TAccount } from "../../../interface/Account";
 import GetData from "../../../Service/GetData";
 import ValidateService from "../../../Service/ValidateService";
 

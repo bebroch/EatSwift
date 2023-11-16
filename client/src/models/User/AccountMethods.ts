@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { EnumRole } from "../../interface/Account/Role";
-import { IUser } from "../../interface/User/User";
+import { IUser } from "../../interface/User";
 import TokenService from "../../Service/TokenService";
 
 export function AccountMethods(schema: mongoose.Schema) {

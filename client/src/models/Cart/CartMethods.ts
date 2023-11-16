@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import ValidateService from "../../Service/ValidateService";
 import CartTypes from "../../Types/CartTypes";
 import ERROR_MESSAGES from "../../Message/Errors";
-import { ICart, ICartItem } from "../../interface/User/Cart";
+import { ICart, ICartItem } from "../../interface/Cart";
 import { ObjectId } from "mongoose";
 import ExceptionErrorService from "../../Service/ExceptionErrorService";
 

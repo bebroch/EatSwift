@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import ERROR_MESSAGES from "../../Message/Errors";
 import Status from "../../Service/Status";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
 import GetData from "../../Service/GetData";
 import Restaurant from "../../models/RestaurantModel";
 import { AuthMiddleware } from "./AuthMiddleware";

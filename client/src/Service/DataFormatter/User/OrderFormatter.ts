@@ -1,5 +1,5 @@
 import OrderTypes from "../../../Types/OrderTypes";
-import { IDish } from "../../../interface/Restaurant/DIsh/DishModel";
+import { IDish } from "../../../interface/DishModel";
 import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 

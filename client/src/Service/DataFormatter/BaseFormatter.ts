@@ -1,9 +1,9 @@
 import CartTypes from "../../Types/CartTypes";
 import { DishTypes } from "../../Types/DishTypes";
 import OrderTypes from "../../Types/OrderTypes";
-import { TAccount } from "../../interface/Account/Account";
-import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { TAccount } from "../../interface/Account";
+import { IMenu } from "../../interface/MenuModel";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
 
 // TODO Если смогу, нужно заменить if (!data) return null;
 class BaseFormatter {

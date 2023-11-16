@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { CourierTypes } from "../../Types/CourierTypes";
-import { ICourierFunctions } from "../../interface/Courier/Courier";
+import { ICourierFunctions } from "../../interface/Courier";
 
 export const CourierData = {
 	getPrivate(

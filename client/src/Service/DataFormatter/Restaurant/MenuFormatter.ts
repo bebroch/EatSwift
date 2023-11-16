@@ -1,4 +1,4 @@
-import { IMenu } from "../../../interface/Restaurant/Menu/MenuModel";
+import { IMenu } from "../../../interface/MenuModel";
 import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 

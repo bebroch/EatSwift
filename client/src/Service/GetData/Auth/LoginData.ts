@@ -3,13 +3,13 @@ import { EnumRole } from "../../../interface/Account/Role";
 import { UserTypes } from "../../../Types/UserTypes";
 import { RestaurantTypes } from "../../../Types/RestaurantTypes";
 import { CourierTypes } from "../../../Types/CourierTypes";
-import { TAccount } from "../../../interface/Account/Account";
-import { ICourierFunctions } from "../../../interface/Courier/Courier";
+import { TAccount } from "../../../interface/Account";
+import { ICourierFunctions } from "../../../interface/Courier";
 import {
 	IRestaurant,
 	IRestaurantFunctions,
-} from "../../../interface/Restaurant/Restaurant";
-import { IUserFunctions } from "../../../interface/User/User";
+} from "../../../interface/Restaurant";
+import { IUserFunctions } from "../../../interface/User";
 import { outputLoginData } from "../../../Types/Auth/LoginTypes";
 
 function getLoginData(req: Request): outputLoginData {

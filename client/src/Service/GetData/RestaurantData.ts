@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { IRestaurantFunctions } from "../../interface/Restaurant";
 import Restaurant from "../../models/RestaurantModel";
 import TokenService from "../TokenService";
 import { RestaurantTypes } from "../../Types/RestaurantTypes";
