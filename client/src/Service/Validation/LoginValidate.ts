@@ -8,6 +8,7 @@ import Courier from "../../models/CourierModel";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { TAccount } from "../../interface/Account/Account";
 import { GetLoginData, GetLoginDataOrNull } from "../../Types/Auth/LoginTypes";
+import Log from "../Log";
 
 export const LoginValidate = {
 	User: UserLoginData,
@@ -59,6 +60,6 @@ export const LoginValidate = {
 				return await Courier.findOne({ login });
 		}
 
-		console.log(ERROR_MESSAGES.INVALID_ROLE);
+		Log.error(ERROR_MESSAGES.INVALID_ROLE);
 	},
 };

@@ -75,6 +75,7 @@ class CourierController {
 		}
 	}
 
+	// TODO доделать
 	async getOrderFromHistory(req: Request, res: Response) {}
 
 	async getHistoryOfOrders(req: Request, res: Response) {}
