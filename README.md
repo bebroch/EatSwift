@@ -13,5 +13,7 @@ docker compose -f "docker-compose.yml" up -d --build
 npm run dev
 ```
 
+4. Нужно написать порт в файле ./client/config/prometheus/prometheus.yml
+
 > [!NOTE]
 > Приложение запуститься на http://localhost:5000/

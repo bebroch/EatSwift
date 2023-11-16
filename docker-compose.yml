@@ -7,8 +7,6 @@ services:
             dockerfile: Dockerfile
         depends_on:
             - database
-        environment:
-            - MONGO_URL=${MONGO_URL}
 
     database:
         image: mongo:latest
@@ -18,3 +16,21 @@ services:
             MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
             MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
             MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+
+    prometheus:
+        image: prom/prometheus
+        volumes:
+            - ./client/config/prometheus:/etc/prometheus
+        command:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+        ports:
+            - "9090:9090"
+
+    grafana:
+        image: grafana/grafana
+        ports:
+            - "3000:3000"
+        environment:
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+        depends_on:
+            - prometheus
