@@ -20,7 +20,6 @@ class ProfileController {
 		return Status.success(res, { account: restaurantFormattedData });
 	}
 
-	// TODO: Сделать обновление профиля
 	async updateProfile(req: Request, res: Response) {
 		const restaurant = GetData.Restaurant.getPrivate(
 			req
@@ -33,7 +32,6 @@ class ProfileController {
 		return Status.success(res, { account: restaurantDataFormatted });
 	}
 
-	// TODO: Сделать удаление профиля
 	async deleteProfile(req: Request, res: Response) {
 		const restaurant = GetData.Restaurant.getPrivate(
 			req

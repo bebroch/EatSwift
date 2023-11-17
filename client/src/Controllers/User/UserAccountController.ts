@@ -16,7 +16,6 @@ class UserAccountController {
 		res: Response
 	) {
 		const user = GetData.User.get(req) as IUserFunctions;
-		// TODO поправить всю логику, из за ошибки где то внутри ломается два контроллера, UserAccountController и CartController
 		try {
 			const userWithCart = await user.getUserDataWithCart();
 			const userDataDetails = await DetailsService.User.get(userWithCart);

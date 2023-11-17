@@ -75,7 +75,6 @@ class CourierController {
 		}
 	}
 
-	// TODO доделать
 	async getOrderFromHistory(req: Request, res: Response) {
 		const courier = GetData.Courier.getPrivate(req) as ICourierFunctions;
 		try {

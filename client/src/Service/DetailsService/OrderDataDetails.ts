@@ -6,9 +6,7 @@ import ExceptionErrorService from "../ExceptionErrorService";
 async function getDetails(cart: OrderTypes.GetDataForDetails) {
 	const dishesData = cart.item.map(async dishData => {
 		const dish = await Dish.findOne({ _id: dishData.dish_id }).lean();
-		console.log(dishData, dish);
-		//if (!dish) ExceptionErrorService.handler(ERROR_MESSAGES.DISH_NOT_FOUND);
-
+		
 		return { ...dishData, dish };
 	});
 

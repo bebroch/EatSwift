@@ -7,21 +7,16 @@ import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import mongoose from "mongoose";
 
-// TODO Если смогу, нужно заменить if (!data) return null;
 class BaseFormatter {
 	getAccountFields(data: TAccount | null) {
-		if (!data) {
-			return null;
-		}
+		if (!data) return null;
 
 		const { _id, login, email, createdAt } = data;
 		return { _id, login, email, createdAt };
 	}
 
 	getRestaurantFields(data: IRestaurantFunctions | null) {
-		if (!data) {
-			return null;
-		}
+		if (!data) return null;
 
 		const { name, rating } = data;
 
@@ -33,9 +28,7 @@ class BaseFormatter {
 	}
 
 	getMenuFields(data: IMenu | null) {
-		if (!data) {
-			return null;
-		}
+		if (!data) return null;
 
 		const { _id, name, description } = data;
 		return { _id, name, description };
@@ -49,9 +42,7 @@ class BaseFormatter {
 	}
 
 	getCartItemFields(data: CartTypes.GetDataItemDetails | null) {
-		if (!data) {
-			return null;
-		}
+		if (!data) return null;
 
 		const { _id, dish, quantity } = data;
 		return { _id, dish, quantity };
