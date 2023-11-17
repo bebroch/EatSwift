@@ -33,13 +33,15 @@ namespace DishTypes {
 		restaurant_id: string | ObjectId;
 	};
 
-	export type outputDataDetails = {
+	export type GetDataDetails = {
 		_id: ObjectId;
 		name: string;
 		description: string;
 		ingredients: string[];
 		price: number;
 	};
+
+	export type outputDataDetails = GetDataDetails;
 }
 
 export { DishTypes };

@@ -24,7 +24,7 @@ export function OrderMethods(schema: mongoose.Schema) {
 		Log.infoStack("User.makeOrder");
 		const cart = await this.getCartByRestaurant(data);
 
-		if (!cart) return null;
+		if (!cart) ExceptionErrorService.handler(ERROR_MESSAGES.CART_NOT_FOUND);
 
 		const order = await Order.createOrder(cart);
 

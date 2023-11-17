@@ -118,10 +118,17 @@ class MenuController {
 			req
 		) as IRestaurantFunctions;
 		const menuData = GetData.Menu.AddDishToMenu(req);
-		const menu = await restaurant.addDishToMenu(menuData);
-		const menuWithDetails = await DetailsService.Menu.getOneWithDish(menu);
-		const menuDataFormatted = DataFormatter.Menu.getOne(menuWithDetails);
-		return Status.success(res, { menu: menuDataFormatted });
+
+		try {
+			const menu = await restaurant.addDishToMenu(menuData);
+			const menuWithDetails =
+				await DetailsService.Menu.getOneWithDish(menu);
+			const menuDataFormatted =
+				DataFormatter.Menu.getOne(menuWithDetails);
+			return Status.success(res, { menu: menuDataFormatted });
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
 	}
 }
 

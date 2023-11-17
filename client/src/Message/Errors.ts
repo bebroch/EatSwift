@@ -169,8 +169,8 @@ const ERROR_MESSAGES = {
 	},
 	ACCOUNT_CREATION_FAILED: {
 		message: "Account creation failed",
-        statusCode: 500,
-	}
+		statusCode: 500,
+	},
 };
 
 export default ERROR_MESSAGES;

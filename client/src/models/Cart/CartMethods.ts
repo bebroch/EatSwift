@@ -10,7 +10,7 @@ import Log from "../../Service/Log";
 export const CartMethods = function (schema: mongoose.Schema) {
 	schema.statics.getCart = async function (userId: string) {
 		Log.infoStack("Cart.getCart");
-		return await this.find({ user_id: userId });
+		return await this.find({ user_id: userId }).lean();
 	};
 
 	schema.statics.addToCart = async function (

@@ -15,6 +15,9 @@ export const CartFormatter = {
 			(cartItem: CartTypes.GetDataDetails) => {
 				const cartItemData = cartItem.item.map(
 					(item: CartTypes.GetDataItemDetails) => {
+						if (!item.dish) 
+							return item;
+						
 						return {
 							...DataFormatter.Dish.get(item.dish),
 							quantity: item.quantity,

@@ -1,9 +1,11 @@
+import { ObjectId } from "mongoose";
 import CartTypes from "../../Types/CartTypes";
 import { DishTypes } from "../../Types/DishTypes";
 import OrderTypes from "../../Types/OrderTypes";
 import { TAccount } from "../../interface/Account/Account";
 import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import mongoose from "mongoose";
 
 // TODO Если смогу, нужно заменить if (!data) return null;
 class BaseFormatter {
@@ -39,13 +41,10 @@ class BaseFormatter {
 		return { _id, name, description };
 	}
 
-	getDishFields(data: DishTypes.outputDataDetails | null) {
-		if (!data) {
-			return null;
-		}
+	getDishFields(data: DishTypes.GetDataDetails | null) {
+		if (!data) return null;
 
 		const { _id, name, description, ingredients, price } = data;
-
 		return { _id, name, description, ingredients, price };
 	}
 
@@ -73,4 +72,4 @@ class BaseFormatter {
 	}
 }
 
-export default new BaseFormatter(); // 1
+export default new BaseFormatter();

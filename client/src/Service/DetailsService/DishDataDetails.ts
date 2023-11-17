@@ -1,13 +1,17 @@
 import { ObjectId } from "mongoose";
-import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
 import Dish from "../../models/DishModel";
 
 export const DishDataDetails = {
+	async get(dish_id: ObjectId) {
+		const dish = await Dish.findById(dish_id).lean();
+		if (!dish) return null;
+		return dish;
+	},
+
 	async getMany(dishes: ObjectId[]) {
 		const dishData = await Promise.all(
 			dishes.map(async dish_id => {
-				const dish = await Dish.findById(dish_id);
-				return dish;
+				return this.get(dish_id);
 			})
 		);
 

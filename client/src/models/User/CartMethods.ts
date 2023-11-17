@@ -3,15 +3,18 @@ import Order from "../OrderModel";
 import Cart from "../CartModel";
 import { UserTypes } from "../../Types/UserTypes";
 import Log from "../../Service/Log";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
+import ERROR_MESSAGES from "../../Message/Errors";
 
 export function CartMethods(schema: mongoose.Schema) {
 	schema.methods.getCart = async function () {
 		Log.infoStack("User.getCart");
 		const cart = await Cart.find({ user_id: this._id }).lean();
 
-		if (cart.length === 0) return null;
+		if (cart.length === 0)
+			ExceptionErrorService.handler(ERROR_MESSAGES.CART_NOT_FOUND);
 
-		return cart;
+		return cart; // 1
 	};
 
 	schema.methods.getCartByRestaurant = async function (

@@ -37,7 +37,8 @@ export function MenuMethods(schema: mongoose.Schema) {
 	) {
 		Log.infoStack("Menu.deleteMenu");
 		const { _id, restaurant_id } = menuData;
-		await this.findOneAndDelete({ restaurant_id, _id });
+		const menu = await this.findOneAndDelete({ restaurant_id, _id });
+		if (!menu) ExceptionErrorService.handler(ERROR_MESSAGES.MENU_NOT_FOUND);
 	};
 
 	schema.statics.addDishToMenu = async function (

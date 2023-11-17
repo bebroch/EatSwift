@@ -49,7 +49,7 @@ namespace CartTypes {
 
 	export type GetDataItemDetails = {
 		_id: ObjectId;
-		dish: IDish;
+		dish: IDish | null;
 		quantity: number;
 	};
 

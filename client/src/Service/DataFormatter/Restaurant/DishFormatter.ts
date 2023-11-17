@@ -5,8 +5,10 @@ import BaseFormatter from "../BaseFormatter";
 export const DishFormatter = {
 	// TODO добавить type
 	get(
-		dish: IDish | IDish[]
+		dish: IDish | IDish[] | null
 	): DishTypes.outputDataDetails | DishTypes.outputDataDetails[] | null {
+		if (!dish) return null;
+
 		if (Array.isArray(dish)) {
 			return dish.map((dish: IDish) => {
 				return BaseFormatter.getDishFields(

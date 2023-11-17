@@ -7,7 +7,7 @@ function getFormattedData(cart: OrderTypes.GetDataDetails) {
 	const itemData = cart.item.map(item => {
 		return {
 			...BaseFormatter.getOrderItemFields(item),
-			dish: DataFormatter.Dish.get(item.dish) as IDish,
+			dish: DataFormatter.Dish.get(item.dish),
 		};
 	});
 
