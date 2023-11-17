@@ -76,5 +76,7 @@ export function AccountMethods(schema: mongoose.Schema) {
 		return this.save();
 	};
 
-	schema.methods.deleteAccount = function () {};
+	schema.methods.deleteAccount = async function () {
+		await this.deleteOne({ _id: this._id });
+	};
 }

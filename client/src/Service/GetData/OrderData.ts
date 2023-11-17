@@ -17,4 +17,8 @@ export const OrderData = {
 		const { status } = req.body;
 		return { status };
 	},
+	getFromHistory(req: Request) {
+		const { _id } = req.params;
+		return { order_id: _id };
+	},
 };

@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose";
 import { EnumRole } from "../interface/Account/Role";
 import { ICourierFunctions } from "../interface/Courier/Courier";
 
@@ -30,6 +31,10 @@ namespace CourierTypes {
 	export type outputModel = ICourierFunctions;
 
 	export type outputModelOrUndefined = outputModel | undefined;
+
+	export type GetOrderFromHistory = {
+		order_id: string | ObjectId;
+	};
 }
 
 export { CourierTypes };

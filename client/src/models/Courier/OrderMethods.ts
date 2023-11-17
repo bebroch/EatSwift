@@ -5,18 +5,34 @@ import ERROR_MESSAGES from "../../Message/Errors";
 import { OrderStatus } from "../../Enums/Order/OrderStatus";
 import ExceptionErrorService from "../../Service/ExceptionErrorService";
 import Log from "../../Service/Log";
+import { CourierTypes } from "../../Types/CourierTypes";
 
 export async function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getActiveOrder = async function () {
-		Log.info("Courier.getActiveOrder");
+		Log.infoStack("Courier.getActiveOrder");
 		const orders = await Order.find({ _id: this.order_id }).lean();
 		return orders;
+	};
+
+	schema.methods.getOrderFromHistory = async function (
+		data: CourierTypes.GetOrderFromHistory
+	) {
+		Log.infoStack("Courier.getOrderFromHistory");
+		const order = await Order.findOne({ _id: data.order_id }).lean();
+		if (!order)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
+		return order;
+	};
+
+	schema.methods.getHistoryOfOrders = async function () {
+		Log.infoStack("Courier.getHistoryOfOrders");
+		return await Order.findCourierHistoryOfOrders(this._id);
 	};
 
 	schema.methods.takeOrder = async function (
 		orderData: OrderTypes.GetDataForMakeOrder
 	) {
-		Log.info("Courier.takeOrder");
+		Log.infoStack("Courier.takeOrder");
 		const { order_id } = orderData;
 		const order = await Order.findById(order_id);
 
@@ -41,7 +57,7 @@ export async function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.updateStatus = async function (
 		statusData: OrderTypes.GetDataForUpdateStatus
 	) {
-		Log.info("Courier.updateStatus");
+		Log.infoStack("Courier.updateStatus");
 		const { status } = statusData;
 		const order = await Order.findById(this.order_id);
 

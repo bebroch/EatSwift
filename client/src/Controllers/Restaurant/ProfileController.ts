@@ -4,6 +4,7 @@ import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
 import Log from "../../Service/Log";
+import SUCCESS_MESSAGE from "../../Message/Success";
 
 class ProfileController {
 	async getProfile(req: Request, res: Response) {
@@ -34,7 +35,12 @@ class ProfileController {
 
 	// TODO: Сделать удаление профиля
 	async deleteProfile(req: Request, res: Response) {
-		Log.info("HELLO");
+		const restaurant = GetData.Restaurant.getPrivate(
+			req
+		) as IRestaurantFunctions;
+
+		await restaurant.deleteAccount();
+		return Status.success(res, SUCCESS_MESSAGE.RESTAURANT_SUCCESSFULLY_DELETED);
 	}
 }
 

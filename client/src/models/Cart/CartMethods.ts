@@ -9,14 +9,14 @@ import Log from "../../Service/Log";
 
 export const CartMethods = function (schema: mongoose.Schema) {
 	schema.statics.getCart = async function (userId: string) {
-		Log.info("Cart.getCart");
+		Log.infoStack("Cart.getCart");
 		return await this.find({ user_id: userId });
 	};
 
 	schema.statics.addToCart = async function (
 		dishData: CartTypes.GetAddToCart
 	) {
-		Log.info("Cart.addToCart");
+		Log.infoStack("Cart.addToCart");
 		const { dish_id, restaurant_id, user_id } = dishData;
 
 		await ValidateService.Cart.checkExistData({
@@ -49,7 +49,7 @@ export const CartMethods = function (schema: mongoose.Schema) {
 	schema.statics.deleteItemFromCart = async function (
 		dishData: CartTypes.GetDataForDelete
 	) {
-		Log.info("Cart.deleteItemFromCart");
+		Log.infoStack("Cart.deleteItemFromCart");
 		const { dish_id, user_id, restaurant_id } = dishData;
 
 		await ValidateService.Cart.checkExistData({

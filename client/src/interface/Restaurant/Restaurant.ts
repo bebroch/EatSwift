@@ -41,6 +41,7 @@ interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
 	updateInfo(
 		updateData: RestaurantTypes.GetUpdateData
 	): Promise<IRestaurantFunctions>;
+	deleteAccount(): Promise<void>;
 }
 
 interface IRestaurantModel extends Model<IRestaurantFunctions, IAccountModel> {

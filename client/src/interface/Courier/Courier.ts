@@ -3,6 +3,7 @@ import { IOrder } from "../User/Order";
 import { IAccount, IAccountFunction, IAccountModel } from "../Account/Account";
 import { ICourierRegisterData } from "../RegisterInterface/RegisterData";
 import OrderTypes from "../../Types/OrderTypes";
+import { CourierTypes } from "../../Types/CourierTypes";
 
 interface ICourier extends IAccount {
 	firstName: string;
@@ -18,6 +19,9 @@ interface ICourierFunctions extends ICourier, IAccountFunction {
 	updateStatus(
 		statusData: OrderTypes.GetDataForUpdateStatus
 	): Promise<IOrder>;
+
+	getHistoryOfOrders(): Promise<IOrder[]>;
+	getOrderFromHistory(data: CourierTypes.GetOrderFromHistory): Promise<IOrder>;
 }
 
 interface ICourierModel extends Model<ICourierFunctions, IAccountModel> {

@@ -76,9 +76,32 @@ class CourierController {
 	}
 
 	// TODO доделать
-	async getOrderFromHistory(req: Request, res: Response) {}
+	async getOrderFromHistory(req: Request, res: Response) {
+		const courier = GetData.Courier.getPrivate(req) as ICourierFunctions;
+		try {
+			const orderData = GetData.Order.getFromHistory(req);
+			const order = await courier.getOrderFromHistory(orderData);
+			const orderWithDetails = await DetailsService.Order.get(order);
+			const orderDataFormatted =
+				DataFormatter.Order.get(orderWithDetails);
+			return Status.success(res, { order: orderDataFormatted });
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
+	}
 
-	async getHistoryOfOrders(req: Request, res: Response) {}
+	async getHistoryOfOrders(req: Request, res: Response) {
+		const courier = GetData.Courier.getPrivate(req) as ICourierFunctions;
+		try {
+			const orders = await courier.getHistoryOfOrders();
+			const ordersWithDetails = await DetailsService.Order.get(orders);
+			const ordersDataFormatted =
+				DataFormatter.Order.get(ordersWithDetails);
+			return Status.success(res, { order: ordersDataFormatted });
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
+	}
 }
 
 export default new CourierController();

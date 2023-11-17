@@ -7,17 +7,17 @@ import Log from "../../Service/Log";
 
 export async function AccountMethods(schema: mongoose.Schema) {
 	schema.statics.findAccountByLogin = async function (login: string) {
-		Log.info("Courier.findAccountByLogin");
+		Log.infoStack("Courier.findAccountByLogin");
 		return this.findOne({ login });
 	};
 
 	schema.statics.findAccountByEmail = async function (email: string) {
-		Log.info("Courier.findAccountByEmail");
+		Log.infoStack("Courier.findAccountByEmail");
 		return this.findOne({ email });
 	};
 
 	schema.statics.findAccountByToken = async function (token: string) {
-		Log.info("Courier.findAccountByToken");
+		Log.infoStack("Courier.findAccountByToken");
 		const { login } = TokenService.decodeToken(
 			token
 		) as IAccountInformation;
@@ -25,7 +25,7 @@ export async function AccountMethods(schema: mongoose.Schema) {
 	};
 
 	schema.statics.createAccount = async function (courierData: ICourier) {
-		Log.info("Courier.createAccount");
+		Log.infoStack("Courier.createAccount");
 		const { firstName, lastName, login, email, password } = courierData;
 
 		const passwordHash = await TokenService.hashingPassword(password);
@@ -43,7 +43,7 @@ export async function AccountMethods(schema: mongoose.Schema) {
 	};
 
 	schema.methods.generateToken = async function () {
-		Log.info("Courier.generateToken");
+		Log.infoStack("Courier.generateToken");
 		const { firstName, lastName, login, email, password } = this;
 
 		const restaurantData = {
