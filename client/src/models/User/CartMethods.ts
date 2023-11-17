@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 import Order from "../OrderModel";
 import Cart from "../CartModel";
 import { UserTypes } from "../../Types/UserTypes";
-import ExceptionErrorService from "../../Service/ExceptionErrorService";
-import ERROR_MESSAGES from "../../Message/Errors";
 import Log from "../../Service/Log";
 
 export function CartMethods(schema: mongoose.Schema) {
@@ -11,8 +9,7 @@ export function CartMethods(schema: mongoose.Schema) {
 		Log.infoStack("User.getCart");
 		const cart = await Cart.find({ user_id: this._id }).lean();
 
-		if (cart.length === 0)
-			ExceptionErrorService.handler(ERROR_MESSAGES.CART_NOT_FOUND);
+		if (cart.length === 0) return null;
 
 		return cart;
 	};

@@ -1,22 +1,21 @@
+import ERROR_MESSAGES from "../../../Message/Errors";
 import { UserTypes } from "../../../Types/UserTypes";
 import { IUserFunctions } from "../../../interface/User/User";
 import DataFormatter from "../../DataFormatter";
+import ExceptionErrorService from "../../ExceptionErrorService";
 import BaseFormatter from "../BaseFormatter";
 
 export const UserFormatter = {
 	get(user: UserTypes.GetDataDetails | null) {
-		if (!user) {
-			return null;
-		}
+		if (!user) ExceptionErrorService.handler(ERROR_MESSAGES.USER_NOT_FOUND);
 
-		const { address, phoneNumber } = user;
-
+		const cart = user.cart
+			? DataFormatter.Cart.getOnlyCart(user.cart)
+			: undefined;
 
 		return {
-			...BaseFormatter.getAccountFields(user),
-			address,
-			phoneNumber,
-			cart: DataFormatter.Cart.getOnlyCart(user.cart),
+			...this.getOnlyUser(user),
+			cart,
 		};
 	},
 

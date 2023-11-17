@@ -17,6 +17,10 @@ class CartController {
 		const user = GetData.User.get(req) as IUserFunctions;
 		try {
 			const cart = await user.getCart();
+
+			if (!cart)
+				return Status.notFound(res, ERROR_MESSAGES.CART_NOT_FOUND);
+
 			const cartWithDishDetails = await DetailsService.Cart.get(cart);
 			const cartDataFormatted =
 				DataFormatter.Cart.getOnlyCart(cartWithDishDetails);

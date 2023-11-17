@@ -41,7 +41,7 @@ namespace UserTypes {
 	};
 
 	export type GetDataDetails = IUserFunctions & {
-		cart: CartTypes.GetDataDetails[] | null;
+		cart?: CartTypes.GetDataDetails[];
 	};
 
 	export type GetDataForMakeOrder = {

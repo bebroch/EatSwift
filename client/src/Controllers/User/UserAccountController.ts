@@ -6,6 +6,9 @@ import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";
 import ExceptionService from "../../Service/ExceptionService";
+import { UserTypes } from "../../Types/UserTypes";
+import { Logger } from "winston";
+import Log from "../../Service/Log";
 
 class UserAccountController {
 	async index(
@@ -13,7 +16,7 @@ class UserAccountController {
 		res: Response
 	) {
 		const user = GetData.User.get(req) as IUserFunctions;
-
+		// TODO поправить всю логику, из за ошибки где то внутри ломается два контроллера, UserAccountController и CartController
 		try {
 			const userWithCart = await user.getUserDataWithCart();
 			const userDataDetails = await DetailsService.User.get(userWithCart);

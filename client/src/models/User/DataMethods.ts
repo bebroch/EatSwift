@@ -8,10 +8,8 @@ export function DataMethods(schema: mongoose.Schema) {
 
 		const cart = await this.getCart();
 
-		if (!cart) {
-			return { ...this.toObject() };
-		}
+		if (!cart) return { ...this.toObject() };
 
-		return { ...this._doc, cart };
+		return { ...this.toObject(), cart };
 	};
 }
