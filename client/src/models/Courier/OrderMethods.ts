@@ -64,6 +64,9 @@ export async function OrderMethods(schema: mongoose.Schema) {
 		if (!order)
 			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
 
+		if (order.status !== OrderStatus.delivered)
+			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ORDER_STATUS);
+		
 		this.order_id = null;
 		this.save();
 

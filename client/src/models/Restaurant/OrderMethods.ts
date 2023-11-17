@@ -27,13 +27,15 @@ export function OrderMethods(schema: mongoose.Schema) {
 		if (!order)
 			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
 
+		if (order.status === OrderStatus.delivered)
+			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ORDER_STATUS);
+
 		switch (status) {
 			case OrderStatus.isProcessed:
 				return await order.updateStatusIsProcessed();
 			case OrderStatus.delivered:
 				return await order.updateStatusDelivered();
 			case OrderStatus.canceled:
-				if (order.status === OrderStatus.delivered) break;
 				return await order.updateStatusCanceled();
 		}
 
