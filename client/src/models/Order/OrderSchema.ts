@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import { OrderMethods } from "./OrderMethods";
 import { OrderStatus } from "../../Enums/Order/OrderStatus";
 
-// TODO Сделать также курьера courier_id с атрибутом required: false
 const OrderSchema = new mongoose.Schema(
 	{
 		user_id: {

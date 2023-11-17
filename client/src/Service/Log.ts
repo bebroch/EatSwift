@@ -15,6 +15,13 @@ const logger = winston.createLogger({
 });
 
 class Log {
+	static infoStack(message: string = "") {
+		const stack = new Error().stack as string;
+		const stackLines = stack.split("\n");
+		const secondToLastLine = stackLines[2];
+		Log.info(message, secondToLastLine);
+	}
+
 	static info(...args: string[]) {
 		const infoMessage = args.join(" ");
 		logger.info(infoMessage);

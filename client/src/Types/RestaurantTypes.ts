@@ -32,10 +32,17 @@ namespace RestaurantTypes {
 		menu: IMenu[];
 		dish: IDish[];
 	};
-	
+
 	export type outputModel = IRestaurantFunctions;
 
 	export type outputModelOrUndefined = outputModel | undefined;
+
+	export type GetUpdateData = {
+		name?: string;
+		description?: string;
+		addresses?: string[];
+		contactInfo?: string;
+	};
 }
 
 export { RestaurantTypes };

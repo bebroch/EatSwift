@@ -3,11 +3,13 @@ import ERROR_MESSAGES from "../../Message/Errors";
 import Menu from "../MenuModel";
 import { DishTypes } from "../../Types/DishTypes";
 import ExceptionErrorService from "../../Service/ExceptionErrorService";
+import Log from "../../Service/Log";
 
 export function DishMethods(schema: mongoose.Schema) {
 	schema.statics.getDishes = async function (
 		dishData: DishTypes.GetDataForFindMany
 	) {
+		Log.infoStack("Order.getDishes");
 		const { restaurant_id } = dishData;
 		const dishes = this.find({ restaurant_id });
 		return dishes;
@@ -16,6 +18,7 @@ export function DishMethods(schema: mongoose.Schema) {
 	schema.statics.getDish = async function (
 		dishData: DishTypes.GetDataForFindOne
 	) {
+		Log.infoStack("Order.getDish");
 		const { _id, restaurant_id } = dishData;
 		const dish = this.findOne({ _id, restaurant_id });
 		return dish;
@@ -24,6 +27,7 @@ export function DishMethods(schema: mongoose.Schema) {
 	schema.statics.createDish = async function (
 		dishData: DishTypes.GetDataForCreate
 	) {
+		Log.infoStack("Order.createDish");
 		const dish = new this(dishData);
 		return dish.save();
 	};
@@ -31,6 +35,7 @@ export function DishMethods(schema: mongoose.Schema) {
 	schema.statics.deleteDish = async function (
 		dishData: DishTypes.GetDataForDelete
 	) {
+		Log.infoStack("Order.deleteDish");
 		const { _id, restaurant_id } = dishData;
 		const dish = await this.findOne({ _id, restaurant_id });
 

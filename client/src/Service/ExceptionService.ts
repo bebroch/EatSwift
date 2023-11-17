@@ -28,7 +28,7 @@ class ExceptionService {
 				Log.warn(error.message);
 				return Status.forbidden(res, error);
 			case 404:
-				Log.info(error.message);
+				Log.warn(error.message);
 				return Status.notFound(res, error);
 			case 500:
 				Log.error(error.message);

@@ -4,27 +4,23 @@ import Order from "../OrderModel";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { OrderStatus } from "../../Enums/Order/OrderStatus";
 import ExceptionErrorService from "../../Service/ExceptionErrorService";
+import Log from "../../Service/Log";
 
 export function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getHistoryOfOrders = async function () {
+		Log.infoStack("Restaurant.getHistoryOfOrders");
 		return await Order.findRestaurantHistoryOfOrders(this._id);
-		// return await Order.find({
-		// 	restaurant_id: this._id,
-		// 	status: { $ne: OrderStatus.active },
-		// }).lean();
 	};
 
 	schema.methods.getActiveOrders = async function () {
+		Log.infoStack("Restaurant.getActiveOrders");
 		return await Order.findRestaurantActiveOrders(this._id);
-		// return await Order.find({
-		// 	restaurant_id: this._id,
-		// 	status: OrderStatus.active,
-		// }).lean();
 	};
 
 	schema.methods.updateOrder = async function (
 		data: OrderTypes.GetDataForUpdate
 	) {
+		Log.infoStack("Restaurant.updateOrder");
 		const { order_id, status } = data;
 		const order = await Order.findById(order_id);
 
@@ -47,6 +43,7 @@ export function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.cancelOrder = async function (
 		data: OrderTypes.GetDataForCancel
 	) {
+		Log.infoStack("Restaurant.cancelOrder");
 		const { order_id } = data;
 		const order = await Order.findById(order_id);
 

@@ -8,7 +8,6 @@ const router = Router();
 // Личный кабинет Пользователя
 router.get("/", UserAccountController.index);
 
-// TODO Сделать router.use во всех роутерах (Под вопросом)
 router.get("/cart", CartController.getCart);
 router.post("/cart", CartController.addToCart);
 router.delete("/cart", CartController.deleteItemFromCart);

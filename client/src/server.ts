@@ -16,6 +16,7 @@ app.use(routes);
 
 try {
 	app.listen(PORT, (): void => {
+		Log.infoStack();
 		Log.info(`Connected successfully on port ${PORT}`);
 	});
 } catch (error: any) {

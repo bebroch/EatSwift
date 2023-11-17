@@ -15,4 +15,9 @@ export const RestaurantData = {
 	): RestaurantTypes.outputModelOrUndefined {
 		return req.publicRestaurant;
 	},
+
+	getUpdateData(req: Request) {
+		const { name, description, addresses, contactInfo } = req.body;
+		return { name, description, addresses, contactInfo };
+	},
 };

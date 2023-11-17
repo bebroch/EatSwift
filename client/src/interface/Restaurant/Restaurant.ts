@@ -37,6 +37,10 @@ interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
 	getActiveOrders(): Promise<IOrder[]>;
 	updateOrder(data: OrderTypes.GetDataForUpdate): Promise<IOrder>;
 	cancelOrder(data: OrderTypes.GetDataForCancel): Promise<void>;
+
+	updateInfo(
+		updateData: RestaurantTypes.GetUpdateData
+	): Promise<IRestaurantFunctions>;
 }
 
 interface IRestaurantModel extends Model<IRestaurantFunctions, IAccountModel> {

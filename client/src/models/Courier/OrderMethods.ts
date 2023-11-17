@@ -4,9 +4,11 @@ import OrderTypes from "../../Types/OrderTypes";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { OrderStatus } from "../../Enums/Order/OrderStatus";
 import ExceptionErrorService from "../../Service/ExceptionErrorService";
+import Log from "../../Service/Log";
 
 export async function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getActiveOrder = async function () {
+		Log.info("Courier.getActiveOrder");
 		const orders = await Order.find({ _id: this.order_id }).lean();
 		return orders;
 	};
@@ -14,6 +16,7 @@ export async function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.takeOrder = async function (
 		orderData: OrderTypes.GetDataForMakeOrder
 	) {
+		Log.info("Courier.takeOrder");
 		const { order_id } = orderData;
 		const order = await Order.findById(order_id);
 
@@ -38,6 +41,7 @@ export async function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.updateStatus = async function (
 		statusData: OrderTypes.GetDataForUpdateStatus
 	) {
+		Log.info("Courier.updateStatus");
 		const { status } = statusData;
 		const order = await Order.findById(this.order_id);
 

@@ -15,7 +15,6 @@ class CartController {
 	// Показать корзину пользователя
 	async getCart(req: Request, res: Response) {
 		const user = GetData.User.get(req) as IUserFunctions;
-
 		try {
 			const cart = await user.getCart();
 			const cartWithDishDetails = await DetailsService.Cart.get(cart);
