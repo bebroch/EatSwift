@@ -8,14 +8,14 @@ import { CourierTypes } from "../../Types/CourierTypes";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import { ICourierFunctions } from "../../interface/Courier/Courier";
 import { IUserFunctions } from "../../interface/User/User";
-import { GetLoginDataWithModel } from "../../Types/Auth/LoginTypes";
+import LoginTypes from "../../Types/Auth/LoginTypes";
 import { GetAccountData } from "../../Types/Auth/AccountDataTypes";
 import ExceptionErrorService from "../ExceptionErrorService";
 
 class LoginService {
-	async Login(loginData: GetLoginDataWithModel): Promise<{
+	async Login(loginData: LoginTypes.GetLoginDataWithModel): Promise<{
 		// TODO Сделать TYPE
-		token?: string;
+		token: string;
 		user?: IUserFunctions;
 		restaurant?: IRestaurantFunctions;
 		courier?: ICourierFunctions;
@@ -23,7 +23,7 @@ class LoginService {
 		if (ValidateService.Login.isEmpty(loginData))
 			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_LOGIN_DATA);
 
-		switch ((loginData as GetLoginDataWithModel).role) {
+		switch ((loginData as LoginTypes.GetLoginDataWithModel).role) {
 			case EnumRole.User:
 				return await this.UserLogin(
 					loginData as UserTypes.GetLoginData

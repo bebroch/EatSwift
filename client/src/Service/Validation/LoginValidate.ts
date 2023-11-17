@@ -7,7 +7,7 @@ import Restaurant from "../../models/RestaurantModel";
 import Courier from "../../models/CourierModel";
 import ERROR_MESSAGES from "../../Message/Errors";
 import { TAccount } from "../../interface/Account/Account";
-import { GetLoginData, GetLoginDataOrNull } from "../../Types/Auth/LoginTypes";
+import LoginTypes from "../../Types/Auth/LoginTypes";
 import Log from "../Log";
 
 export const LoginValidate = {
@@ -15,7 +15,7 @@ export const LoginValidate = {
 	Restaurant: RestaurantLoginData,
 	Courier: CourierLoginData,
 
-	isEmpty(data: GetLoginData | undefined | null): boolean {
+	isEmpty(data: LoginTypes.GetLoginData | undefined | null): boolean {
 		if (data === undefined || data === null) return true;
 
 		if (data.login === undefined || data.login === null) return true;
@@ -27,7 +27,7 @@ export const LoginValidate = {
 		return false;
 	},
 
-	isRoleExist(loginData: GetLoginDataOrNull) {
+	isRoleExist(loginData: LoginTypes.GetLoginDataOrNull) {
 		if (!loginData) return false;
 
 		const { role } = loginData;
@@ -35,7 +35,7 @@ export const LoginValidate = {
 		return Object.values(EnumRole).includes(role);
 	},
 
-	checkMissingFields(loginData: GetLoginDataOrNull) {
+	checkMissingFields(loginData: LoginTypes.GetLoginDataOrNull) {
 		const { login, password } = loginData ?? {
 			login: null,
 			password: null,
@@ -45,7 +45,7 @@ export const LoginValidate = {
 	},
 
 	async checkAccountExist(
-		loginData: GetLoginDataOrNull
+		loginData: LoginTypes.GetLoginDataOrNull
 	): Promise<TAccount | null> {
 		if (!loginData) return null;
 

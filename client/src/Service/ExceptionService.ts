@@ -30,12 +30,16 @@ class ExceptionService {
 			case 404:
 				Log.warn(error.message);
 				return Status.notFound(res, error);
-			case 500:
-				Log.error(error.message);
-				return Status.internalError(res, error);
+			case 409:
+				Log.warn(error.message);
+				return Status.conflict(res, error);
+			case 410:
+				Log.warn(error.message);
+				return Status.gone(res, error);
 		}
 
 		Log.error(error.message);
+		return Status.internalError(res, error);
 	}
 }
 

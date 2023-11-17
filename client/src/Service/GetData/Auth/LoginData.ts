@@ -10,9 +10,9 @@ import {
 	IRestaurantFunctions,
 } from "../../../interface/Restaurant/Restaurant";
 import { IUserFunctions } from "../../../interface/User/User";
-import { outputLoginData } from "../../../Types/Auth/LoginTypes";
+import LoginTypes from "../../../Types/Auth/LoginTypes";
 
-function getLoginData(req: Request): outputLoginData {
+function getLoginData(req: Request): LoginTypes.outputLoginData {
 	const { login, password, role } = req.body;
 	return { login, password, role };
 }
@@ -69,7 +69,7 @@ function CourierLoginData(req: Request & { account?: TAccount | null }) {
 export const LoginData = {
 	getWithModel(
 		req: Request & { account?: TAccount | null }
-	): outputLoginData | undefined {
+	): LoginTypes.outputLoginData | undefined {
 		const role = req.body.role;
 		const account = req.account;
 
@@ -91,7 +91,7 @@ export const LoginData = {
 		return undefined;
 	},
 
-	get(req: Request): outputLoginData | undefined {
+	get(req: Request): LoginTypes.outputLoginData | undefined {
 		const role = req.body.role;
 
 		switch (role) {

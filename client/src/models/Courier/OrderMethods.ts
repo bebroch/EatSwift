@@ -10,8 +10,19 @@ import { CourierTypes } from "../../Types/CourierTypes";
 export async function OrderMethods(schema: mongoose.Schema) {
 	schema.methods.getActiveOrder = async function () {
 		Log.infoStack("Courier.getActiveOrder");
-		const orders = await Order.find({ _id: this.order_id }).lean();
-		return orders;
+
+		const order = await Order.findOne({ _id: this.order_id }).lean();
+
+		if (!order)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
+
+		if (order.status === OrderStatus.canceled) {
+			this.order_id = undefined;
+			await this.save();
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_CANCELED); /// 1
+		}
+
+		return order;
 	};
 
 	schema.methods.getOrderFromHistory = async function (
@@ -36,13 +47,13 @@ export async function OrderMethods(schema: mongoose.Schema) {
 		const { order_id } = orderData;
 		const order = await Order.findById(order_id);
 
+		if (this.order_id)
+			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_ALREADY_TAKEN);
+
 		if (!order)
 			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_NOT_FOUND);
 
 		if (order.courier_id)
-			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_ALREADY_TAKEN);
-
-		if (this.order_id)
 			ExceptionErrorService.handler(ERROR_MESSAGES.ORDER_ALREADY_TAKEN);
 
 		this.order_id = order._id;
@@ -66,7 +77,7 @@ export async function OrderMethods(schema: mongoose.Schema) {
 
 		if (order.status !== OrderStatus.delivered)
 			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ORDER_STATUS);
-		
+
 		this.order_id = null;
 		this.save();
 

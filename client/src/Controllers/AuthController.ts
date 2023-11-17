@@ -5,6 +5,7 @@ import LoginService from "../Service/AuthService/LoginService";
 import GetData from "../Service/GetData";
 import RegistrationService from "../Service/AuthService/RegistrationService";
 import ExceptionService from "../Service/ExceptionService";
+import DataFormatter from "../Service/DataFormatter";
 
 class AuthController {
 	async login(req: Request, res: Response) {
@@ -15,7 +16,8 @@ class AuthController {
 
 		try {
 			const auth = await LoginService.Login(loginData);
-			return Status.success(res, auth);
+			const authDataFormatted = DataFormatter.Auth.Login.get(auth);
+			return Status.success(res, authDataFormatted);
 		} catch (err: any) {
 			return ExceptionService.handle(res, err.message);
 		}
@@ -33,11 +35,12 @@ class AuthController {
 
 		try {
 			const auth = await RegistrationService.Registration(registerData);
-			return Status.success(res, auth);
+			const authDataFormatted = DataFormatter.Auth.Registration.get(auth);
+			return Status.success(res, authDataFormatted);
 		} catch (err: any) {
 			return ExceptionService.handle(res, err.message);
 		}
 	}
 }
 
-export default new AuthController();
+export default new AuthController(); 

@@ -29,6 +29,14 @@ class Status {
 		return this.response(res, 404, error.message);
 	}
 
+	conflict(res: Response, error: any) {
+		return this.response(res, 409, error.message);
+	}
+
+	gone(res: Response, error: any) { 
+		return this.response(res, 410, error.message);
+	}
+
 	internalError(res: Response, error: any) {
 		return this.response(res, 500, error.message);
 	}

@@ -15,10 +15,16 @@ export const RestaurantFormatter = {
 		}
 
 		return {
-			...BaseFormatter.getRestaurantFields(restaurant),
-			addresses: restaurant.addresses,
+			...this.getOnlyRestaurant(restaurant),
 			menu: DataFormatter.Menu.get(restaurant.menu),
 			dish: DataFormatter.Dish.get(restaurant.dish),
+		};
+	},
+
+	getOnlyRestaurant(restaurant: IRestaurantFunctions) {
+		return {
+			...BaseFormatter.getRestaurantFields(restaurant),
+			addresses: restaurant.addresses,
 		};
 	},
 };

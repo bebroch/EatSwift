@@ -119,7 +119,9 @@ class MenuController {
 		) as IRestaurantFunctions;
 		const menuData = GetData.Menu.AddDishToMenu(req);
 		const menu = await restaurant.addDishToMenu(menuData);
-		return Status.success(res, menu);
+		const menuWithDetails = await DetailsService.Menu.getOneWithDish(menu);
+		const menuDataFormatted = DataFormatter.Menu.getOne(menuWithDetails);
+		return Status.success(res, { menu: menuDataFormatted });
 	}
 }
 

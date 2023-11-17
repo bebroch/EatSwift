@@ -161,7 +161,15 @@ const ERROR_MESSAGES = {
 	},
 	INVALID_PASSWORD: {
 		message: "Invalid password",
-        statusCode: 400,
+		statusCode: 400,
+	},
+	ORDER_CANCELED: {
+		message: "Order canceled",
+		statusCode: 410,
+	},
+	ACCOUNT_CREATION_FAILED: {
+		message: "Account creation failed",
+        statusCode: 500,
 	}
 };
 

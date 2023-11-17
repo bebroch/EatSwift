@@ -1,5 +1,5 @@
 
-import { GetRegistrationData, GetRegistrationDataOrNull } from "../../Types/Auth/RegistrationTypes";
+import LoginTypes from "../../Types/Auth/RegistrationTypes";
 import { EnumRole } from "../../interface/Account/Role";
 import Courier from "../../models/CourierModel";
 import Restaurant from "../../models/RestaurantModel";
@@ -24,18 +24,18 @@ export const RegistrationValidate = {
 	Restaurant: RestaurantRegistrationData,
 	Courier: CourierRegistrationData,
 
-	isEmpty(data: GetRegistrationData): boolean {
+	isEmpty(data: LoginTypes.GetRegistrationData): boolean {
 		return !data;
 	},
 
-	checkRoleExist(registrationData: GetRegistrationDataOrNull) {
+	checkRoleExist(registrationData: LoginTypes.GetRegistrationDataOrNull) {
 		if (!registrationData) return false;
 
 		const { role } = registrationData;
 		return Object.values(EnumRole).includes(role);
 	},
 
-	checkMissingFields(registrationData: GetRegistrationDataOrNull) {
+	checkMissingFields(registrationData: LoginTypes.GetRegistrationDataOrNull) {
 		if (!registrationData) return true;
 
 		const { firstName, lastName, name, role } = registrationData;
@@ -53,14 +53,18 @@ export const RegistrationValidate = {
 		return true;
 	},
 
-	checkConfirmPassword(registrationData: GetRegistrationDataOrNull) {
+	checkConfirmPassword(
+		registrationData: LoginTypes.GetRegistrationDataOrNull
+	) {
 		if (!registrationData) return true;
 
 		const { password, confirmPassword } = registrationData;
 		return password !== confirmPassword;
 	},
 
-	async checkAccountExist(registrationData: GetRegistrationDataOrNull) {
+	async checkAccountExist(
+		registrationData: LoginTypes.GetRegistrationDataOrNull
+	) {
 		if (!registrationData) return true;
 
 		const { login, role } = registrationData;
