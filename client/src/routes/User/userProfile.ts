@@ -17,4 +17,7 @@ router.get("/order/active", OrderController.User.getActiveOrders);
 router.post("/order/", OrderController.User.makeOrder);
 router.post("/order/:_id", OrderController.User.cancelOrder);
 
+router.post("/rating/restaurant", UserAccountController.giveRatingRestaurant);
+router.post("/rating/courier", UserAccountController.giveRatingCourier);
+
 export default router;

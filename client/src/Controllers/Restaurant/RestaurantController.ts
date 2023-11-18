@@ -7,8 +7,9 @@ import DataFormatter from "../../Service/DataFormatter";
 
 class RestaurantController {
 	async getAllRestaurant(req: Request, res: Response) {
-		const restaurants = await Restaurant.find().sort({ name: 1 }); // TODO Сделать метод в модели
+		const restaurants = await Restaurant.getRestaurants();
 		const restaurantsData = DataFormatter.Restaurant.get(restaurants);
+		console.log(restaurantsData);
 		return Status.success(res, { restaurant: restaurantsData });
 	}
 

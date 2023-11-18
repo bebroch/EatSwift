@@ -5,6 +5,7 @@ import { IUserRegisterData } from "../RegisterInterface/RegisterData";
 import { ICart, ICartItem } from "./Cart";
 import { UserTypes } from "../../Types/UserTypes";
 import OrderTypes from "../../Types/OrderTypes";
+import RatingTypes from "../../Types/RatingTypes";
 
 interface IUser extends IAccount {
 	address?: string;
@@ -26,6 +27,19 @@ interface IUserFunctions extends IUser, IAccountFunction {
 	getHistoryOfOrders(): Promise<IOrder[]>;
 	getActiveOrders(): Promise<IOrder[]>;
 	cancelOrder(data: OrderTypes.GetDataForCancel): Promise<void>;
+
+	getRatingRestaurant(
+		ratingData: RatingTypes.GetRestaurantForCreateRating
+	): Promise<void>;
+	getRatingCourier(
+		ratingData: RatingTypes.GetCourierForCreateRating
+	): Promise<void>;
+	giveRatingRestaurant(
+		ratingData: RatingTypes.GetRestaurantForCreateRating
+	): Promise<void>;
+	giveRatingCourier(
+		ratingData: RatingTypes.GetCourierForCreateRating
+	): Promise<void>;
 }
 
 interface IUserModel extends Model<IUserFunctions, IAccountModel> {

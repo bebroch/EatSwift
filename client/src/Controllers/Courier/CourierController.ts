@@ -11,13 +11,15 @@ import ExceptionService from "../../Service/ExceptionService";
 class CourierController {
 	async getPublicCourierProfile(req: Request, res: Response) {
 		const courier = GetData.Courier.getPublic(req) as ICourierFunctions;
-		const courierDataFormatted = DataFormatter.Courier.get(courier);
+		const courierData = await courier.getData();
+		const courierDataFormatted = DataFormatter.Courier.get(courierData);
 		return Status.success(res, courierDataFormatted);
 	}
 
 	async getPrivateCourierProfile(req: Request, res: Response) {
 		const courier = GetData.Courier.getPrivate(req) as ICourierFunctions;
-		const courierDataFormatted = DataFormatter.Courier.get(courier);
+		const courierData = await courier.getData();
+		const courierDataFormatted = DataFormatter.Courier.get(courierData);
 		return Status.success(res, courierDataFormatted);
 	}
 

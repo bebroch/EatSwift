@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 import { IAccountInformation } from "../../interface/Account/Account";
 import { EnumRole } from "../../interface/Account/Role";
-import { IRestaurant } from "../../interface/Restaurant/Restaurant";
+import {
+	IRestaurant,
+	IRestaurantFunctions,
+} from "../../interface/Restaurant/Restaurant";
 import TokenService from "../../Service/TokenService";
 import { RestaurantTypes } from "../../Types/RestaurantTypes";
 import Log from "../../Service/Log";
@@ -15,6 +18,17 @@ export function AccountMethods(schema: mongoose.Schema) {
 	schema.statics.findAccountByEmail = async function (email: string) {
 		Log.infoStack("Restaurant.findAccountByEmail");
 		return this.findOne({ email });
+	};
+
+	schema.statics.getRestaurants = async function () {
+		const restaurants = await this.find();
+		let restaurantsData: IRestaurantFunctions[] = [];
+
+		for (const restaurant of restaurants) {
+			restaurantsData.push(await restaurant.getRestaurantData());
+		}
+
+		return restaurantsData;
 	};
 
 	schema.statics.createAccount = async function (

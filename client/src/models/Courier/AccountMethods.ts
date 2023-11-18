@@ -4,6 +4,8 @@ import { IAccountInformation } from "../../interface/Account/Account";
 import { EnumRole } from "../../interface/Account/Role";
 import { ICourier } from "../../interface/Courier/Courier";
 import Log from "../../Service/Log";
+import Rating from "../RatingModel";
+import { EntityTypeEnum } from "../../Enums/Rating/EntityTypeEnum";
 
 export async function AccountMethods(schema: mongoose.Schema) {
 	schema.statics.findAccountByLogin = async function (login: string) {
@@ -55,5 +57,17 @@ export async function AccountMethods(schema: mongoose.Schema) {
 		};
 
 		return TokenService.generateToken(restaurantData);
+	};
+
+	schema.methods.getData = async function () {
+		const rating = await Rating.getAverageRatingByEntity({
+			entity_type: EntityTypeEnum.courier,
+			entity_id: this._id,
+		});
+
+		return {
+			...this.toObject(),
+			rating,
+		};
 	};
 }

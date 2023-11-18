@@ -6,9 +6,7 @@ import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";
 import ExceptionService from "../../Service/ExceptionService";
-import { UserTypes } from "../../Types/UserTypes";
-import { Logger } from "winston";
-import Log from "../../Service/Log";
+import SUCCESS_MESSAGE from "../../Message/Success";
 
 class UserAccountController {
 	async index(
@@ -24,6 +22,36 @@ class UserAccountController {
 			return Status.success(res, {
 				user: userData,
 			});
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
+	}
+
+	async giveRatingRestaurant(req: Request, res: Response) {
+		const ratingDataRestaurant = GetData.User.getRating(req);
+		const user = GetData.User.get(req) as IUserFunctions;
+
+		try {
+			await user.giveRatingRestaurant(ratingDataRestaurant);
+			return Status.success(
+				res,
+				SUCCESS_MESSAGE.RATING_ADDED_SUCCESSFULLY
+			);
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
+	}
+
+	async giveRatingCourier(req: Request, res: Response) {
+		const ratingDataCourier = GetData.User.getRating(req);
+		const user = GetData.User.get(req) as IUserFunctions;
+
+		try {
+			await user.giveRatingCourier(ratingDataCourier);
+			return Status.success(
+				res,
+				SUCCESS_MESSAGE.RATING_ADDED_SUCCESSFULLY
+			);
 		} catch (err: any) {
 			return ExceptionService.handle(res, err.message);
 		}

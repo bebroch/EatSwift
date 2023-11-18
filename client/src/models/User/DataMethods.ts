@@ -6,10 +6,11 @@ export function DataMethods(schema: mongoose.Schema) {
 	schema.methods.getUserDataWithCart = async function () {
 		Log.infoStack("User.getUserDataWithCart");
 
-		const cart = await this.getCart();
-
-		if (!cart) return { ...this.toObject() };
-
-		return { ...this.toObject(), cart };
+		try {
+			const cart = await this.getCart();
+			return { ...this.toObject(), cart };
+		} catch (error) {
+			return { ...this.toObject() };
+		}
 	};
 }

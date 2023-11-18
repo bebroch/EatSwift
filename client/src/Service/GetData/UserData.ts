@@ -12,4 +12,9 @@ export const UserData = {
 		const { restaurant_id } = req.body;
 		return { restaurant_id };
 	},
+
+	getRating(req: Request) {
+		const { restaurant_id, courier_id, rating } = req.body;
+		return { restaurant_id, courier_id, rating };
+	},
 };

@@ -11,6 +11,7 @@ interface ICourier extends IAccount {
 	order_id: ObjectId;
 	phoneNumber?: string;
 	password: string;
+	rating: number;
 }
 
 interface ICourierFunctions extends ICourier, IAccountFunction {
@@ -21,7 +22,11 @@ interface ICourierFunctions extends ICourier, IAccountFunction {
 	): Promise<IOrder>;
 
 	getHistoryOfOrders(): Promise<IOrder[]>;
-	getOrderFromHistory(data: CourierTypes.GetOrderFromHistory): Promise<IOrder>;
+	getOrderFromHistory(
+		data: CourierTypes.GetOrderFromHistory
+	): Promise<IOrder>;
+
+	getData(): Promise<ICourierFunctions>;
 }
 
 interface ICourierModel extends Model<ICourierFunctions, IAccountModel> {

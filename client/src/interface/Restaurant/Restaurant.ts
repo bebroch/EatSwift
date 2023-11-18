@@ -51,6 +51,7 @@ interface IRestaurantModel extends Model<IRestaurantFunctions, IAccountModel> {
 		accountData: IRestaurantRegisterData
 	): Promise<IRestaurantFunctions | null>;
 	findAccountByToken(token: string): Promise<IRestaurantFunctions | null>;
+	getRestaurants(): Promise<IRestaurantFunctions[]>;
 }
 
 export { IRestaurant, IRestaurantFunctions, IRestaurantModel };

@@ -171,6 +171,18 @@ const ERROR_MESSAGES = {
 		message: "Account creation failed",
 		statusCode: 500,
 	},
+	RATING_NOT_CREATED: {
+		message: "Rating not created",
+		statusCode: 500,
+	},
+	RATING_NOT_FOUND: {
+		message: "Rating not found",
+		statusCode: 404,
+	},
+	RATING_ALREADY_EXISTS: {
+		message: "Rating already exists",
+		statusCode: 409,
+	},
 };
 
 export default ERROR_MESSAGES;
