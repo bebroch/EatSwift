@@ -13,9 +13,8 @@ async function restaurantParamHandler(
 
 	const restaurant = await Restaurant.findOne({ login });
 
-	if (!restaurant) {
+	if (!restaurant)
 		return Status.notFound(res, ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
-	}
 
 	req.publicRestaurant = restaurant;
 	next();

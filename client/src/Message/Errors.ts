@@ -183,6 +183,38 @@ const ERROR_MESSAGES = {
 		message: "Rating already exists",
 		statusCode: 409,
 	},
+	NAME_DESCRIPTION_INGREDIENTS_PRICE_REQUIRED: {
+		message: "Name, description, ingredients and price are required",
+		statusCode: 400,
+	},
+	PRICE_MUST_BE_GREATER_THAN_ZERO: {
+		message: "Price must be greater than zero",
+		statusCode: 400,
+	},
+	RESTAURANT_ID_REQUIRED: {
+		message: "Restaurant id is required",
+		statusCode: 400,
+	},
+	NAME_DESCRIPTION_REQUIRED: {
+		message: "Name and description are required",
+		statusCode: 400,
+	},
+	ID_REQUIRED: {
+		message: "Id is required",
+		statusCode: 400,
+	},
+	DISH_ID_REQUIRED: {
+		message: "Dish id is required",
+		statusCode: 400,
+	},
+	PROFILE_UPDATE_DATA_REQUIRED: {
+		message: "Profile update data is required",
+		statusCode: 400,
+	},
+	INVALID_ADDRESS: {
+		message: "Invalid address",
+        statusCode: 400,
+	}
 };
 
 export default ERROR_MESSAGES;

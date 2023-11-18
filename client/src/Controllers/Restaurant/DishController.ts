@@ -67,10 +67,7 @@ class DishController {
 		return Status.success(res, dishDataFormatted);
 	}
 
-	async createDish(
-		req: Request | (Request & DishTypes.GetDataForCreate),
-		res: Response
-	) {
+	async createDish(req: Request, res: Response) {
 		const restaurant = GetData.Restaurant.getPrivate(
 			req
 		) as IRestaurantFunctions;
