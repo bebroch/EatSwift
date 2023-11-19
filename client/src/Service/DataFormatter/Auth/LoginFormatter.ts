@@ -2,15 +2,10 @@ import { ICourierFunctions } from "../../../interface/Courier/Courier";
 import { IRestaurantFunctions } from "../../../interface/Restaurant/Restaurant";
 import { IUserFunctions } from "../../../interface/User/User";
 import DataFormatter from "../../DataFormatter";
+import LoginTypes from '../../../Types/Auth/LoginTypes';
 
 export const LoginFormatter = {
-	get(data: {
-		// TODO Сделать TYPE
-		token: string;
-		user?: IUserFunctions;
-		restaurant?: IRestaurantFunctions;
-		courier?: ICourierFunctions;
-	}) {
+	get(data: LoginTypes.GetTokenWithModel) {
 		const { token, user, restaurant, courier } = data;
 
 		if (user) {

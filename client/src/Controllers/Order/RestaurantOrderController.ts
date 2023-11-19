@@ -6,9 +6,7 @@ import DetailsService from "../../Service/DetailsService";
 import Status from "../../Service/Status";
 import OrderTypes from "../../Types/OrderTypes";
 import ExceptionService from "../../Service/ExceptionService";
-import ERROR_MESSAGES from "../../Message/Errors";
 
-// TODO Может быть сделать отдельный класс для этого, такой же есть в UserOrderController
 async function formatterOrders(orders: OrderTypes.GetDataForDetails[] | null) {
 	const orderWithDetails = await DetailsService.Order.get(orders);
 	const ordersDataFormatted = DataFormatter.Order.get(orderWithDetails);

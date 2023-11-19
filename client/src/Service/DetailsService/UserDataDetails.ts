@@ -45,12 +45,12 @@ export const UserDataDetails = {
 				);
 
 				return {
-					user_id: cartItems.user_id, // TODO Убрать user_id (Нужно создавать типы и проблема в том, что метод будет возвращать данные без user_id, которые возможно приведут к ошибке)
+					user_id: cartItems.user_id,
 					restaurant_id: cartItems.restaurant_id,
 					item: await Promise.all(dishes),
 				};
 			}
 		);
-		return { cart: await Promise.all(carts) }; // 1
+		return { cart: await Promise.all(carts) };
 	},
 };

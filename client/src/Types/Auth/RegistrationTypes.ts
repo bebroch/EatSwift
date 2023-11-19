@@ -1,14 +1,26 @@
 import { EnumRole } from "../../interface/Account/Role";
+import { ICourierFunctions } from "../../interface/Courier/Courier";
+import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
+import { IUserFunctions } from "../../interface/User/User";
 
 namespace RegistrationTypes {
-	export type GetRegistrationData = {
+	export type GetDataForValidate = {
 		login: string;
-		name?: string;
-		firstName?: string;
-		lastName?: string;
 		email: string;
 		password: string;
 		confirmPassword: string;
+	};
+
+	export type GetRegistrationData = GetDataForValidate & {
+		name?: string;
+		firstName?: string;
+		lastName?: string;
+		role: EnumRole;
+	};
+
+	export type GetTokenModelsRole = {
+		token: string;
+		account: IUserFunctions | IRestaurantFunctions | ICourierFunctions;
 		role: EnumRole;
 	};
 

@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import ExceptionErrorService from "../../../Service/ExceptionErrorService";
 import ERROR_MESSAGES from "../../../Message/Errors";
 
-// TODO Сделать валидацию
 export function UpdateProfileMiddleware(
 	req: Request,
 	res: Response,

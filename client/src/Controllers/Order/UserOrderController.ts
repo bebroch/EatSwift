@@ -9,7 +9,6 @@ import OrderTypes from "../../Types/OrderTypes";
 import { IUserFunctions } from "../../interface/User/User";
 import { Request, Response } from "express";
 
-// TODO Может быть сделать отдельный класс для этого, такой же есть в RestaurantOrderController
 async function formatterOrders(orders: OrderTypes.GetDataForDetails[] | null) {
 	const orderWithDetails = await DetailsService.Order.get(orders);
 	const ordersDataFormatted = DataFormatter.Order.get(orderWithDetails);

@@ -11,7 +11,7 @@ async function error(res: Response, error: any) {
 
 async function loginValidation(
 	req: Request & {
-		account?: TAccount | null; // TODO Сделать TYPE
+		account?: TAccount | null;
 	},
 	res: Response,
 	next: NextFunction

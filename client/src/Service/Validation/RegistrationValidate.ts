@@ -1,4 +1,4 @@
-
+import RegistrationTypes from "../../Types/Auth/RegistrationTypes";
 import LoginTypes from "../../Types/Auth/RegistrationTypes";
 import { EnumRole } from "../../interface/Account/Role";
 import Courier from "../../models/CourierModel";
@@ -8,13 +8,9 @@ import { CourierRegistrationData } from "./Registration/CourierRegistrationData"
 import { RestaurantRegistrationData } from "./Registration/RestaurantRegistrationData";
 import { UserRegistrationData } from "./Registration/UserRegistrationData";
 
-function checkBaseFields(fields: {
-	// TODO Сделать TYPE
-	login: string;
-	email: string;
-	password: string;
-	confirmPassword: string;
-}): boolean {
+function checkBaseFields(
+	fields: RegistrationTypes.GetDataForValidate
+): boolean {
 	const { login, email, password, confirmPassword } = fields;
 	return !login || !email || !password || !confirmPassword;
 }

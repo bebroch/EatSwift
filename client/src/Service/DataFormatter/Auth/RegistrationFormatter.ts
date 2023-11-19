@@ -1,4 +1,5 @@
 import ERROR_MESSAGES from "../../../Message/Errors";
+import RegistrationTypes from "../../../Types/Auth/RegistrationTypes";
 import { EnumRole } from "../../../interface/Account/Role";
 import { ICourierFunctions } from "../../../interface/Courier/Courier";
 import { IRestaurantFunctions } from "../../../interface/Restaurant/Restaurant";
@@ -7,19 +8,7 @@ import DataFormatter from "../../DataFormatter";
 import ExceptionErrorService from "../../ExceptionErrorService";
 
 export const RegistrationFormatter = {
-	get(
-		data:
-			| {
-					// TODO Сделать TYPE
-					token: string | undefined;
-					account:
-						| IUserFunctions
-						| IRestaurantFunctions
-						| ICourierFunctions;
-					role: EnumRole;
-			  }
-			| undefined
-	) {
+	get(data: RegistrationTypes.GetTokenModelsRole | undefined) {
 		if (!data)
 			ExceptionErrorService.handler(
 				ERROR_MESSAGES.INVALID_REGISTRATION_DATA

@@ -3,7 +3,6 @@ import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 
 export const MenuFormatter = {
-	// TODO Добавить type IMenu | Array<IMenu>
 	get(menu: IMenu | Array<IMenu>) {
 		if (Array.isArray(menu)) {
 			return menu.map((menu: any) => {

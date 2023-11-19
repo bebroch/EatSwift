@@ -69,7 +69,6 @@ class RegistrationService {
 		};
 	}
 
-	// TODO Сделать тип TYPE
 	async RegistrationAccount(
 		model: IUserModel | IRestaurantModel | ICourierModel,
 		data: any

@@ -3,7 +3,6 @@ import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 
 export const CartFormatter = {
-	//TODO Обновить types
 	getOnlyCart(
 		cartItems: CartTypes.GetDataDetails[] | null
 	): CartTypes.outputDataDetails[] | null {

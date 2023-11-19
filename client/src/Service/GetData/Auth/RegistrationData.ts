@@ -3,15 +3,9 @@ import { EnumRole } from "../../../interface/Account/Role";
 import { UserTypes } from "../../../Types/UserTypes";
 import { RestaurantTypes } from "../../../Types/RestaurantTypes";
 import { CourierTypes } from "../../../Types/CourierTypes";
+import ModelTypes from "../../../Types/ModelTypes";
 
-function getRegistrationData(
-	req: Request & // TODO: Сделать TYPE
-		(
-			| UserTypes.GetModel
-			| RestaurantTypes.GetPrivate
-			| CourierTypes.GetPrivate
-		)
-) {
+function getRegistrationData(req: Request) {
 	const { login, email, password, confirmPassword, role } = req.body;
 	return { login, email, password, confirmPassword, role };
 }
@@ -31,14 +25,7 @@ function CourierRegistrationData(req: Request & CourierTypes.GetPrivate) {
 }
 
 export const RegistrationData = {
-	get(
-		req: Request & // TODO: Сделать TYPE
-			(
-				| UserTypes.GetModel
-				| RestaurantTypes.GetPrivate
-				| CourierTypes.GetPrivate
-			)
-	) {
+	get(req: Request) {
 		const role = req.body.role;
 
 		switch (role) {

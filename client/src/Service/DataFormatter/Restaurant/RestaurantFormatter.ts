@@ -4,7 +4,6 @@ import DataFormatter from "../../DataFormatter";
 import BaseFormatter from "../BaseFormatter";
 
 export const RestaurantFormatter = {
-	// TODO Добавить type IRestaurantFunctions | Array<IRestaurantFunctions>
 	get(
 		restaurant: RestaurantTypes.GetDataDetails | Array<IRestaurantFunctions>
 	) {

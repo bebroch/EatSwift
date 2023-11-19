@@ -13,6 +13,13 @@ namespace LoginTypes {
 		role: EnumRole;
 	};
 
+	export type GetTokenWithModel = {
+		token: string;
+		user?: IUserFunctions;
+		restaurant?: IRestaurantFunctions;
+		courier?: ICourierFunctions;
+	};
+
 	export type GetLoginDataWithModel = {
 		user?: IUserFunctions;
 		restaurant?: IRestaurantFunctions;
@@ -29,7 +36,6 @@ namespace LoginTypes {
 	export type outputLoginData = GetLoginData;
 
 	export type GetForFormatted = (IUser | IRestaurant | ICourier) & Document;
-
 }
 
 export default LoginTypes;

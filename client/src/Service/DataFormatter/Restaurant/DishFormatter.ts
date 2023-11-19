@@ -3,7 +3,6 @@ import { IDish } from "../../../interface/Restaurant/DIsh/DishModel";
 import BaseFormatter from "../BaseFormatter";
 
 export const DishFormatter = {
-	// TODO добавить type
 	get(
 		dish: IDish | IDish[] | null
 	): DishTypes.outputDataDetails | DishTypes.outputDataDetails[] | null {

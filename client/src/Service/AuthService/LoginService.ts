@@ -13,13 +13,9 @@ import { GetAccountData } from "../../Types/Auth/AccountDataTypes";
 import ExceptionErrorService from "../ExceptionErrorService";
 
 class LoginService {
-	async Login(loginData: LoginTypes.GetLoginDataWithModel): Promise<{
-		// TODO Сделать TYPE
-		token: string;
-		user?: IUserFunctions;
-		restaurant?: IRestaurantFunctions;
-		courier?: ICourierFunctions;
-	}> {
+	async Login(
+		loginData: LoginTypes.GetLoginDataWithModel
+	): Promise<LoginTypes.GetTokenWithModel> {
 		if (ValidateService.Login.isEmpty(loginData))
 			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_LOGIN_DATA);
 

@@ -5,7 +5,6 @@ import Status from "../Service/Status";
 import { ICourierFunctions } from "../interface/Courier/Courier";
 
 export async function CourierPublicMiddleware(
-	//TODO Сделать тип для publicCourier
 	req: Request & { publicCourier?: ICourierFunctions },
 	res: Response,
 	next: NextFunction
