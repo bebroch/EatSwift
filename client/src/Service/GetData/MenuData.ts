@@ -19,4 +19,9 @@ export const MenuData = {
 		const { menu_id } = req.params;
 		return { dish_id, menu_id };
 	},
+
+	DeleteFromMenu(req: Request) {
+		const { menu_id, dish_id } = req.params;
+		return { dish_id, menu_id };
+	},
 };

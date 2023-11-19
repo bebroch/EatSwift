@@ -130,6 +130,20 @@ class MenuController {
 			return ExceptionService.handle(res, err.message);
 		}
 	}
+
+	async deleteFromMenu(req: Request, res: Response) {
+		const restaurant = GetData.Restaurant.getPrivate(
+			req
+		) as IRestaurantFunctions;
+		const menuData = GetData.Menu.DeleteFromMenu(req);
+
+		try {
+			await restaurant.deleteDishFromMenu(menuData);
+			return Status.success(res, SUCCESS_MESSAGE.DISH_SUCCESSFULLY_DELETED_FROM_MENU);
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
+	}
 }
 
 export default new MenuController();

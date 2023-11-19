@@ -39,6 +39,13 @@ export function MenuMethods(schema: mongoose.Schema) {
 		menuData: MenuTypes.GetDataForAddToMenu
 	) {
 		Log.infoStack("Restaurant.addDishToMenu");
-		return await Menu.addDishToMenu(menuData);
+		return await Menu.addDishToMenu({...menuData, restaurant_id: this._id });
 	};
+
+	schema.methods.deleteDishFromMenu = async function (
+		data: MenuTypes.GetDataForDeleteDishFromMenu
+	) { 
+		Log.infoStack("Restaurant.deleteDishFromMenu");
+		await Menu.deleteDishFromMenu({ ...data, restaurant_id: this._id });
+	}
 }

@@ -45,16 +45,42 @@ export function MenuMethods(schema: mongoose.Schema) {
 		menuData: MenuTypes.GetDataForAddToMenu
 	) {
 		Log.infoStack("Menu.addDishToMenu");
-		const { dish_id, menu_id } = menuData;
+		const { dish_id, menu_id, restaurant_id } = menuData;
 
-		const dish = await Dish.findOne({ _id: dish_id });
+		const dish = await Dish.findOne({ _id: dish_id, restaurant_id });
 		if (!dish) ExceptionErrorService.handler(ERROR_MESSAGES.DISH_NOT_FOUND);
 
-		const menu = await this.findOne({ _id: menu_id });
+		const menu = await this.findOne({ _id: menu_id, restaurant_id });
 		if (!menu) ExceptionErrorService.handler(ERROR_MESSAGES.MENU_NOT_FOUND);
 
 		menu.dish.push(dish._id);
 
 		return menu.save();
+	};
+
+	schema.statics.deleteDishFromMenu = async function (
+		data: MenuTypes.GetDataForDeleteDishFromMenu
+	) {
+		Log.infoStack("Menu.deleteDishFromMenu");
+
+		const { dish_id, menu_id, restaurant_id } = data;
+
+		const dish = await Dish.findOne({ _id: dish_id, restaurant_id });
+		if (!dish) ExceptionErrorService.handler(ERROR_MESSAGES.DISH_NOT_FOUND);
+
+		const menu = await this.findOne({ _id: menu_id, restaurant_id });
+		if (!menu) ExceptionErrorService.handler(ERROR_MESSAGES.MENU_NOT_FOUND);
+
+		const dishIndex = menu.dish.findIndex((dish_id: ObjectId) => {
+			return dish._id.toString() === dish_id.toString();
+		});
+
+		if (dishIndex === -1)
+			ExceptionErrorService.handler(
+				ERROR_MESSAGES.DISH_NOT_FOUND_IN_MENU
+			);
+		
+		menu.dish.splice(dishIndex, 1);
+		menu.save();
 	};
 }

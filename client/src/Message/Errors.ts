@@ -213,8 +213,12 @@ const ERROR_MESSAGES = {
 	},
 	INVALID_ADDRESS: {
 		message: "Invalid address",
-        statusCode: 400,
-	}
+		statusCode: 400,
+	},
+	DISH_NOT_FOUND_IN_MENU: {
+		message: "Dish not found in menu",
+		statusCode: 404,
+	},
 };
 
 export default ERROR_MESSAGES;

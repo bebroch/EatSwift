@@ -22,6 +22,13 @@ namespace MenuTypes {
 	};
 
 	export type GetDataForAddToMenu = {
+		restaurant_id?: ObjectId;
+		dish_id: string | ObjectId;
+		menu_id: string | ObjectId;
+	};
+
+	export type GetDataForDeleteDishFromMenu = {
+		restaurant_id?: ObjectId;
 		dish_id: string | ObjectId;
 		menu_id: string | ObjectId;
 	};

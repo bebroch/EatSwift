@@ -32,6 +32,7 @@ interface IRestaurantFunctions extends IRestaurant, IAccountFunction {
 	deleteDish(dishData: DishTypes.GetDataForDelete): Promise<void>;
 
 	addDishToMenu(data: MenuTypes.GetDataForAddToMenu): Promise<IMenu>;
+	deleteDishFromMenu(data: MenuTypes.GetDataForDeleteDishFromMenu): Promise<void>;
 
 	getHistoryOfOrders(): Promise<IOrder[]>;
 	getActiveOrders(): Promise<IOrder[]>;

@@ -3,7 +3,6 @@ import { EnumRole } from "../../../interface/Account/Role";
 import { UserTypes } from "../../../Types/UserTypes";
 import { RestaurantTypes } from "../../../Types/RestaurantTypes";
 import { CourierTypes } from "../../../Types/CourierTypes";
-import ModelTypes from "../../../Types/ModelTypes";
 
 function getRegistrationData(req: Request) {
 	const { login, email, password, confirmPassword, role } = req.body;
