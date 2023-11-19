@@ -2,6 +2,7 @@ import { Router } from "express";
 import dish from "./dish";
 import menu from "./menu";
 import profile from "./profile";
+import order from "./order";
 
 const router = Router();
 
@@ -15,5 +16,8 @@ router.use("/menu", menu);
 
 // Блюда
 router.use("/dish", dish);
+
+// Заказы
+router.use("/order", order);
 
 export default router;

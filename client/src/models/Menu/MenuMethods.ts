@@ -1,59 +1,86 @@
 import mongoose, { ObjectId } from "mongoose";
 import ERROR_MESSAGES from "../../Message/Errors";
-import {
-	IMenuDataForFindMany,
-	IMenuDataForFindOne,
-	IMenuDataForCreate,
-	IMenuDataForDelete,
-	IMenuDataForAddToMenu,
-} from "../../interface/Restaurant/Menu/MenuTypes";
-import Dish from "../Dish";
-import MenuSchema from "./MenuSchema";
-import { IDish } from "../../interface/Restaurant/DIsh/DishModel";
-import { IMenu } from "../../interface/Restaurant/Menu/MenuModel";
-import { formatterDataMenu } from "../../Services/DatabaseServices/Data/Formatter/Menu";
+import Dish from "../DishModel";
+import { MenuTypes } from "../../Types/MenuTypes";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
+import Log from "../../Service/Log";
 
 export function MenuMethods(schema: mongoose.Schema) {
-	schema.path("dish").validate(async function (value) {
-		const uniqueDishIds = [...new Set(value)];
-		return uniqueDishIds.length === value.length;
-	}, "Dish IDs in the array must be unique.");
-
-	schema.statics.getMenus = async function (menuData: IMenuDataForFindMany) {
+	schema.statics.getMenus = async function (
+		menuData: MenuTypes.GetDataForFindMany
+	) {
+		Log.infoStack("Menu.getMenus");
 		const { restaurant_id } = menuData;
 		const menus = await this.find({ restaurant_id });
 		return menus;
 	};
 
-	schema.statics.getMenu = async function (menuData: IMenuDataForFindOne) {
+	schema.statics.getMenu = async function (
+		menuData: MenuTypes.GetDataForFindOne
+	) {
+		Log.infoStack("Menu.getMenu");
 		const { _id, restaurant_id } = menuData;
 		const menu = await this.findOne({ _id, restaurant_id });
 		return menu;
 	};
 
-	schema.statics.createMenu = async function (menuData: IMenuDataForCreate) {
+	schema.statics.createMenu = async function (
+		menuData: MenuTypes.GetDataForCreate
+	) {
+		Log.infoStack("Menu.createMenu");
 		const menu = new this(menuData);
 		return menu.save();
 	};
 
-	schema.statics.deleteMenu = async function (menuData: IMenuDataForDelete) {
+	schema.statics.deleteMenu = async function (
+		menuData: MenuTypes.GetDataForDelete
+	) {
+		Log.infoStack("Menu.deleteMenu");
 		const { _id, restaurant_id } = menuData;
-		this.find({ restaurant_id, _id }).remove();
+		const menu = await this.findOneAndDelete({ restaurant_id, _id });
+		if (!menu) ExceptionErrorService.handler(ERROR_MESSAGES.MENU_NOT_FOUND);
 	};
 
 	schema.statics.addDishToMenu = async function (
-		menuData: IMenuDataForAddToMenu
+		menuData: MenuTypes.GetDataForAddToMenu
 	) {
-		const { dish_id, menu_id } = menuData;
+		Log.infoStack("Menu.addDishToMenu");
+		const { dish_id, menu_id, restaurant_id } = menuData;
 
-		const dish = await Dish.findOne({ _id: dish_id });
-		if (!dish) throw new Error(ERROR_MESSAGES.DISH_NOT_FOUND);
+		const dish = await Dish.findOne({ _id: dish_id, restaurant_id });
+		if (!dish) ExceptionErrorService.handler(ERROR_MESSAGES.DISH_NOT_FOUND);
 
-		const menu = await this.findOne({ _id: menu_id });
-		if (!menu) throw new Error(ERROR_MESSAGES.MENU_NOT_FOUND);
+		const menu = await this.findOne({ _id: menu_id, restaurant_id });
+		if (!menu) ExceptionErrorService.handler(ERROR_MESSAGES.MENU_NOT_FOUND);
 
 		menu.dish.push(dish._id);
 
 		return menu.save();
+	};
+
+	schema.statics.deleteDishFromMenu = async function (
+		data: MenuTypes.GetDataForDeleteDishFromMenu
+	) {
+		Log.infoStack("Menu.deleteDishFromMenu");
+
+		const { dish_id, menu_id, restaurant_id } = data;
+
+		const dish = await Dish.findOne({ _id: dish_id, restaurant_id });
+		if (!dish) ExceptionErrorService.handler(ERROR_MESSAGES.DISH_NOT_FOUND);
+
+		const menu = await this.findOne({ _id: menu_id, restaurant_id });
+		if (!menu) ExceptionErrorService.handler(ERROR_MESSAGES.MENU_NOT_FOUND);
+
+		const dishIndex = menu.dish.findIndex((dish_id: ObjectId) => {
+			return dish._id.toString() === dish_id.toString();
+		});
+
+		if (dishIndex === -1)
+			ExceptionErrorService.handler(
+				ERROR_MESSAGES.DISH_NOT_FOUND_IN_MENU
+			);
+		
+		menu.dish.splice(dishIndex, 1);
+		menu.save();
 	};
 }

@@ -1,8 +1,9 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import bodyParser from "body-parser";
 import { connectDB, disconnectDB } from "./database/connect";
 import { PORT } from "./envInfo";
 import routes from "./routes/index";
+import Log from "./Service/Log";
 
 const app: Application = express();
 
@@ -15,9 +16,10 @@ app.use(routes);
 
 try {
 	app.listen(PORT, (): void => {
-		console.log(`Connected successfully on port ${PORT}`);
+		Log.infoStack();
+		Log.info(`Connected successfully on port ${PORT}`);
 	});
 } catch (error: any) {
-	console.error(`Error occurred: ${error.message}`);
+	Log.error(error.message);
 	disconnectDB();
 }

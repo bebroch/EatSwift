@@ -1,26 +1,20 @@
 import { Model, ObjectId } from "mongoose";
-import {
-	IDishDataForCreate,
-	IDishDataForDelete,
-	IDishDataForFindMany,
-	IDishDataForFindOne,
-} from "./DishTypes";
+import { DishTypes } from "../../../Types/DishTypes";
 
 interface IDish {
 	_id: ObjectId;
 	name: string;
 	description: string;
 	ingredients: string[];
-	picture: string;
 	price: number;
 }
 
 interface IDishModel extends Model<IDish> {
-	getDishes(dishData: IDishDataForFindMany): Promise<IDish[]>;
-	getDish(dishData: IDishDataForFindOne): Promise<IDish>;
+	getDishes(dishData: DishTypes.GetDataForFindMany): Promise<IDish[]>;
+	getDish(dishData: DishTypes.GetDataForFindOne): Promise<IDish>;
 
-	createDish(dishData: IDishDataForCreate): Promise<IDish>;
-	deleteDish(dishData: IDishDataForDelete): Promise<void>;
+	createDish(dishData: DishTypes.GetDataForCreate): Promise<IDish>;
+	deleteDish(dishData: DishTypes.GetDataForDelete): Promise<void>;
 }
 
 export { IDish, IDishModel };

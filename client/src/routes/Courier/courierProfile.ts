@@ -1,19 +1,19 @@
 import { Router } from "express";
+import CourierController from "../../Controllers/Courier/CourierController";
 
 const router = Router();
 
 // Личный кабинет курьера
-// TODO: Сделать аккаунт курьеру
 
-router.get("/");
+router.get("/", CourierController.getPrivateCourierProfile);
 
-router.get("/order");
-router.post("/order");
-router.delete("/order");
+router.get("/order", CourierController.getActiveOrders);
+router.get("/order/active", CourierController.getActiveOrder);
 
-router.use("/history", () => {
-	router.get("/orders");
-	router.get("/orders/:id");
-});
+router.post("/order", CourierController.takeActiveOrder);
+router.post("/order/active", CourierController.updateStatusOrder);
+
+router.get("/order/history", CourierController.getHistoryOfOrders);
+router.get("/order/history/:_id", CourierController.getOrderFromHistory);
 
 export default router;

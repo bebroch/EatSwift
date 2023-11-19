@@ -1,38 +1,46 @@
 import { Request, Response } from "express";
-import createAccount from "../Services/DatabaseServices/Accounts/CreateAccountService";
-import loginToAccount from "../Services/DatabaseServices/Accounts/LoginToAccount";
-import Status from "../Services/Internet/Status";
+import Status from "../Service/Status";
 import ERROR_MESSAGES from "../Message/Errors";
-import getRegisterData from "../Services/Internet/GetBody/Auth/getRegisterData";
-import getLoginData from "../Services/Internet/GetBody/Auth/getLoginData";
+import LoginService from "../Service/AuthService/LoginService";
+import GetData from "../Service/GetData";
+import RegistrationService from "../Service/AuthService/RegistrationService";
+import ExceptionService from "../Service/ExceptionService";
+import DataFormatter from "../Service/DataFormatter";
 
 class AuthController {
 	async login(req: Request, res: Response) {
-		const loginData = await getLoginData(req);
+		const loginData = GetData.Auth.Login.get(req);
 
-		const auth = await loginToAccount(loginData);
+		if (!loginData)
+			return Status.badRequest(res, ERROR_MESSAGES.INVALID_LOGIN_DATA);
 
-		if (!auth) {
-			return Status.badRequest(
-				res,
-				ERROR_MESSAGES.INVALID_LOGIN_OR_PASSWORD
-			);
+		try {
+			const auth = await LoginService.Login(loginData);
+			const authDataFormatted = DataFormatter.Auth.Login.get(auth);
+			return Status.success(res, authDataFormatted);
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
 		}
-
-		return Status.success(res, { auth });
 	}
 
 	async register(req: Request, res: Response) {
-		const registerData = await getRegisterData(req);
+		const registerData = GetData.Auth.Registration.get(req);
 
-		const auth = await createAccount(registerData);
-
-		if (!auth) {
-			return Status.badRequest(res, ERROR_MESSAGES.ACCOUNT_NOT_CREATED);
+		if (!registerData) {
+			return Status.badRequest(
+				res,
+				ERROR_MESSAGES.INVALID_REGISTRATION_DATA
+			);
 		}
 
-		return Status.success(res, { auth });
+		try {
+			const auth = await RegistrationService.Registration(registerData);
+			const authDataFormatted = DataFormatter.Auth.Registration.get(auth);
+			return Status.success(res, authDataFormatted);
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
 	}
 }
 
-export default new AuthController();
+export default new AuthController(); 

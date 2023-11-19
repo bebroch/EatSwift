@@ -1,23 +1,23 @@
 import { TAccount } from "../Account/Account";
-import { ICourier } from "../Courier/Courier";
-import { IRestaurant } from "../Restaurant/Restaurant";
-import { IUser } from "../User/User";
+import { ICourierFunctions } from "../Courier/Courier";
+import { IRestaurantFunctions } from "../Restaurant/Restaurant";
+import { IUserFunctions } from "../User/User";
 
 interface IAccountData {
 	token: string;
-	account?: TAccount;
+	account: TAccount;
 }
 
 interface IUserAccountData extends IAccountData {
-	account: IUser;
+	account: IUserFunctions;
 }
 
 interface IRestaurantAccountData extends IAccountData {
-	account: IRestaurant;
+	account: IRestaurantFunctions;
 }
 
 interface ICourierAccountData extends IAccountData {
-	account: ICourier;
+	account: ICourierFunctions;
 }
 
 export {

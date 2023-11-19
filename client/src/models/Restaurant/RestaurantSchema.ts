@@ -9,7 +9,6 @@ const RestaurantSchema = new mongoose.Schema(
 		description: { type: String, required: false },
 		addresses: [{ type: String, required: false }],
 		contactInfo: { type: String, required: false },
-		rating: { type: Number, required: true },
 		password: { type: String, required: true },
 		verified: { type: Boolean, required: false, default: false },
 	},

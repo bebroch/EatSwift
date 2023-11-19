@@ -3,7 +3,7 @@ import HomeController from "../Controllers/HomeController";
 
 const router = Router();
 
-// Домашная страница
+// Домашняя страница
 
 router.get("/", HomeController.index);
 

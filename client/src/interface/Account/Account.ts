@@ -1,10 +1,13 @@
 import { Model, ObjectId } from "mongoose";
-import { ICourier } from "../../interface/Courier/Courier";
-import { IRestaurant } from "../../interface/Restaurant/Restaurant";
-import { IUser } from "../../interface/User/User";
+import { ICourier, ICourierFunctions } from "../../interface/Courier/Courier";
+import {
+	IRestaurant,
+	IRestaurantFunctions,
+} from "../../interface/Restaurant/Restaurant";
+import { IUser, IUserFunctions } from "../../interface/User/User";
 import { EnumRole } from "./Role";
 
-type TAccount = IUser | IRestaurant | ICourier;
+type TAccount = IUserFunctions | IRestaurantFunctions | ICourierFunctions;
 
 interface IAccountInformation {
 	login: string;

@@ -7,10 +7,11 @@ import UpdateMenuValidator from "../../../Middlewares/Validate/Restaurant/Menu/U
 const router = Router();
 
 router.get("/", MenuController.getMenusFromPrivateRestaurantProfile);
-router.get("/:id", MenuController.getMenuFromPrivateRestaurantProfile);
+router.get("/:_id", MenuController.getMenuFromPrivateRestaurantProfile);
 router.post("/", CreateMenuValidator, MenuController.createMenu);
-router.delete("/", DeleteMenuValidator, MenuController.deleteMenu);
+router.delete("/:_id", DeleteMenuValidator, MenuController.deleteMenu);
 
 router.post("/:menu_id", UpdateMenuValidator, MenuController.updateMenu);
+router.post("/:menu_id/:dish_id", MenuController.deleteFromMenu);
 
 export default router;
