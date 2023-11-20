@@ -1,48 +1,46 @@
 import { Request, Response } from "express";
-import { generateToken } from "../Services/Jwt";
-import User from "../models/User";
-import Status from "../Services/Status";
+import Status from "../Service/Status";
 import ERROR_MESSAGES from "../Message/Errors";
-import { hashingPassword, verifyPassword } from "../Services/Password";
-import { IUser } from "../interface/User/User";
-import { getRegisterData } from "../Services/getBody";
-import createAccount from "../Services/DatabaseServices/CreateAccountService";
+import LoginService from "../Service/AuthService/LoginService";
+import GetData from "../Service/GetData";
+import RegistrationService from "../Service/AuthService/RegistrationService";
+import ExceptionService from "../Service/ExceptionService";
+import DataFormatter from "../Service/DataFormatter";
 
 class AuthController {
 	async login(req: Request, res: Response) {
-		const { login, password } = req.body;
+		const loginData = GetData.Auth.Login.get(req);
 
-		const user = await User.findOne({ login });
+		if (!loginData)
+			return Status.badRequest(res, ERROR_MESSAGES.INVALID_LOGIN_DATA);
 
-		if (!user) {
-			return Status.notFound(res, ERROR_MESSAGES.NOT_FOUND);
+		try {
+			const auth = await LoginService.Login(loginData);
+			const authDataFormatted = DataFormatter.Auth.Login.get(auth);
+			return Status.success(res, authDataFormatted);
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
 		}
-
-		const isRightPassword = await verifyPassword(
-			password,
-			user.password as string
-		);
-		const isRightPasswordTESTING = password === user.password; // TODO: Нужно потом будет убрать эту строчку и в if: "&& !isRightPasswordTESTING" - эту
-
-		if (!isRightPassword && !isRightPasswordTESTING) {
-			return Status.badRequest(
-				res,
-				ERROR_MESSAGES.INVALID_LOGIN_OR_PASSWORD
-			);
-		}
-
-		const token = await generateToken(user);
-
-		return Status.success(res, { token, user });
 	}
 
 	async register(req: Request, res: Response) {
-		const registerData = await getRegisterData(req);
+		const registerData = GetData.Auth.Registration.get(req);
 
-		const auth = await createAccount(registerData);
+		if (!registerData) {
+			return Status.badRequest(
+				res,
+				ERROR_MESSAGES.INVALID_REGISTRATION_DATA
+			);
+		}
 
-		return Status.success(res, { auth });
+		try {
+			const auth = await RegistrationService.Registration(registerData);
+			const authDataFormatted = DataFormatter.Auth.Registration.get(auth);
+			return Status.success(res, authDataFormatted);
+		} catch (err: any) {
+			return ExceptionService.handle(res, err.message);
+		}
 	}
 }
 
-export default new AuthController();
+export default new AuthController(); 

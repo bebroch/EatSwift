@@ -1,0 +1,11 @@
+{
+	"LoginData": {
+		"confirmPassword": "TestPassword",
+		"email": "TestEmail@example.com",
+		"firstName": "TestFirstName",
+		"lastName": "TestLastName",
+		"login": "TestAccount",
+		"password": "TestPassword",
+		"role": "Courier"
+	}
+}

@@ -1,19 +1,228 @@
 const ERROR_MESSAGES = {
-	BAD_REQUEST: "Bad request",
-	NOT_FOUND: "Not found",
-	UN_AUTHORIZED: "Unauthorized",
-	INTERNAL_SERVER_ERROR: "Internal server error",
-	LOGIN_PASSWORD_REQUIRED: "Login and password are required",
-	USER_NOT_FOUND: "User not found",
-	USER_ALREADY_EXISTS: "User already exists",
-	PASSWORD_MISMATCH: "Password and confirmation do not match",
-	MISSING_REQUIRED_FIELDS: "One or more required fields are missing",
-	INVALID_TOKEN: "Invalid token payload",
-	LOGIN_OR_PASSWORD_REQUIRED: "Login or password are required",
-	INVALID_LOGIN_OR_PASSWORD: "Invalid login or password",
-	INVALID_ROLE: "Invalid role",
-	DISH_NOT_FOUND: "Dish not found",
-	ACCOUNT_ALREADY_EXISTS: "Account already exists",
+	BAD_REQUEST: {
+		message: "Bad request",
+		statusCode: 400,
+	},
+	NOT_FOUND: {
+		message: "Not found",
+		statusCode: 404,
+	},
+	ACCESS_DENIED: {
+		message: "Access denied",
+		statusCode: 403,
+	},
+	UN_AUTHORIZED: {
+		message: "Unauthorized",
+		statusCode: 401,
+	},
+	INTERNAL_SERVER_ERROR: {
+		message: "Internal server error",
+		statusCode: 500,
+	},
+	LOGIN_PASSWORD_REQUIRED: {
+		message: "Login and password are required",
+		statusCode: 400,
+	},
+	USER_NOT_FOUND: {
+		message: "User not found",
+		statusCode: 404,
+	},
+	USER_ALREADY_EXISTS: {
+		message: "User already exists",
+		statusCode: 409,
+	},
+	PASSWORD_MISMATCH: {
+		message: "Password and confirmation do not match",
+		statusCode: 400,
+	},
+	MISSING_REQUIRED_FIELDS: {
+		message: "One or more required fields are missing",
+		statusCode: 400,
+	},
+	INVALID_TOKEN: {
+		message: "Invalid token payload",
+		statusCode: 401,
+	},
+	LOGIN_OR_PASSWORD_REQUIRED: {
+		message: "Login or password are required",
+		statusCode: 400,
+	},
+	INVALID_LOGIN_OR_PASSWORD: {
+		message: "Invalid login or password",
+		statusCode: 401,
+	},
+	INVALID_ROLE: {
+		message: "Invalid role",
+		statusCode: 400,
+	},
+	DISH_NOT_FOUND: {
+		message: "Dish not found",
+		statusCode: 404,
+	},
+	ACCOUNT_ALREADY_EXISTS: {
+		message: "Account already exists",
+		statusCode: 409,
+	},
+	ACCOUNT_NOT_FOUND: {
+		message: "Account not found",
+		statusCode: 404,
+	},
+	ACCOUNT_NOT_CREATED: {
+		message: "Account not created",
+		statusCode: 500,
+	},
+	DISH_NOT_FOUND_IN_CART: {
+		message: "Dish not found in cart",
+		statusCode: 404,
+	},
+	RESTAURANT_NOT_FOUND: {
+		message: "Restaurant not found",
+		statusCode: 404,
+	},
+	MENU_NOT_CREATED: {
+		message: "Menu not created",
+		statusCode: 500,
+	},
+	MENU_NOT_FOUND: {
+		message: "Menu not found",
+		statusCode: 404,
+	},
+	MENU_ID_AND_DISH_ID_REQUIRED: {
+		message: "menu_id and dish_id are required",
+		statusCode: 400,
+	},
+	INVALID_LOGIN_DATA: {
+		message: "Invalid login data",
+		statusCode: 401,
+	},
+	INVALID_REGISTRATION_DATA: {
+		message: "Invalid registration data",
+		statusCode: 400,
+	},
+	DISH_NOT_FOUND_IN_RESTAURANT: {
+		message: "Dish not found in restaurant",
+		statusCode: 404,
+	},
+	INCORRECT_DATA: {
+		message: "Incorrect data",
+		statusCode: 400,
+	},
+	CART_NOT_FOUND: {
+		message: "Cart not found",
+		statusCode: 404,
+	},
+	ORDER_ALREADY_EXIST: {
+		message: "Order already exists",
+		statusCode: 409,
+	},
+	ORDER_NOT_EXIST: {
+		message: "Order not exist",
+		statusCode: 404,
+	},
+	ORDER_NOT_FOUND: {
+		message: "Order not found",
+		statusCode: 404,
+	},
+	ORDER_ALREADY_CANCELLED: {
+		message: "Order already cancelled",
+		statusCode: 409,
+	},
+	COURIER_NOT_FOUND: {
+		message: "Courier not found",
+		statusCode: 404,
+	},
+	CANNOT_SET_STATUS_TO_ACTIVE: {
+		message: "Cannot set status to active in order",
+		statusCode: 400,
+	},
+	CANNOT_SET_STATUS_TO_IS_PROCESSED: {
+		message: "Cannot set status to isProcessed in order",
+		statusCode: 400,
+	},
+	CANNOT_SET_STATUS_TO_DELIVERED: {
+		message: "Cannot set status to delivered in order",
+		statusCode: 400,
+	},
+	CANNOT_SET_STATUS_TO_COMPLETED: {
+		message: "Cannot set status to completed in order",
+		statusCode: 400,
+	},
+	CANNOT_SET_STATUS_TO_CANCELED: {
+		message: "Cannot set status to canceled in order",
+		statusCode: 400,
+	},
+	INVALID_ORDER_STATUS: {
+		message: "Invalid order status",
+		statusCode: 400,
+	},
+	ORDER_ALREADY_TAKEN: {
+		message: "Order already taken",
+		statusCode: 409,
+	},
+	INVALID_PASSWORD: {
+		message: "Invalid password",
+		statusCode: 400,
+	},
+	ORDER_CANCELED: {
+		message: "Order canceled",
+		statusCode: 410,
+	},
+	ACCOUNT_CREATION_FAILED: {
+		message: "Account creation failed",
+		statusCode: 500,
+	},
+	RATING_NOT_CREATED: {
+		message: "Rating not created",
+		statusCode: 500,
+	},
+	RATING_NOT_FOUND: {
+		message: "Rating not found",
+		statusCode: 404,
+	},
+	RATING_ALREADY_EXISTS: {
+		message: "Rating already exists",
+		statusCode: 409,
+	},
+	NAME_DESCRIPTION_INGREDIENTS_PRICE_REQUIRED: {
+		message: "Name, description, ingredients and price are required",
+		statusCode: 400,
+	},
+	PRICE_MUST_BE_GREATER_THAN_ZERO: {
+		message: "Price must be greater than zero",
+		statusCode: 400,
+	},
+	RESTAURANT_ID_REQUIRED: {
+		message: "Restaurant id is required",
+		statusCode: 400,
+	},
+	NAME_DESCRIPTION_REQUIRED: {
+		message: "Name and description are required",
+		statusCode: 400,
+	},
+	ID_REQUIRED: {
+		message: "Id is required",
+		statusCode: 400,
+	},
+	DISH_ID_REQUIRED: {
+		message: "Dish id is required",
+		statusCode: 400,
+	},
+	PROFILE_UPDATE_DATA_REQUIRED: {
+		message: "Profile update data is required",
+		statusCode: 400,
+	},
+	INVALID_ADDRESS: {
+		message: "Invalid address",
+		statusCode: 400,
+	},
+	DISH_NOT_FOUND_IN_MENU: {
+		message: "Dish not found in menu",
+		statusCode: 404,
+	},
+	INVALID_RATING: {
+		message: "Invalid rating",
+		statusCode: 400,
+	},
 };
 
 export default ERROR_MESSAGES;

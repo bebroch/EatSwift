@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 
 function createRandomDish() {
-	const numberOfIngredients = faker.number.int({ min: 1, max: 5 }); // Генерируем случайное количество ингредиентов от 1 до 5
+	const numberOfIngredients = faker.number.int({ min: 1, max: 5 });
 
 	const ingredients = Array.from({ length: numberOfIngredients }, () =>
 		faker.commerce.productMaterial()
