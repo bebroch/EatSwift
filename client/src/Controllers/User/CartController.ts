@@ -18,7 +18,7 @@ class CartController {
 		try {
 			const cart = await user.getCart();
 			const cartWithDishDetails = await DetailsService.Cart.get(cart);
-			
+
 			const cartDataFormatted =
 				DataFormatter.Cart.getOnlyCart(cartWithDishDetails);
 			return Status.success(res, { cart: cartDataFormatted });
@@ -48,9 +48,7 @@ class CartController {
 	// Удалить блюдо из корзины пользователя
 	async deleteItemFromCart(req: Request, res: Response) {
 		const user = GetData.User.get(req) as IUserFunctions;
-		const dishData = GetData.Dish.DeleteFromCart(
-			req as Request & DishTypes.GetDataForDeleteFromCart
-		);
+		const dishData = GetData.Dish.DeleteFromCart(req);
 
 		try {
 			await user.deleteItemFromCart(dishData);

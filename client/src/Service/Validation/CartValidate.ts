@@ -49,6 +49,7 @@ export const CartValidate = {
 
 	async checkExistData(data: CartTypes.GetDataForAddToCart) {
 		const { dish_id, restaurant_id, user_id } = data;
+		console.log(dish_id, restaurant_id, user_id);
 
 		if (
 			!(await Dish.findById(dish_id)) ||

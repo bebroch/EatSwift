@@ -8,6 +8,8 @@ import {
 import TokenService from "../../Service/TokenService";
 import { RestaurantTypes } from "../../Types/RestaurantTypes";
 import Log from "../../Service/Log";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
+import ERROR_MESSAGES from "../../Message/Errors";
 
 export function AccountMethods(schema: mongoose.Schema) {
 	schema.statics.findAccountByLogin = async function (login: string) {
@@ -28,6 +30,8 @@ export function AccountMethods(schema: mongoose.Schema) {
 			restaurantsData.push(await restaurant.getRestaurantData());
 		}
 
+		restaurantsData.sort((a, b) => b.rating - a.rating);
+
 		return restaurantsData;
 	};
 
@@ -36,6 +40,15 @@ export function AccountMethods(schema: mongoose.Schema) {
 	) {
 		Log.infoStack("Restaurant.createAccount");
 		const { name, login, email, password } = restaurantData;
+
+		const restaurantExist = await this.findOne({
+			$or: [{ name: name }, { login: login }, { email: email }],
+		});
+
+		if (restaurantExist)
+			ExceptionErrorService.handler(
+				ERROR_MESSAGES.ACCOUNT_ALREADY_EXISTS
+			);
 
 		const passwordHash = await TokenService.hashingPassword(password);
 

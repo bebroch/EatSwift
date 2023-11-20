@@ -51,7 +51,6 @@ export function UpdateStatus(schema: mongoose.Schema) {
 		this.status = futureStatus;
 
 		await this.save();
-
 		return this.toObject();
 	};
 }

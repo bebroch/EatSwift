@@ -78,7 +78,7 @@ export async function OrderMethods(schema: mongoose.Schema) {
 		if (order.status !== OrderStatus.delivered)
 			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ORDER_STATUS);
 
-		this.order_id = null;
+		this.order_id = undefined;
 		this.save();
 
 		switch (status) {
@@ -86,10 +86,6 @@ export async function OrderMethods(schema: mongoose.Schema) {
 				return await order.updateStatusCompleted();
 			case OrderStatus.canceled:
 				return await order.updateStatusCanceled();
-			default:
-				ExceptionErrorService.handler(
-					ERROR_MESSAGES.INVALID_ORDER_STATUS
-				);
 		}
 	};
 }

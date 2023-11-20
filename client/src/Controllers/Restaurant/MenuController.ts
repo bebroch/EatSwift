@@ -4,7 +4,6 @@ import SUCCESS_MESSAGE from "../../Message/Success";
 import Status from "../../Service/Status";
 import { TAccount } from "../../interface/Account/Account";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
-
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
 import DetailsService from "../../Service/DetailsService";

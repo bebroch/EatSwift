@@ -14,7 +14,7 @@ export function CartMethods(schema: mongoose.Schema) {
 		if (cart.length === 0)
 			ExceptionErrorService.handler(ERROR_MESSAGES.CART_NOT_FOUND);
 
-		return cart; // 1
+		return cart;
 	};
 
 	schema.methods.getCartByRestaurant = async function (
@@ -49,5 +49,11 @@ export function CartMethods(schema: mongoose.Schema) {
 			...data,
 			user_id: this._id,
 		});
+
+		const { restaurant_id } = data;
+		const cart = await this.getCartByRestaurant({ restaurant_id });
+
+		if (cart.item.length === 0)
+			await Cart.deleteOne({ user_id: this._id, restaurant_id });
 	};
 }

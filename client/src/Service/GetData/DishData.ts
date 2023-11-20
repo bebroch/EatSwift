@@ -23,7 +23,7 @@ export const DishData = {
 	},
 
 	DeleteFromCart(req: Request) {
-		const { _id } = req.body;
-		return { _id };
+		const { dish_id, restaurant_id } = req.body;
+		return { dish_id, restaurant_id };
 	},
 };

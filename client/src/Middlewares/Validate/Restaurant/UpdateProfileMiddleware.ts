@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import ExceptionErrorService from "../../../Service/ExceptionErrorService";
 import ERROR_MESSAGES from "../../../Message/Errors";
+import Status from "../../../Service/Status";
 
 export function UpdateProfileMiddleware(
 	req: Request,
@@ -9,11 +10,12 @@ export function UpdateProfileMiddleware(
 ) {
 	const { name, description, addresses, contactInfo } = req.body;
 
-	if (Array.isArray(addresses))
-		ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_ADDRESS);
+	if (!Array.isArray(addresses))
+		return Status.badRequest(res, ERROR_MESSAGES.INVALID_ADDRESS);
 
 	if (!name || !description || addresses.length === 0 || !contactInfo)
-		ExceptionErrorService.handler(
+		return Status.badRequest(
+			res,
 			ERROR_MESSAGES.PROFILE_UPDATE_DATA_REQUIRED
 		);
 
