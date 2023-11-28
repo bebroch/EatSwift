@@ -10,8 +10,8 @@ export const OrderData = {
 		return { ...this.get(req), status };
 	},
 	getForTakeOrder(req: Request) {
-		const { _id } = req.body;
-		return { order_id: _id };
+		const { order_id } = req.body;
+		return { order_id };
 	},
 	getForUpdateStatus(req: Request) {
 		const { status } = req.body;

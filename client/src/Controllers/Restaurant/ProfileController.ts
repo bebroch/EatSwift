@@ -3,7 +3,6 @@ import Status from "../../Service/Status";
 import { IRestaurantFunctions } from "../../interface/Restaurant/Restaurant";
 import GetData from "../../Service/GetData";
 import DataFormatter from "../../Service/DataFormatter";
-import Log from "../../Service/Log";
 import SUCCESS_MESSAGE from "../../Message/Success";
 
 class ProfileController {
@@ -13,7 +12,6 @@ class ProfileController {
 		) as IRestaurantFunctions;
 
 		const restaurantData = await restaurant.getRestaurantData();
-
 		const restaurantFormattedData =
 			DataFormatter.Restaurant.get(restaurantData);
 
@@ -38,7 +36,10 @@ class ProfileController {
 		) as IRestaurantFunctions;
 
 		await restaurant.deleteAccount();
-		return Status.success(res, SUCCESS_MESSAGE.RESTAURANT_SUCCESSFULLY_DELETED);
+		return Status.success(
+			res,
+			SUCCESS_MESSAGE.RESTAURANT_SUCCESSFULLY_DELETED
+		);
 	}
 }
 

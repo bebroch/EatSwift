@@ -72,5 +72,6 @@ export const CartMethods = function (schema: mongoose.Schema) {
 			);
 
 		cart.item.splice(existDishIndex, 1);
+		cart.save();
 	};
 };

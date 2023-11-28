@@ -219,6 +219,10 @@ const ERROR_MESSAGES = {
 		message: "Dish not found in menu",
 		statusCode: 404,
 	},
+	INVALID_RATING: {
+		message: "Invalid rating",
+		statusCode: 400,
+	},
 };
 
 export default ERROR_MESSAGES;

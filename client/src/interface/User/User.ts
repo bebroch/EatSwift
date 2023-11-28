@@ -17,7 +17,7 @@ interface IUserFunctions extends IUser, IAccountFunction {
 	getCart(): Promise<ICart[]>;
 	getOrders(): Promise<IOrder[]>;
 	addToCart(itemData: any): Promise<void>;
-	deleteItemFromCart(itemData: any): Promise<void>;
+	deleteItemFromCart(itemData: UserTypes.GetDataForDelete): Promise<void>;
 	getUserDataWithCart(): Promise<UserTypes.outputDataForDetails>;
 	makeOrder(
 		dataForMakeOrder: UserTypes.GetDataForMakeOrder

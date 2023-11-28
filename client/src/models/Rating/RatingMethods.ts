@@ -10,6 +10,9 @@ export function RatingMethods(schema: mongoose.Schema) {
 		Log.infoStack("Rating.createRating");
 		const { entity_type, entity_id, user_id, rating } = ratingData;
 
+		if (rating < 0 || rating > 10)
+			ExceptionErrorService.handler(ERROR_MESSAGES.INVALID_RATING);
+
 		const existingRating = await this.findOne({
 			entity_type,
 			entity_id,

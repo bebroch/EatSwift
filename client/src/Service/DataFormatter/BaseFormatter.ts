@@ -18,12 +18,14 @@ class BaseFormatter {
 	getRestaurantFields(data: IRestaurantFunctions | null) {
 		if (!data) return null;
 
-		const { name, rating } = data;
+		const { name, rating, description, contactInfo } = data;
 
 		return {
 			...this.getAccountFields(data),
 			name,
 			rating,
+			description,
+			contactInfo,
 		};
 	}
 

@@ -1,0 +1,867 @@
+{
+	"info": {
+		"_postman_id": "a61b3595-2552-432d-bc63-082bafc47061",
+		"name": "EatSwift",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29491252"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Ivan\",\r\n    \"lastName\": \"Ivanov\",\r\n    \"name\": \"KFC\",\r\n    \"login\": \"kfc_production\",\r\n    \"email\": \"kfc_production@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"confirmPassword\": \"password\",\r\n    \"role\": \"User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"kfc_production\",\r\n    \"password\": \"password\",\r\n    \"role\": \"Restaurant\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurant",
+			"item": [
+				{
+					"name": "Restaurant Account",
+					"item": [
+						{
+							"name": "Account",
+							"item": [
+								{
+									"name": "Get Account",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "http://localhost:5000/account/restaurant/profile"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Account",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"McDonald's\",\r\n    \"description\": \"An American corporation operating in the food service industry.\",\r\n    \"addresses\": [\"Улица Некрасова дом 13\", \"Литейный проспект дом 17\"],\r\n    \"contactInfo\": \"mcDonalds@production.com, 8-123-45-67-890\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://localhost:5000/account/restaurant/profile/"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Restaurant",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "http://localhost:5000/account/restaurant/profile/"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Menu",
+							"item": [
+								{
+									"name": "get menus",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"name": "cache-control",
+												"sortOrder": 2,
+												"infoTitle": "We recommend using this header",
+												"info": "Postman added \"Cache-Control: no-cache\" as a precautionary measure to prevent the server from returning stale response when one makes repeated requests.\n\nYou can remove this header in the app settings or enter a new one with a different value.",
+												"allowedToToggle": false,
+												"disableEdit": true,
+												"previewSettingsLink": "Go to settings",
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"system": true,
+												"type": "text",
+												"id": 0
+											},
+											{
+												"name": "postman-token",
+												"sortOrder": 3,
+												"infoTitle": "We recommend using this header",
+												"info": "The Postman-Token header appends a random UUID to every outgoing request. Postman adds this header for API developers to better debug requests sent and to ensure separate requests appear distinct to the receiving server.\n\nYou can remove this header in the app settings.",
+												"allowedToToggle": false,
+												"disableEdit": true,
+												"previewSettingsLink": "Go to settings",
+												"key": "Postman-Token",
+												"value": "<calculated when request is sent>",
+												"system": true,
+												"type": "text",
+												"id": 1
+											},
+											{
+												"name": "host",
+												"sortOrder": 6,
+												"infoTitle": "We recommend using this header",
+												"info": "The Host header is added to identify the domain name for which a request is being sent to the server. This header is implicitly sent by every HTTP client.\n\nYou can remove the header or enter a new one with a different value. It is most likely that without this header, your request will return an HTTP 400 error.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "Host",
+												"value": "<calculated when request is sent>",
+												"system": true,
+												"type": "text",
+												"id": 2
+											},
+											{
+												"name": "user-agent",
+												"sortOrder": 7,
+												"infoTitle": "We recommend using this header",
+												"info": "The User-Agent header is added to help the server identify Postman as the HTTP requesting application or client.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "User-Agent",
+												"value": "PostmanRuntime/7.32.1",
+												"system": true,
+												"type": "text",
+												"id": 3
+											},
+											{
+												"name": "accept",
+												"sortOrder": 8,
+												"infoTitle": "We recommend using this header",
+												"info": "The \"Accept: */*\" header is added to tell the server that Postman can understand and process all forms of response content types.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "Accept",
+												"value": "*/*",
+												"system": true,
+												"type": "text",
+												"id": 4
+											},
+											{
+												"name": "accept-encoding",
+												"sortOrder": 9,
+												"infoTitle": "We recommend using this header",
+												"info": "The Accept-Encoding header is added to indicate to the server that Postman HTTP client supports a defined list of content-encoding or compression algorithms as response.\n\nYou can remove the header or enter a new one with a different value. Doing that may not accurately render the response within the app.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "Accept-Encoding",
+												"value": "gzip, deflate, br",
+												"system": true,
+												"type": "text",
+												"id": 5
+											},
+											{
+												"name": "connection",
+												"sortOrder": 10,
+												"infoTitle": "We recommend using this header",
+												"info": "Postman added the Connection header to indicate the server to keep the underlying network connection open once the current response is received. This allows Postman to reuse the same connection for faster response times in subsequent requests to the same server.\n\nYou can remove this header or enter a new one with a different value, such as `Connection: Close` to control this behaviour.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "Connection",
+												"value": "keep-alive",
+												"system": true,
+												"type": "text",
+												"id": 6
+											}
+										],
+										"url": "http://localhost:5000/account/restaurant/profile/menu"
+									},
+									"response": []
+								},
+								{
+									"name": "get menu",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"name": "cache-control",
+												"sortOrder": 2,
+												"infoTitle": "We recommend using this header",
+												"info": "Postman added \"Cache-Control: no-cache\" as a precautionary measure to prevent the server from returning stale response when one makes repeated requests.\n\nYou can remove this header in the app settings or enter a new one with a different value.",
+												"allowedToToggle": false,
+												"disableEdit": true,
+												"previewSettingsLink": "Go to settings",
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"system": true,
+												"type": "text"
+											},
+											{
+												"name": "postman-token",
+												"sortOrder": 3,
+												"infoTitle": "We recommend using this header",
+												"info": "The Postman-Token header appends a random UUID to every outgoing request. Postman adds this header for API developers to better debug requests sent and to ensure separate requests appear distinct to the receiving server.\n\nYou can remove this header in the app settings.",
+												"allowedToToggle": false,
+												"disableEdit": true,
+												"previewSettingsLink": "Go to settings",
+												"key": "Postman-Token",
+												"value": "<calculated when request is sent>",
+												"system": true,
+												"type": "text"
+											},
+											{
+												"name": "host",
+												"sortOrder": 6,
+												"infoTitle": "We recommend using this header",
+												"info": "The Host header is added to identify the domain name for which a request is being sent to the server. This header is implicitly sent by every HTTP client.\n\nYou can remove the header or enter a new one with a different value. It is most likely that without this header, your request will return an HTTP 400 error.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "Host",
+												"value": "<calculated when request is sent>",
+												"system": true,
+												"type": "text"
+											},
+											{
+												"name": "user-agent",
+												"sortOrder": 7,
+												"infoTitle": "We recommend using this header",
+												"info": "The User-Agent header is added to help the server identify Postman as the HTTP requesting application or client.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "User-Agent",
+												"value": "PostmanRuntime/7.32.1",
+												"system": true,
+												"type": "text"
+											},
+											{
+												"name": "accept",
+												"sortOrder": 8,
+												"infoTitle": "We recommend using this header",
+												"info": "The \"Accept: */*\" header is added to tell the server that Postman can understand and process all forms of response content types.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "Accept",
+												"value": "*/*",
+												"system": true,
+												"type": "text"
+											},
+											{
+												"name": "accept-encoding",
+												"sortOrder": 9,
+												"infoTitle": "We recommend using this header",
+												"info": "The Accept-Encoding header is added to indicate to the server that Postman HTTP client supports a defined list of content-encoding or compression algorithms as response.\n\nYou can remove the header or enter a new one with a different value. Doing that may not accurately render the response within the app.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "Accept-Encoding",
+												"value": "gzip, deflate, br",
+												"system": true,
+												"type": "text"
+											},
+											{
+												"name": "connection",
+												"sortOrder": 10,
+												"infoTitle": "We recommend using this header",
+												"info": "Postman added the Connection header to indicate the server to keep the underlying network connection open once the current response is received. This allows Postman to reuse the same connection for faster response times in subsequent requests to the same server.\n\nYou can remove this header or enter a new one with a different value, such as `Connection: Close` to control this behaviour.",
+												"allowedToToggle": true,
+												"disableEdit": true,
+												"key": "Connection",
+												"value": "keep-alive",
+												"system": true,
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFzZCIsInJvbGUiOiJSZXN0YXVyYW50IiwiaWF0IjoxNjk5MTI4OTIyLCJleHAiOjE2OTkyMTUzMjJ9.aKLCxCkDxBY-eaveEaj6V1CUG1eakFl-qkqoCLSOvoc",
+												"type": "text",
+												"id": 0
+											}
+										],
+										"url": "http://localhost:5000/account/restaurant/profile/menu/655b4227b70ec8a7d0d6484c"
+									},
+									"response": []
+								},
+								{
+									"name": "Add Menu",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Стандартный завтрак\",\r\n    \"description\": \"Описание блюда\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://localhost:5000/account/restaurant/profile/menu"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Menu",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "http://localhost:5000/account/restaurant/profile/menu/655a5edec74870aecd96853d"
+									},
+									"response": []
+								},
+								{
+									"name": "Add Dish to Menu",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"dish_id\": \"655b464cb3f39fa3208ac66b\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://localhost:5000/account/restaurant/profile/menu/655b4227b70ec8a7d0d6484c"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete From Menu",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": "http://localhost:5000/account/restaurant/profile/menu/655b4227b70ec8a7d0d6484c/655b45c7b3f39fa3208ac641"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Dish",
+							"item": [
+								{
+									"name": "Get Dishes",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "http://localhost:5000/account/restaurant/profile/dish"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Dish",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "http://localhost:5000/account/restaurant/profile/dish/655b45abb3f39fa3208ac635"
+									},
+									"response": []
+								},
+								{
+									"name": "Add Dish",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Название блюда\",\r\n    \"description\": \"Описание\",\r\n    \"ingredients\": [\r\n        \"Ингредиент 1\",\r\n        \"Ингредиент 2\",\r\n        \"Ингредиент 3\"\r\n    ],\r\n    \"price\": \"1234516\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://localhost:5000/account/restaurant/profile/dish"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Dish",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://localhost:5000/account/restaurant/profile/dish/655b45c7b3f39fa3208ac641"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Order",
+							"item": [
+								{
+									"name": "Get History Of Orders",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "http://localhost:5000/account/restaurant/profile/order/history"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Active Orders",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "http://localhost:5000/account/restaurant/profile/order/active"
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateOrder",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"status\": \"canceled\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://localhost:5000/account/restaurant/profile/order/655b4839b3f39fa3208ac6f9"
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": {
+							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS0ZDIiwibG9naW4iOiJrZmNfcHJvZHVjdGlvbiIsImVtYWlsIjoia2ZjX3Byb2R1Y3Rpb25AZ21haWwuY29tIiwicm9sZSI6IlJlc3RhdXJhbnQiLCJpYXQiOjE3MDA0ODM0NDcsImV4cCI6MTcwMDU2OTg0N30.NnjpLKJU__vM1v4A7FiMJR38PTYqk8kb7kEkbN3d8ws",
+							"key": "Authorization"
+						}
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Public Restaurant",
+					"item": [
+						{
+							"name": "get menus",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": "http://localhost:5000/restaurant/kfc_production/menu"
+							},
+							"response": []
+						},
+						{
+							"name": "get menu",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/restaurant/kfc_production/menu/655b4227b70ec8a7d0d6484c"
+							},
+							"response": []
+						},
+						{
+							"name": "get dishes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/restaurant/kfc_production/dish"
+							},
+							"response": []
+						},
+						{
+							"name": "get dish",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/restaurant/kfc_production/dish/655b45abb3f39fa3208ac635"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "One Restaurant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/restaurant/kfc_production"
+					},
+					"response": []
+				},
+				{
+					"name": "All Restaurant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/restaurant/"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "inherit",
+				"inherit": {}
+			}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "History",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/account/user/profile/order/history"
+							},
+							"response": []
+						},
+						{
+							"name": "Active",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/account/user/profile/order/active"
+							},
+							"response": []
+						},
+						{
+							"name": "MakeOrder",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"restaurant_id\": \"655b51778b8dd88b421aebf8\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/account/user/profile/order"
+							},
+							"response": []
+						},
+						{
+							"name": "cancelOrder",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": "http://localhost:5000/account/user/profile/order/655b54613bbf75a0b3e855ea"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Rating",
+					"item": [
+						{
+							"name": "Restaurant",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"restaurant_id\": \"655b41e3b70ec8a7d0d64834\",\r\n    \"rating\": 9\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/account/user/profile/rating/restaurant"
+							},
+							"response": []
+						},
+						{
+							"name": "Courier",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"courier_id\": \"655b41a6b70ec8a7d0d6482d\",\r\n    \"rating\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/account/user/profile/rating/courier"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "My Account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/account/user/profile/"
+					},
+					"response": []
+				},
+				{
+					"name": "Add To Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dish_id\": \"655b53af3bbf75a0b3e855a6\",\r\n    \"restaurant_id\": \"655b51778b8dd88b421aebf8\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/account/user/profile/cart"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item From Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"restaurant_id\": \"655b51778b8dd88b421aebf8\", \r\n    \"dish_id\": \"655b53af3bbf75a0b3e855a6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/account/user/profile/cart"
+					},
+					"response": []
+				},
+				{
+					"name": "My Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/account/user/profile/cart"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": {
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImtmY19wcm9kdWN0aW9uIiwiZW1haWwiOiJrZmNfcHJvZHVjdGlvbkBnbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImlhdCI6MTcwMDQ4NDA2MSwiZXhwIjoxNzAwNTcwNDYxfQ.wtJRDWJp3UVBqPZnfz9fqpkMfy3GGPx7fHFTd9h48CA",
+					"key": "Authorization"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Courier",
+			"item": [
+				{
+					"name": "Courier Account",
+					"item": [
+						{
+							"name": "Profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/account/courier/profile"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Active Orders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/account/courier/profile/order"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Active Order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/account/courier/profile/order/active"
+							},
+							"response": []
+						},
+						{
+							"name": "Take Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"order_id\": \"655b4f1e720c11da70905253\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/account/courier/profile/order"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Status Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"canceled\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/account/courier/profile/order/active"
+							},
+							"response": []
+						},
+						{
+							"name": "Get History Orders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/account/courier/profile/order/history"
+							},
+							"response": []
+						},
+						{
+							"name": "Get History Order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/account/courier/profile/order/history/65574a1612bbd82cc2cfe964"
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": {
+							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJJdmFuIiwibGFzdE5hbWUiOiJJdmFub3YiLCJsb2dpbiI6ImtmY19wcm9kdWN0aW9uIiwiZW1haWwiOiJrZmNfcHJvZHVjdGlvbkBnbWFpbC5jb20iLCJyb2xlIjoiUmVzdGF1cmFudCIsImlhdCI6MTcwMDQ3OTM5OCwiZXhwIjoxNzAwNTY1Nzk4fQ.bKgB5nAaotmxwwENmvq0TNLYNrnfy35vIcxeQr6zvYk",
+							"key": "Authorization"
+						}
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Get One Courier",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/courier/asda"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

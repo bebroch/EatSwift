@@ -9,7 +9,6 @@ class RestaurantController {
 	async getAllRestaurant(req: Request, res: Response) {
 		const restaurants = await Restaurant.getRestaurants();
 		const restaurantsData = DataFormatter.Restaurant.get(restaurants);
-		console.log(restaurantsData);
 		return Status.success(res, { restaurant: restaurantsData });
 	}
 

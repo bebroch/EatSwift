@@ -1,13 +1,12 @@
 import { Router } from "express";
 import DishController from "../../../Controllers/Restaurant/DishController";
 import CreateDishValidator from "../../../Middlewares/Validate/Restaurant/Dish/CreateDishValidation";
-import DeleteDishValidator from "../../../Middlewares/Validate/Restaurant/Dish/DeleteDishValidation";
 
 const router = Router();
 
 router.get("/", DishController.getDishes);
 router.get("/:_id", DishController.getDish);
 router.post("/", CreateDishValidator, DishController.createDish);
-router.delete("/:_id", DeleteDishValidator, DishController.deleteDish);
+router.delete("/:_id", DishController.deleteDish);
 
 export default router;

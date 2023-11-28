@@ -3,6 +3,10 @@ import Log from "../../Service/Log";
 import RatingTypes from "../../Types/RatingTypes";
 import Rating from "../RatingModel";
 import { EntityTypeEnum } from "../../Enums/Rating/EntityTypeEnum";
+import Courier from "../CourierModel";
+import ExceptionErrorService from "../../Service/ExceptionErrorService";
+import ERROR_MESSAGES from "../../Message/Errors";
+import Restaurant from "../RestaurantModel";
 
 export function RatingMethods(schema: mongoose.Schema) {
 	schema.methods.getRatingRestaurant = async function (
@@ -30,6 +34,10 @@ export function RatingMethods(schema: mongoose.Schema) {
 	) {
 		Log.infoStack("User.giveRatingRestaurant");
 		const { restaurant_id, rating } = ratingData;
+		const restaurant = await Restaurant.findOne({ _id: restaurant_id });
+
+		if (!restaurant)
+			ExceptionErrorService.handler(ERROR_MESSAGES.RESTAURANT_NOT_FOUND);
 
 		await Rating.createRating({
 			entity_type: EntityTypeEnum.restaurant,
@@ -44,6 +52,10 @@ export function RatingMethods(schema: mongoose.Schema) {
 	) {
 		Log.infoStack("User.giveRatingCourier");
 		const { courier_id, rating } = ratingData;
+		const courier = await Courier.findOne({ _id: courier_id });
+
+		if (!courier)
+			ExceptionErrorService.handler(ERROR_MESSAGES.COURIER_NOT_FOUND);
 
 		await Rating.createRating({
 			entity_type: EntityTypeEnum.courier,
